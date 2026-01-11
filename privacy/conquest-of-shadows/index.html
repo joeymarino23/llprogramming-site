@@ -5,13 +5,78 @@
   <title>Privacy Policy – Conquest of Shadows</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
+    :root {
+      --page-max-width: 900px;
+      --rule: #e5e7eb;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       font-family: -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      margin: 40px auto;
-      max-width: 900px;
+      margin: 0;
       line-height: 1.6;
       color: #222;
+      background: #ffffff;
     }
+
+    a { color: inherit; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Top Nav */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .top-nav-inner {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      font-size: 14px;
+      color: #0f172a;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: #334155;
+      padding: 8px 10px;
+      border-radius: 10px;
+    }
+
+    .nav-links a:hover {
+      background: #f1f5f9;
+      text-decoration: none;
+    }
+
+    /* Content */
+    .content {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
     h1, h2, h3 {
       margin-top: 1.5em;
     }
@@ -21,22 +86,18 @@
     ul ul {
       margin-top: 0.5em;
     }
-    .back-link {
-      margin-bottom: 1em;
-    }
-    .back-link a {
-      color: #555;
-      text-decoration: none;
-    }
-    .back-link a:hover {
-      text-decoration: underline;
+
+    @media (max-width: 560px) {
+      .top-nav-inner { padding: 10px 14px; }
+      .content { padding: 30px 14px; }
     }
   </style>
 </head>
 <body>
 
-<p class="back-link"><a href="/conquestofshadows/">&larr; Back to Conquest of Shadows</a></p>
+<header id="site-header" class="top-nav"></header>
 
+<main class="content">
 <h1>Privacy Policy – Conquest of Shadows</h1>
 <p><strong>Effective Date:</strong> November 21, 2025</p>
 
@@ -297,6 +358,8 @@ Conquest of Shadows is an online multiplayer game that stores all game state dat
 <h2>Contact Us</h2>
 <p>If you have any questions regarding privacy while using the Application, or have questions about our practices, please contact us via email at:</p>
 <p><a href="mailto:LLProgramming@yahoo.com">LLProgramming@yahoo.com</a></p>
+</main>
 
+<script src="/header.js"></script>
 </body>
 </html>

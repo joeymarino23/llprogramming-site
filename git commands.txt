@@ -1,9 +1,8 @@
 git add .
-git commit -m "Add dynamic shared header for consistent navigation across pages
-- Created header.js with centralized navigation configuration
-- Updated index.html, CoS, and BvE pages to use dynamic header
-- Navigation links now defined in one place for easy maintenance
-- Current page automatically highlighted with aria-current"
+git commit -m "Add dynamic header to privacy policy pages
+- Updated CoS and BvE privacy pages to use shared header.js
+- Added consistent navigation styling matching other pages
+- Removed old back-link in favor of site-wide navigation"
 git push origin main 
 
 
