@@ -1,12 +1,5 @@
 git add .
-git commit -m "Add Supernatural Slayer game page and privacy policy
-- Created main game page with character creation, inventory, battle,
-  quest board, healing, and Game Center sections
-- Added privacy policy page covering data collection, advertising,
-  opt-out rights, security, and contact information
-- Updated header.js to include Supernatural Slayer in navigation
-- Added screenshot gallery with 6 thumbnail slots
-- Created assets directory structure for screenshots"
+git commit -m "test link order"
 git push origin main 
 
 
