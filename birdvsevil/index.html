@@ -4,33 +4,398 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bird vs Evil</title>
+
   <style>
-    body {
-      font-family: -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      margin: 40px;
-      line-height: 1.6;
-      max-width: 900px;
+    :root {
+      --page-max-width: 1040px;
+      --hero-bg: #1f2636;
+      --text: #111827;
+      --muted: #6b7280;
+      --rule: #e5e7eb;
+      --bullet: #9ca3af;
+      --card: #ffffff;
+      --shadow: 0 8px 24px rgba(17, 24, 39, 0.08);
+      --radius: 12px;
     }
-    a { color: #0a58ca; text-decoration: none; }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: #ffffff;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
     a:hover { text-decoration: underline; }
-    .muted { color: #555; }
+
+    /* ===== Top Nav ===== */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .top-nav-inner {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      font-size: 14px;
+      color: #0f172a;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: #334155;
+      padding: 8px 10px;
+      border-radius: 10px;
+    }
+
+    .nav-links a:hover {
+      background: #f1f5f9;
+      text-decoration: none;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: var(--hero-bg);
+      padding: 64px 20px 56px 20px;
+    }
+
+    .hero-inner {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: clamp(44px, 5.4vw, 74px);
+      line-height: 1.03;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      font-weight: 900;
+    }
+
+    /* ===== CONTENT ===== */
+    .container {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      padding: 44px 20px 64px 20px;
+    }
+
+    .kicker {
+      margin: 0 0 10px 0;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .tagline {
+      margin: 0 0 12px 0;
+      font-size: 18px;
+      font-weight: 800;
+      color: #374151;
+    }
+
+    .lede {
+      margin: 0 0 22px 0;
+      color: var(--muted);
+      font-size: 15.5px;
+    }
+
+    .section-title {
+      margin: 28px 0 8px 0;
+      font-size: 16px;
+      font-weight: 900;
+      color: #374151;
+    }
+
+    /* Better bullets */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0 0;
+    }
+
+    .feature-list li {
+      position: relative;
+      padding-left: 18px;
+      margin: 10px 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .feature-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--bullet);
+      font-weight: 900;
+      line-height: 1.6;
+    }
+
+    .divider {
+      margin: 34px 0;
+      border: none;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ===== Screenshot Gallery ===== */
+    .media-block {
+      margin-top: 22px;
+    }
+
+    .media-frame {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--rule);
+      background: #0b1220;
+      box-shadow: var(--shadow);
+    }
+
+    .media-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .thumb-strip {
+      margin-top: 14px;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 74px;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .thumb-button {
+      border: 1px solid var(--rule);
+      background: #0b1220;
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 0;
+      cursor: pointer;
+      width: 74px;
+      height: 74px;
+      flex: 0 0 auto;
+      box-shadow: 0 2px 10px rgba(17, 24, 39, 0.06);
+      outline: none;
+      transition: transform 0.15s ease, opacity 0.15s ease, border-color 0.15s ease;
+    }
+
+    .thumb-button img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.92;
+    }
+
+    .thumb-button:hover {
+      transform: scale(1.04);
+    }
+
+    .thumb-button:hover img {
+      opacity: 1;
+    }
+
+    .thumb-button.is-active {
+      border-color: #94a3b8;
+    }
+
+    .thumb-button:focus-visible {
+      outline: 3px solid rgba(59, 130, 246, 0.55);
+      outline-offset: 2px;
+    }
+
+    .footer-note {
+      margin-top: 26px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 560px) {
+      .top-nav-inner { padding: 10px 14px; }
+      .hero { padding: 54px 14px 46px 14px; }
+      .container { padding: 36px 14px 56px 14px; }
+      .thumb-strip { grid-auto-columns: 64px; }
+      .thumb-button { width: 64px; height: 64px; }
+    }
   </style>
 </head>
+
 <body>
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <div class="brand">L&amp;L PROGRAMMING LLC</div>
+      <nav class="nav-links" aria-label="Site">
+        <a href="/">Home</a>
+        <a href="/conquestofshadows">Conquest of Shadows</a>
+        <a href="/birdvsevil" aria-current="page">Bird vs Evil</a>
+        <a href="/privacy/conquest-of-shadows">CoS Privacy</a>
+        <a href="/privacy/bird-vs-evil">BvE Privacy</a>
+      </nav>
+    </div>
+  </header>
 
-<p><a href="/">← L&L Programming</a></p>
+  <header class="hero">
+    <div class="hero-inner">
+      <h1 class="hero-title">Bird vs Evil</h1>
+    </div>
+  </header>
 
-<h1>Bird vs Evil</h1>
-<p class="muted">Save the kingdom. Traverse the lands. Defeat evil.</p>
+  <main class="container">
+    <p class="kicker">Bird vs Evil</p>
+    <p class="tagline">The Lands of Trismore have been overrun by evil.</p>
 
-<p>
-Bird vs Evil is an iOS game set in a world overrun by darkness. Journey across dangerous lands, unlock upgrades,
-and face powerful enemies.
-</p>
+    <p class="lede">
+      The Lord of Darkness and his minions are holding the people captive. Many lives have been lost.
+      All good heroes have already been killed or enslaved. What can be done?
+    </p>
 
-<p>
-Privacy Policy: <a href="/privacy/bird-vs-evil">https://llprogramming.com/privacy/bird-vs-evil</a>
-</p>
+    <p class="lede">
+      Well, the necromancer called Sabbath has returned to the lands. He and the kingdom were not in good standing for many years. He was practicing dark magic and was exiled from the land for doing so. In the years that followed the sorcerer Arthur took over the job as King Barret's right hand.
+    </p>
 
+    <p class="lede">
+      At the abandoned Dark Base, Sabbath called upon the Dark Bird of the Abyss. It is time to take back the lands and slay all evil. Or maybe, some good blood will be spilled upon doing so.
+      You are the apprentice of the necromancer, helping to control the Dark Bird.
+    </p>
+
+    <p class="tagline">Are you ready for the challenge?</p>
+
+    <h2 class="section-title">Features</h2>
+    <ul class="feature-list">
+      <li>Save the King</li>
+      <li>Traverse the Beautiful Lands of Trismore</li>
+      <li>Gather Iron and Wood for your base</li>
+      <li>Build Powerful Towers</li>
+      <li>Unlock and upgrade your abilities</li>
+      <li>Complete important Quests</li>
+      <li>Visit Mox the Omniscent</li>
+      <li>Unlock New Skins for the Dark Bird</li>
+      <li>Challenge Lord of Darkness</li>
+      <li>Go up against the mighty Volcano God</li>
+      <li>Ranking: See how good you are doing in the Game Center ranking system</li>
+    </ul>
+
+    <hr class="divider">
+
+    <!-- Screenshot Gallery -->
+    <section class="media-block" aria-label="Screenshots">
+      <div class="media-frame">
+        <img
+          id="mainScreenshot"
+          src="/assets/birdvsevil/screenshots/screen-01.png"
+          alt="Bird vs Evil gameplay screenshot">
+      </div>
+
+      <div class="thumb-strip" aria-label="Screenshot thumbnails">
+        <button class="thumb-button is-active" type="button" data-full="/assets/birdvsevil/screenshots/screen-01.png" aria-label="Show screenshot 1">
+          <img src="/assets/birdvsevil/screenshots/screen-01.png" loading="lazy" alt="">
+        </button>
+
+        <button class="thumb-button" type="button" data-full="/assets/birdvsevil/screenshots/screen-02.png" aria-label="Show screenshot 2">
+          <img src="/assets/birdvsevil/screenshots/screen-02.png" loading="lazy" alt="">
+        </button>
+
+        <button class="thumb-button" type="button" data-full="/assets/birdvsevil/screenshots/screen-03.png" aria-label="Show screenshot 3">
+          <img src="/assets/birdvsevil/screenshots/screen-03.png" loading="lazy" alt="">
+        </button>
+
+        <button class="thumb-button" type="button" data-full="/assets/birdvsevil/screenshots/screen-04.png" aria-label="Show screenshot 4">
+          <img src="/assets/birdvsevil/screenshots/screen-04.png" loading="lazy" alt="">
+        </button>
+
+        <button class="thumb-button" type="button" data-full="/assets/birdvsevil/screenshots/screen-05.png" aria-label="Show screenshot 5">
+          <img src="/assets/birdvsevil/screenshots/screen-05.png" loading="lazy" alt="">
+        </button>
+
+        <button class="thumb-button" type="button" data-full="/assets/birdvsevil/screenshots/screen-06.png" aria-label="Show screenshot 6">
+          <img src="/assets/birdvsevil/screenshots/screen-06.png" loading="lazy" alt="">
+        </button>
+
+        <button class="thumb-button" type="button" data-full="/assets/birdvsevil/screenshots/screen-07.png" aria-label="Show screenshot 7">
+          <img src="/assets/birdvsevil/screenshots/screen-07.png" loading="lazy" alt="">
+        </button>
+
+        <button class="thumb-button" type="button" data-full="/assets/birdvsevil/screenshots/screen-08.png" aria-label="Show screenshot 8">
+          <img src="/assets/birdvsevil/screenshots/screen-08.png" loading="lazy" alt="">
+        </button>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      Privacy Policy:
+      <a href="/privacy/bird-vs-evil">/privacy/bird-vs-evil</a>
+    </p>
+  </main>
+
+  <script>
+    (function () {
+      const mainImage = document.getElementById("mainScreenshot");
+      const thumbnailButtons = Array.from(document.querySelectorAll(".thumb-button"));
+
+      function setActiveThumbnail(activeButton) {
+        for (const button of thumbnailButtons) {
+          button.classList.toggle("is-active", button === activeButton);
+        }
+      }
+
+      function setMainScreenshot(imageUrl, activeButton) {
+        if (!imageUrl) { return; }
+        mainImage.src = imageUrl;
+        setActiveThumbnail(activeButton);
+      }
+
+      for (const button of thumbnailButtons) {
+        button.addEventListener("click", function () {
+          const imageUrl = button.getAttribute("data-full");
+          setMainScreenshot(imageUrl, button);
+        });
+      }
+
+      // Optional: keyboard support (left/right arrows) when focus is within the strip
+      document.querySelector(".thumb-strip")?.addEventListener("keydown", function (event) {
+        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") { return; }
+        const focusedIndex = thumbnailButtons.findIndex((button) => button === document.activeElement);
+        if (focusedIndex < 0) { return; }
+
+        event.preventDefault();
+
+        const direction = (event.key === "ArrowRight") ? 1 : -1;
+        const nextIndex = (focusedIndex + direction + thumbnailButtons.length) % thumbnailButtons.length;
+        thumbnailButtons[nextIndex].focus();
+        const imageUrl = thumbnailButtons[nextIndex].getAttribute("data-full");
+        setMainScreenshot(imageUrl, thumbnailButtons[nextIndex]);
+      });
+    })();
+  </script>
 </body>
 </html>
