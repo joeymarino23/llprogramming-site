@@ -1,3 +1,7 @@
 git add .
-git commit -m "Add back link to Conquest of Shadows page from privacy policy"
+git commit -m "Update Bird vs Evil privacy page to match Conquest of Shadows styling
+- Applied consistent styling from CoS privacy page (centered layout, typography, colors)
+- Added complete BVE privacy policy content from BVE Privacy Policy.txt
+- Includes sections on data collection, advertising, opt-out rights, security, and more
+- Updated back link and page structure to match CoS format"
 git push origin main 
