@@ -10,9 +10,10 @@
   // ============================================
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/birdvsevil", label: "Bird vs Evil" },
-    { href: "/supernaturalslayer", label: "Supernatural Slayer" },
     { href: "/conquestofshadows", label: "Conquest of Shadows" },
+    { href: "/waroftheheavens", label: "War of the Heavens" },
+    { href: "/supernaturalslayer", label: "Supernatural Slayer" },
+    { href: "/birdvsevil", label: "Bird vs Evil" },
   ];
 
   // ============================================
