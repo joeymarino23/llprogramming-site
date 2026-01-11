@@ -1,5 +1,13 @@
 git add .
-git commit -m "Add Supernatural Slayer game link to homepage
-Added a new app card for Supernatural Slayer in the Apps section,
-linking to its App Store page."
+git commit -m "Add dynamic shared header for consistent navigation across pages
+- Created header.js with centralized navigation configuration
+- Updated index.html, CoS, and BvE pages to use dynamic header
+- Navigation links now defined in one place for easy maintenance
+- Current page automatically highlighted with aria-current"
 git push origin main 
+
+
+
+To do:
+- Add supernatural slayer page
+- Add supernatural slayer privacy policy from docracy

@@ -46,6 +46,9 @@
     }
 
     .top-nav-inner {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      padding: 0 var(--horizontal-padding);
       height: var(--nav-height);
       display: flex;
       align-items: center;
@@ -239,17 +242,7 @@
 
 <body>
 
-  <header class="top-nav">
-    <div class="container top-nav-inner">
-      <div class="brand">L&L PROGRAMMING LLC</div>
-
-      <nav class="nav-links" aria-label="Site">
-        <a href="/">Home</a>
-        <a href="/conquestofshadows">Conquest of Shadows</a>
-        <a href="/birdvsevil">Bird vs Evil</a>
-      </nav>
-    </div>
-  </header>
+  <header id="site-header" class="top-nav"></header>
 
 <section class="hero">
   <div class="container hero-inner">
@@ -310,5 +303,6 @@
     </div>
   </main>
 
+  <script src="/header.js"></script>
 </body>
 </html>
