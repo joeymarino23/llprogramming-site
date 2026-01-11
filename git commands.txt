@@ -1,12 +1,15 @@
 git add .
-git commit -m "Add dynamic header to privacy policy pages
-- Updated CoS and BvE privacy pages to use shared header.js
-- Added consistent navigation styling matching other pages
-- Removed old back-link in favor of site-wide navigation"
+git commit -m "Add Supernatural Slayer game page and privacy policy
+- Created main game page with character creation, inventory, battle,
+  quest board, healing, and Game Center sections
+- Added privacy policy page covering data collection, advertising,
+  opt-out rights, security, and contact information
+- Updated header.js to include Supernatural Slayer in navigation
+- Added screenshot gallery with 6 thumbnail slots
+- Created assets directory structure for screenshots"
 git push origin main 
 
 
 
 To do:
-- Add supernatural slayer page
-- Add supernatural slayer privacy policy from docracy
+- Add war of the heavens page and privacy
