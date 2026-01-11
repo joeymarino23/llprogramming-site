@@ -1,5 +1,7 @@
 git add .
-git commit -m "test link order"
+git commit -m "Add cache-busting version parameter to header.js includes
+Force browsers to fetch the updated header.js that includes the
+Supernatural Slayer navigation link by adding ?v=1 query string."
 git push origin main 
 
 
