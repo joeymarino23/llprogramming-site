@@ -1,10 +1,11 @@
 git add .
-git commit -m "Add War of the Heavens game page
-- Created main game page with celestial warfare theme, strategic gameplay,
-  storyline, dynamic worlds, and visual splendor sections
-- Added 10 screenshot thumbnail slots in the gallery
-- Links to existing Supernatural Slayer privacy policy
-- Updated header.js to include War of the Heavens in navigation
+git commit -m "Add Mermaid Maths game page and privacy policy
+- Created main game page with educational maths theme, gameplay
+  instructions, and customization features sections
+- Added 5 screenshot thumbnail slots in the gallery
+- Created privacy policy page emphasizing no data collection,
+  no ads, no IAP, and COPPA compliance
+- Updated header.js to include Mermaid Maths in navigation
 - Added app link card on root page linking to App Store
 - Created assets directory structure for screenshots"
 git push origin main 
@@ -12,4 +13,4 @@ git push origin main
 
 
 To do:
-- Add war of the heavens page and privacy
+- Add image specific text to Supernatural Slayer page
