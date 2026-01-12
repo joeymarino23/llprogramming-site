@@ -1,5 +1,12 @@
 git add .
-git commit -m "Updated header version"
+git commit -m "Add Play Bukharo! game page and privacy policy
+- Created main Play Bukharo! page with card game theme, adjustable
+  settings for new and experienced players, and multiplayer features
+- Added 10 screenshot thumbnail slots in the gallery
+- Created privacy policy page with no data collection, no ads, no IAP
+- Updated header.js to include Play Bukharo! in navigation
+- Added app link card on root page linking to App Store
+- Created assets directory structure for screenshots"
 git push origin main 
 
 
@@ -12,4 +19,7 @@ To do:
 
 Commands
 - Command+Shift+H to replace all to version the header to prevent cache from not showing the new one
-<script src="/header.js?v=4"></script>
+<script src="/header.js?v=5"></script>
+
+
+
