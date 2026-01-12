@@ -16,6 +16,7 @@
     { href: "/birdvsevil", label: "Bird vs Evil" },
     { href: "/mermaidmaths", label: "Mermaid Maths" },
     { href: "/star", label: "STAR" },
+    { href: "/playbukharo", label: "Play Bukharo!" },
   ];
 
   // ============================================
