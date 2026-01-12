@@ -14,6 +14,7 @@
     { href: "/waroftheheavens", label: "War of the Heavens" },
     { href: "/supernaturalslayer", label: "Supernatural Slayer" },
     { href: "/birdvsevil", label: "Bird vs Evil" },
+    { href: "/mermaidmaths", label: "Mermaid Maths" },
   ];
 
   // ============================================
