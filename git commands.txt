@@ -1,11 +1,22 @@
 git add .
-git commit -m "Updated header vresions"
+git commit -m "Add STAR app page with spiritual themes content
+- Created main STAR page with spiritual self-assessment theme,
+  8 scenic paths, and collectible objects features
+- Added 9 screenshot thumbnail slots in the gallery
+- Links to external anger.works privacy policy
+- Updated header.js to include STAR in navigation
+- Added app link card on root page linking to App Store
+- Created assets directory structure for screenshots"
 git push origin main 
 
 
 
 To do:
 - Add image specific text to Supernatural Slayer page
+- Add STAR
+- Add Buklharo
+- Add images for links at the bottom of the home page
+- How can I get images to load on webpage faster?
 
 Commands
 - Command+Shift+H to replace all to version the header to prevent cache from not showing the new one
