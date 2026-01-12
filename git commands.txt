@@ -1,21 +1,18 @@
 git add .
-git commit -m "Add Play Bukharo! game page and privacy policy
-- Created main Play Bukharo! page with card game theme, adjustable
-  settings for new and experienced players, and multiplayer features
-- Added 10 screenshot thumbnail slots in the gallery
-- Created privacy policy page with no data collection, no ads, no IAP
-- Updated header.js to include Play Bukharo! in navigation
-- Added app link card on root page linking to App Store
-- Created assets directory structure for screenshots"
+git commit -m "Fix header styling on root page to match individual pages
+- Remove text-transform: uppercase from brand and nav links
+- Change from fixed 64px height to flexible 12px 20px padding
+- Update font sizes (brand: 14px, links: 14px)
+- Add hover background effect and border-radius to nav links
+- Add backdrop blur effect to match individual page styling
+- Added thumbnail images"
 git push origin main 
 
 
 
 To do:
 - Add image specific text to Supernatural Slayer page
-- Add Buklharo
 - Add images for links at the bottom of the home page
-- How can I get images to load on webpage faster?
 
 Commands
 - Command+Shift+H to replace all to version the header to prevent cache from not showing the new one
