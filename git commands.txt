@@ -1,11 +1,5 @@
 git add .
-git commit -m "Fix header styling on root page to match individual pages
-- Remove text-transform: uppercase from brand and nav links
-- Change from fixed 64px height to flexible 12px 20px padding
-- Update font sizes (brand: 14px, links: 14px)
-- Add hover background effect and border-radius to nav links
-- Add backdrop blur effect to match individual page styling
-- Added thumbnail images"
+git commit -m "Add Echoes of the Goetia files"
 git push origin main 
 
 
