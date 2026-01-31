@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Echoes of the Goetia</title>
+
+  <style>
+    :root {
+      --page-max-width: 1040px;
+      --hero-bg: #1f2636;
+      --text: #111827;
+      --muted: #6b7280;
+      --rule: #e5e7eb;
+      --bullet: #9ca3af;
+      --card: #ffffff;
+      --shadow: 0 8px 24px rgba(17, 24, 39, 0.08);
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: #ffffff;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ===== Top Nav ===== */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .top-nav-inner {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      font-size: 14px;
+      color: #0f172a;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: #334155;
+      padding: 8px 10px;
+      border-radius: 10px;
+    }
+
+    .nav-links a:hover {
+      background: #f1f5f9;
+      text-decoration: none;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: var(--hero-bg);
+      padding: 64px 20px 56px 20px;
+    }
+
+    .hero-inner {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: clamp(44px, 5.4vw, 74px);
+      line-height: 1.03;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      font-weight: 900;
+    }
+
+    /* ===== CONTENT ===== */
+    .container {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      padding: 44px 20px 64px 20px;
+    }
+
+    .kicker {
+      margin: 0 0 10px 0;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .tagline {
+      margin: 0 0 12px 0;
+      font-size: 18px;
+      font-weight: 800;
+      color: #374151;
+    }
+
+    .lede {
+      margin: 0 0 22px 0;
+      color: var(--muted);
+      font-size: 15.5px;
+    }
+
+    .section-title {
+      margin: 28px 0 8px 0;
+      font-size: 16px;
+      font-weight: 900;
+      color: #374151;
+    }
+
+    /* Better bullets */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0 0;
+    }
+
+    .feature-list li {
+      position: relative;
+      padding-left: 18px;
+      margin: 10px 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .feature-list li::before {
+      content: "\2022";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--bullet);
+      font-weight: 900;
+      line-height: 1.6;
+    }
+
+    .divider {
+      margin: 34px 0;
+      border: none;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ===== Screenshot Gallery ===== */
+    .media-block {
+      margin-top: 22px;
+    }
+
+    .media-frame {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--rule);
+      background: #0b1220;
+      box-shadow: var(--shadow);
+    }
+
+    .media-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .thumb-strip {
+      margin-top: 14px;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 74px;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .thumb-button {
+      border: 1px solid var(--rule);
+      background: #0b1220;
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 0;
+      cursor: pointer;
+      width: 74px;
+      height: 74px;
+      flex: 0 0 auto;
+      box-shadow: 0 2px 10px rgba(17, 24, 39, 0.06);
+      outline: none;
+      transition: transform 0.15s ease, opacity 0.15s ease, border-color 0.15s ease;
+    }
+
+    .thumb-button img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.92;
+    }
+
+    .thumb-button:hover {
+      transform: scale(1.04);
+    }
+
+    .thumb-button:hover img {
+      opacity: 1;
+    }
+
+    .thumb-button.is-active {
+      border-color: #94a3b8;
+    }
+
+    .thumb-button:focus-visible {
+      outline: 3px solid rgba(59, 130, 246, 0.55);
+      outline-offset: 2px;
+    }
+
+    .footer-note {
+      margin-top: 26px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 560px) {
+      .top-nav-inner { padding: 10px 14px; }
+      .hero { padding: 54px 14px 46px 14px; }
+      .container { padding: 36px 14px 56px 14px; }
+      .thumb-strip { grid-auto-columns: 64px; }
+      .thumb-button { width: 64px; height: 64px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header id="site-header" class="top-nav"></header>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <h1 class="hero-title">Echoes of the Goetia</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <p class="kicker">Turn-Based PvP RPG</p>
+    <p class="tagline">Battle to gain XP, level up, allocate stats, and collect randomized loot.</p>
+
+    <p class="lede">
+      Echoes of the Goetia is an online multiplayer turn-based RPG where players battle to gain experience, level up their characters, allocate stat points across Strength, Agility, Vitality, Intelligence, and Wisdom, and collect randomized loot including weapons, armor, accessories, and consumables.
+    </p>
+
+    <h2 class="section-title">Character Progression</h2>
+    <ul class="feature-list">
+      <li>Gain XP from PvP battles and level up your character</li>
+      <li>Allocate stat points across five attributes: Strength, Agility, Vitality, Intelligence, and Wisdom</li>
+      <li>Track your power score, gold balance, and win/loss record</li>
+      <li>Maintain daily login streaks to earn rewards</li>
+    </ul>
+
+    <h2 class="section-title">Equipment &amp; Loot</h2>
+    <ul class="feature-list">
+      <li>Collect randomized weapons, armor, accessories, and consumables</li>
+      <li>Equip gear to boost your stats and power score</li>
+      <li>Manage your inventory and optimize your loadout</li>
+    </ul>
+
+    <h2 class="section-title">PvP Combat</h2>
+    <ul class="feature-list">
+      <li>Engage in turn-based battles against other players online</li>
+      <li>Matchmaking based on your rating (MMR) for fair fights</li>
+      <li>Climb the leaderboards and build your win streak</li>
+      <li>Server-authoritative architecture ensures fair gameplay</li>
+    </ul>
+
+    <h2 class="section-title">Game Center Integration</h2>
+    <ul class="feature-list">
+      <li>Unlock achievements for battle victories, level milestones, and loot collection</li>
+      <li>Compete on leaderboards for player level, power score, and PvP rating</li>
+    </ul>
+
+    <hr class="divider">
+
+    <!-- Screenshot Gallery -->
+    <section class="media-block" aria-label="Screenshots">
+      <div class="media-frame">
+        <img
+          id="mainScreenshot"
+          src="/assets/echoesofthegoetia/screenshots/screen-01.PNG"
+          alt="Echoes of the Goetia gameplay screenshot">
+      </div>
+
+      <div class="thumb-strip" aria-label="Screenshot thumbnails">
+        <button class="thumb-button is-active" type="button" data-full="/assets/echoesofthegoetia/screenshots/screen-01.PNG" aria-label="Show screenshot 1">
+          <img src="/assets/echoesofthegoetia/screenshots/screen-01.PNG" loading="lazy" alt="">
+        </button>
+
+        <button class="thumb-button" type="button" data-full="/assets/echoesofthegoetia/screenshots/screen-02.PNG" aria-label="Show screenshot 2">
+          <img src="/assets/echoesofthegoetia/screenshots/screen-02.PNG" loading="lazy" alt="">
+        </button>
+
+        <button class="thumb-button" type="button" data-full="/assets/echoesofthegoetia/screenshots/screen-03.PNG" aria-label="Show screenshot 3">
+          <img src="/assets/echoesofthegoetia/screenshots/screen-03.PNG" loading="lazy" alt="">
+        </button>
+
+        <button class="thumb-button" type="button" data-full="/assets/echoesofthegoetia/screenshots/screen-04.PNG" aria-label="Show screenshot 4">
+          <img src="/assets/echoesofthegoetia/screenshots/screen-04.PNG" loading="lazy" alt="">
+        </button>
+
+        <button class="thumb-button" type="button" data-full="/assets/echoesofthegoetia/screenshots/screen-05.PNG" aria-label="Show screenshot 5">
+          <img src="/assets/echoesofthegoetia/screenshots/screen-05.PNG" loading="lazy" alt="">
+        </button>
+
+        <button class="thumb-button" type="button" data-full="/assets/echoesofthegoetia/screenshots/screen-06.PNG" aria-label="Show screenshot 6">
+          <img src="/assets/echoesofthegoetia/screenshots/screen-06.PNG" loading="lazy" alt="">
+        </button>
+
+        <button class="thumb-button" type="button" data-full="/assets/echoesofthegoetia/screenshots/screen-07.PNG" aria-label="Show screenshot 7">
+          <img src="/assets/echoesofthegoetia/screenshots/screen-07.PNG" loading="lazy" alt="">
+        </button>
+
+        <button class="thumb-button" type="button" data-full="/assets/echoesofthegoetia/screenshots/screen-08.PNG" aria-label="Show screenshot 8">
+          <img src="/assets/echoesofthegoetia/screenshots/screen-08.PNG" loading="lazy" alt="">
+        </button>
+
+        <button class="thumb-button" type="button" data-full="/assets/echoesofthegoetia/screenshots/screen-09.PNG" aria-label="Show screenshot 9">
+          <img src="/assets/echoesofthegoetia/screenshots/screen-09.PNG" loading="lazy" alt="">
+        </button>
+
+        <button class="thumb-button" type="button" data-full="/assets/echoesofthegoetia/screenshots/screen-10.PNG" aria-label="Show screenshot 10">
+          <img src="/assets/echoesofthegoetia/screenshots/screen-10.PNG" loading="lazy" alt="">
+        </button>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      Privacy Policy:
+      <a href="/privacy/echoes-of-the-goetia">/privacy/echoes-of-the-goetia</a>
+    </p>
+  </main>
+
+  <script src="/header.js?v=5"></script>
+  <script>
+    (function () {
+      const mainImage = document.getElementById("mainScreenshot");
+      const thumbnailButtons = Array.from(document.querySelectorAll(".thumb-button"));
+
+      function setActiveThumbnail(activeButton) {
+        for (const button of thumbnailButtons) {
+          button.classList.toggle("is-active", button === activeButton);
+        }
+      }
+
+      function setMainScreenshot(imageUrl, activeButton) {
+        if (!imageUrl) { return; }
+        mainImage.src = imageUrl;
+        setActiveThumbnail(activeButton);
+      }
+
+      for (const button of thumbnailButtons) {
+        button.addEventListener("click", function () {
+          const imageUrl = button.getAttribute("data-full");
+          setMainScreenshot(imageUrl, button);
+        });
+      }
+
+      // Keyboard support (left/right arrows) when focus is within the strip
+      document.querySelector(".thumb-strip")?.addEventListener("keydown", function (event) {
+        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") { return; }
+        const focusedIndex = thumbnailButtons.findIndex((button) => button === document.activeElement);
+        if (focusedIndex < 0) { return; }
+
+        event.preventDefault();
+
+        const direction = (event.key === "ArrowRight") ? 1 : -1;
+        const nextIndex = (focusedIndex + direction + thumbnailButtons.length) % thumbnailButtons.length;
+        thumbnailButtons[nextIndex].focus();
+        const imageUrl = thumbnailButtons[nextIndex].getAttribute("data-full");
+        setMainScreenshot(imageUrl, thumbnailButtons[nextIndex]);
+      });
+    })();
+  </script>
+</body>
+</html>
