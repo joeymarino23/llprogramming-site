@@ -1,0 +1,1237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Beersketball Stats</title>
+
+  <style>
+    :root {
+      --page-max-width: 1120px;
+      --page-padding: 20px;
+      --surface: rgba(255, 255, 255, 0.82);
+      --surface-strong: #ffffff;
+      --surface-dark: #0f172a;
+      --bg-top: #eef4ff;
+      --bg-bottom: #f8fafc;
+      --text: #0f172a;
+      --muted: #5b6474;
+      --rule: rgba(15, 23, 42, 0.1);
+      --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      --shadow-soft: 0 12px 24px rgba(15, 23, 42, 0.05);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --accent: #b91c1c;
+      --accent-2: #1d4ed8;
+      --accent-3: #f59e0b;
+      --success: #166534;
+      --warning: #92400e;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+      background:
+        radial-gradient(circle at top left, rgba(185, 28, 28, 0.11), transparent 26%),
+        radial-gradient(circle at top right, rgba(29, 78, 216, 0.1), transparent 28%),
+        linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    button,
+    select {
+      font: inherit;
+    }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .hero-shell,
+    .section-shell,
+    .footer-shell {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      padding-left: var(--page-padding);
+      padding-right: var(--page-padding);
+    }
+
+    .hero {
+      padding: 32px 0 22px 0;
+    }
+
+    .hero-panel {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(140deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.88)),
+        linear-gradient(140deg, rgba(185, 28, 28, 0.4), rgba(29, 78, 216, 0.35));
+      box-shadow: 0 30px 80px rgba(15, 23, 42, 0.22);
+      color: #ffffff;
+    }
+
+    .hero-panel::before,
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .hero-panel::before {
+      width: 320px;
+      height: 320px;
+      top: -120px;
+      right: -70px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.26), transparent 70%);
+    }
+
+    .hero-panel::after {
+      width: 280px;
+      height: 280px;
+      bottom: -130px;
+      left: -70px;
+      background: radial-gradient(circle, rgba(185, 28, 28, 0.32), transparent 72%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      padding: 26px;
+      display: grid;
+      gap: 24px;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+    }
+
+    .hero-kicker {
+      margin: 0 0 12px 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .hero-kicker::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f59e0b;
+      box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.14);
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: clamp(44px, 7vw, 82px);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+      font-weight: 950;
+    }
+
+    .hero-subtitle {
+      margin: 16px 0 0 0;
+      max-width: 62ch;
+      color: rgba(255, 255, 255, 0.76);
+      font-size: clamp(15px, 2.1vw, 18px);
+    }
+
+    .hero-meta {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-self: start;
+    }
+
+    .meta-card {
+      min-height: 116px;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .meta-label {
+      display: block;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .meta-value {
+      display: block;
+      margin-top: 10px;
+      font-size: clamp(24px, 4vw, 38px);
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .meta-note {
+      margin-top: 10px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+    }
+
+    main {
+      padding-bottom: 56px;
+    }
+
+    .section-shell {
+      margin-top: 22px;
+    }
+
+    .status-banner {
+      display: none;
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--rule);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .status-banner.is-visible {
+      display: block;
+    }
+
+    .status-banner[data-tone="loading"] {
+      border-color: rgba(29, 78, 216, 0.14);
+      background: rgba(219, 234, 254, 0.56);
+    }
+
+    .status-banner[data-tone="error"] {
+      border-color: rgba(185, 28, 28, 0.16);
+      background: rgba(254, 226, 226, 0.72);
+    }
+
+    .status-banner[data-tone="warning"] {
+      border-color: rgba(245, 158, 11, 0.18);
+      background: rgba(254, 243, 199, 0.82);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid var(--rule);
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .toolbar-text {
+      display: grid;
+      gap: 2px;
+    }
+
+    .toolbar-label {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .toolbar-value {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .toolbar-code {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.06);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .season-picker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .season-picker label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .season-select {
+      min-width: 138px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.14);
+      background: #ffffff;
+      color: var(--text);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .summary-grid,
+    .leaders-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .summary-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .summary-card,
+    .panel {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--rule);
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+    }
+
+    .summary-card {
+      padding: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .summary-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -50px -60px auto;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(29, 78, 216, 0.08), transparent 68%);
+      pointer-events: none;
+    }
+
+    .summary-title {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .summary-value {
+      margin-top: 10px;
+      display: block;
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      font-weight: 900;
+    }
+
+    .summary-note {
+      margin: 12px 0 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      font-weight: 900;
+    }
+
+    .section-copy {
+      margin: 8px 0 0 0;
+      max-width: 65ch;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .leaders-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .panel {
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 18px 18px 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .panel-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.06);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      padding: 0 8px 8px 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 320px;
+    }
+
+    th,
+    td {
+      padding: 12px 10px;
+      border-top: 1px solid var(--rule);
+      text-align: left;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    tbody tr:hover {
+      background: rgba(15, 23, 42, 0.03);
+    }
+
+    .rank-cell {
+      width: 50px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .player-cell {
+      min-width: 150px;
+    }
+
+    .player-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .player-name::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      flex: 0 0 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-3));
+      box-shadow: 0 0 0 5px rgba(185, 28, 28, 0.08);
+    }
+
+    .empty-state {
+      padding: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .games-panel {
+      padding: 8px;
+    }
+
+    .games-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .game-item {
+      display: grid;
+      gap: 14px;
+      padding: 18px;
+      border-radius: 18px;
+      background: var(--surface-strong);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .game-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .game-matchup {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .game-team {
+      min-width: 0;
+    }
+
+    .game-team-name {
+      display: block;
+      font-size: clamp(18px, 2.8vw, 24px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      font-weight: 900;
+    }
+
+    .game-team-note {
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .game-team-note.is-winner {
+      color: var(--success);
+    }
+
+    .game-score {
+      display: grid;
+      place-items: center;
+      min-width: 84px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: #0f172a;
+      color: #ffffff;
+      font-size: clamp(22px, 3vw, 30px);
+      letter-spacing: -0.03em;
+      font-weight: 900;
+    }
+
+    .game-footer {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .site-footer {
+      padding: 0 0 48px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-shell {
+      text-align: center;
+    }
+
+    .is-hidden {
+      display: none !important;
+    }
+
+    @media (min-width: 860px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+        align-items: end;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .leaders-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      :root {
+        --page-padding: 14px;
+      }
+
+      .hero {
+        padding-top: 18px;
+      }
+
+      .hero-inner {
+        padding: 20px;
+      }
+
+      .hero-meta,
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar {
+        align-items: stretch;
+      }
+
+      .season-picker {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .season-select {
+        min-width: 0;
+        width: 150px;
+      }
+
+      .game-matchup {
+        grid-template-columns: 1fr;
+      }
+
+      .game-team:last-child {
+        text-align: left;
+      }
+
+      .game-score {
+        justify-self: start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header id="site-header" class="top-nav"></header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-shell">
+        <div class="hero-panel">
+          <div class="hero-inner">
+            <div class="hero-copy">
+              <p class="hero-kicker">Hidden Public Dashboard</p>
+              <h1 class="hero-title">Beersketball Stats</h1>
+              <p class="hero-subtitle">
+                Live season totals, leaderboard snapshots, and recent results powered by Firebase Realtime Database.
+              </p>
+            </div>
+
+            <div class="hero-meta" aria-label="Season overview">
+              <div class="meta-card">
+                <span class="meta-label">Season</span>
+                <span class="meta-value" id="heroSeason">--</span>
+                <div class="meta-note" id="heroSeasonNote">Waiting for season data.</div>
+              </div>
+
+              <div class="meta-card">
+                <span class="meta-label">Last Updated</span>
+                <span class="meta-value" id="heroUpdated">--</span>
+                <div class="meta-note" id="heroUpdatedNote">Firebase metadata will appear here.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell">
+      <div id="statusBanner" class="status-banner is-visible" data-tone="loading" role="status" aria-live="polite">
+        Loading stats from Firebase...
+      </div>
+    </section>
+
+    <section class="section-shell">
+      <div class="toolbar">
+        <div class="toolbar-text">
+          <span class="toolbar-label">Data Source</span>
+          <span class="toolbar-value"><span class="toolbar-code">publicStats/</span> in Firebase Realtime Database</span>
+        </div>
+
+        <div class="season-picker">
+          <label for="seasonSelect">Season</label>
+          <select id="seasonSelect" class="season-select" aria-label="Select season" disabled>
+            <option value="">Loading seasons...</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell" aria-labelledby="summaryTitle">
+      <div class="section-head">
+        <div>
+          <h2 id="summaryTitle" class="section-title">Season Summary</h2>
+          <p class="section-copy">A quick snapshot of the active Beersketball season.</p>
+        </div>
+      </div>
+
+      <div class="summary-grid">
+        <article class="summary-card">
+          <h3 class="summary-title">Total Games</h3>
+          <span class="summary-value" id="totalGamesValue">--</span>
+          <p class="summary-note">Games tracked in the selected season.</p>
+        </article>
+
+        <article class="summary-card">
+          <h3 class="summary-title">Players</h3>
+          <span class="summary-value" id="totalPlayersValue">--</span>
+          <p class="summary-note">Unique players included in public season stats.</p>
+        </article>
+
+        <article class="summary-card">
+          <h3 class="summary-title">Latest Game</h3>
+          <span class="summary-value" id="lastGameValue">--</span>
+          <p class="summary-note">Most recent completed game identifier.</p>
+        </article>
+
+        <article class="summary-card">
+          <h3 class="summary-title">Updated</h3>
+          <span class="summary-value" id="summaryUpdatedValue">--</span>
+          <p class="summary-note">Timestamp from the selected season summary.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-shell" aria-labelledby="leadersTitle">
+      <div class="section-head">
+        <div>
+          <h2 id="leadersTitle" class="section-title">League Leaders</h2>
+          <p class="section-copy">Top scorers, rebound leaders, and best shooting marks for the selected season.</p>
+        </div>
+      </div>
+
+      <div class="leaders-grid">
+        <article class="panel">
+          <div class="panel-header">
+            <h3 class="panel-title">Scoring</h3>
+            <span class="panel-badge" id="scoringCount">0</span>
+          </div>
+          <div class="table-wrap">
+            <table aria-describedby="leadersTitle">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Player</th>
+                  <th scope="col">GP</th>
+                  <th scope="col">PTS</th>
+                  <th scope="col">PPG</th>
+                </tr>
+              </thead>
+              <tbody id="scoringBody">
+                <tr><td colspan="5" class="empty-state">Loading scoring leaders...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-header">
+            <h3 class="panel-title">Rebounds</h3>
+            <span class="panel-badge" id="reboundsCount">0</span>
+          </div>
+          <div class="table-wrap">
+            <table aria-describedby="leadersTitle">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Player</th>
+                  <th scope="col">GP</th>
+                  <th scope="col">REB</th>
+                  <th scope="col">REB%</th>
+                </tr>
+              </thead>
+              <tbody id="reboundsBody">
+                <tr><td colspan="5" class="empty-state">Loading rebound leaders...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-header">
+            <h3 class="panel-title">Shooting</h3>
+            <span class="panel-badge" id="shootingCount">0</span>
+          </div>
+          <div class="table-wrap">
+            <table aria-describedby="leadersTitle">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Player</th>
+                  <th scope="col">ATT</th>
+                  <th scope="col">FGM</th>
+                  <th scope="col">FG%</th>
+                </tr>
+              </thead>
+              <tbody id="shootingBody">
+                <tr><td colspan="5" class="empty-state">Loading shooting leaders...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-shell" aria-labelledby="gamesTitle">
+      <div class="section-head">
+        <div>
+          <h2 id="gamesTitle" class="section-title">Recent Games</h2>
+          <p class="section-copy">Latest completed matchups pulled from the public stats feed.</p>
+        </div>
+      </div>
+
+      <article class="panel games-panel">
+        <ul id="recentGamesList" class="games-list" aria-live="polite">
+          <li class="empty-state">Loading recent games...</li>
+        </ul>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-shell">
+      Public stats dashboard for Beersketball. This page is intentionally unlisted from the main site navigation.
+    </div>
+  </footer>
+
+  <script src="/header.js?v=5"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script>
+    (function() {
+      var firebaseConfig = {
+        apiKey: "REPLACE_WITH_REAL_API_KEY",
+        authDomain: "REPLACE_WITH_REAL_AUTH_DOMAIN",
+        databaseURL: "REPLACE_WITH_REAL_DATABASE_URL",
+        projectId: "REPLACE_WITH_REAL_PROJECT_ID",
+        storageBucket: "REPLACE_WITH_REAL_STORAGE_BUCKET",
+        messagingSenderId: "REPLACE_WITH_REAL_MESSAGING_SENDER_ID",
+        appId: "REPLACE_WITH_REAL_APP_ID"
+      };
+
+      var state = {
+        metadata: null,
+        currentSeason: null
+      };
+
+      var elements = {
+        statusBanner: document.getElementById("statusBanner"),
+        seasonSelect: document.getElementById("seasonSelect"),
+        heroSeason: document.getElementById("heroSeason"),
+        heroSeasonNote: document.getElementById("heroSeasonNote"),
+        heroUpdated: document.getElementById("heroUpdated"),
+        heroUpdatedNote: document.getElementById("heroUpdatedNote"),
+        totalGamesValue: document.getElementById("totalGamesValue"),
+        totalPlayersValue: document.getElementById("totalPlayersValue"),
+        lastGameValue: document.getElementById("lastGameValue"),
+        summaryUpdatedValue: document.getElementById("summaryUpdatedValue"),
+        scoringBody: document.getElementById("scoringBody"),
+        reboundsBody: document.getElementById("reboundsBody"),
+        shootingBody: document.getElementById("shootingBody"),
+        recentGamesList: document.getElementById("recentGamesList"),
+        scoringCount: document.getElementById("scoringCount"),
+        reboundsCount: document.getElementById("reboundsCount"),
+        shootingCount: document.getElementById("shootingCount")
+      };
+
+      function isPlaceholderConfig(config) {
+        return Object.keys(config).some(function(key) {
+          var value = config[key];
+          return typeof value === "string" && value.indexOf("REPLACE_WITH_REAL_") === 0;
+        });
+      }
+
+      function setStatus(message, tone) {
+        elements.statusBanner.textContent = message;
+        elements.statusBanner.dataset.tone = tone || "loading";
+        elements.statusBanner.classList.add("is-visible");
+      }
+
+      function clearStatus() {
+        elements.statusBanner.classList.remove("is-visible");
+      }
+
+      function formatNumber(value) {
+        if (value === null || value === undefined || value === "") {
+          return "--";
+        }
+
+        return new Intl.NumberFormat("en-US").format(value);
+      }
+
+      function formatDecimal(value, digits) {
+        if (value === null || value === undefined || value === "") {
+          return "--";
+        }
+
+        return Number(value).toFixed(digits);
+      }
+
+      function formatPercent(value) {
+        if (value === null || value === undefined || value === "") {
+          return "--";
+        }
+
+        return formatDecimal(value, 1) + "%";
+      }
+
+      function formatRelativeDate(isoString) {
+        if (!isoString) {
+          return "--";
+        }
+
+        var date = new Date(isoString);
+
+        if (Number.isNaN(date.getTime())) {
+          return "--";
+        }
+
+        return new Intl.DateTimeFormat("en-US", {
+          month: "short",
+          day: "numeric"
+        }).format(date);
+      }
+
+      function formatLongDate(isoString) {
+        if (!isoString) {
+          return "No timestamp available";
+        }
+
+        var date = new Date(isoString);
+
+        if (Number.isNaN(date.getTime())) {
+          return "Invalid timestamp";
+        }
+
+        return new Intl.DateTimeFormat("en-US", {
+          dateStyle: "medium",
+          timeStyle: "short"
+        }).format(date);
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function renderSummary(summary, metadataSeason) {
+        var seasonValue = summary && summary.season ? summary.season : metadataSeason;
+
+        elements.heroSeason.textContent = seasonValue ? "S" + seasonValue : "--";
+        elements.heroSeasonNote.textContent = seasonValue ? "Now viewing season " + seasonValue + "." : "Season data unavailable.";
+        elements.heroUpdated.textContent = formatRelativeDate(summary && summary.lastUpdated ? summary.lastUpdated : state.metadata && state.metadata.lastUpdated);
+        elements.heroUpdatedNote.textContent = formatLongDate(summary && summary.lastUpdated ? summary.lastUpdated : state.metadata && state.metadata.lastUpdated);
+
+        elements.totalGamesValue.textContent = formatNumber(summary && summary.totalGames);
+        elements.totalPlayersValue.textContent = formatNumber(summary && summary.totalPlayers);
+        elements.lastGameValue.textContent = summary && summary.lastGameId ? summary.lastGameId : "--";
+        elements.summaryUpdatedValue.textContent = formatRelativeDate(summary && summary.lastUpdated);
+      }
+
+      function renderTableRows(tbody, rowsHtml, emptyMessage, colspan) {
+        if (!rowsHtml.length) {
+          tbody.innerHTML = '<tr><td colspan="' + colspan + '" class="empty-state">' + escapeHtml(emptyMessage) + "</td></tr>";
+          return;
+        }
+
+        tbody.innerHTML = rowsHtml.join("");
+      }
+
+      function renderLeaders(leaders) {
+        var scoring = Array.isArray(leaders && leaders.scoring) ? leaders.scoring : [];
+        var rebounds = Array.isArray(leaders && leaders.rebounds) ? leaders.rebounds : [];
+        var shooting = Array.isArray(leaders && leaders.shooting) ? leaders.shooting : [];
+
+        elements.scoringCount.textContent = String(scoring.length);
+        elements.reboundsCount.textContent = String(rebounds.length);
+        elements.shootingCount.textContent = String(shooting.length);
+
+        renderTableRows(
+          elements.scoringBody,
+          scoring.map(function(item, index) {
+            return (
+              "<tr>" +
+                '<td class="rank-cell">' + (index + 1) + "</td>" +
+                '<td class="player-cell"><span class="player-name" data-player-id="' + escapeHtml(item.playerId || "") + '">' + escapeHtml(item.displayName || "Unknown Player") + "</span></td>" +
+                "<td>" + formatNumber(item.gamesPlayed) + "</td>" +
+                "<td>" + formatNumber(item.points) + "</td>" +
+                "<td>" + formatDecimal(item.pointsPerGame, 1) + "</td>" +
+              "</tr>"
+            );
+          }),
+          "No scoring leaders published yet.",
+          5
+        );
+
+        renderTableRows(
+          elements.reboundsBody,
+          rebounds.map(function(item, index) {
+            return (
+              "<tr>" +
+                '<td class="rank-cell">' + (index + 1) + "</td>" +
+                '<td class="player-cell"><span class="player-name" data-player-id="' + escapeHtml(item.playerId || "") + '">' + escapeHtml(item.displayName || "Unknown Player") + "</span></td>" +
+                "<td>" + formatNumber(item.gamesPlayed) + "</td>" +
+                "<td>" + formatNumber(item.rebounds) + "</td>" +
+                "<td>" + formatPercent(item.reboundPct) + "</td>" +
+              "</tr>"
+            );
+          }),
+          "No rebound leaders published yet.",
+          5
+        );
+
+        renderTableRows(
+          elements.shootingBody,
+          shooting.map(function(item, index) {
+            return (
+              "<tr>" +
+                '<td class="rank-cell">' + (index + 1) + "</td>" +
+                '<td class="player-cell"><span class="player-name" data-player-id="' + escapeHtml(item.playerId || "") + '">' + escapeHtml(item.displayName || "Unknown Player") + "</span></td>" +
+                "<td>" + formatNumber(item.attempts) + "</td>" +
+                "<td>" + formatNumber(item.made) + "</td>" +
+                "<td>" + formatPercent(item.pct) + "</td>" +
+              "</tr>"
+            );
+          }),
+          "No shooting leaders published yet.",
+          5
+        );
+      }
+
+      function renderRecentGames(recentGames) {
+        var items = Array.isArray(recentGames && recentGames.items) ? recentGames.items : [];
+
+        if (!items.length) {
+          elements.recentGamesList.innerHTML = '<li class="empty-state">No recent games published yet.</li>';
+          return;
+        }
+
+        elements.recentGamesList.innerHTML = items.map(function(item) {
+          var teamOne = item.teamOne || "Team One";
+          var teamTwo = item.teamTwo || "Team Two";
+          var winner = item.winner || "";
+          var teamOneWinner = winner === teamOne;
+          var teamTwoWinner = winner === teamTwo;
+          var matchupLabel = "Night " + formatNumber(item.night) + " Game " + formatNumber(item.game);
+
+          return (
+            '<li class="game-item" data-game-id="' + escapeHtml(item.gameId || "") + '">' +
+              '<div class="game-topline">' +
+                "<span>" + escapeHtml(matchupLabel) + "</span>" +
+                "<span>" + escapeHtml(item.gameId || "Game ID unavailable") + "</span>" +
+              "</div>" +
+              '<div class="game-matchup">' +
+                '<div class="game-team">' +
+                  '<span class="game-team-name">' + escapeHtml(teamOne) + "</span>" +
+                  '<span class="game-team-note' + (teamOneWinner ? " is-winner" : "") + '">' + (teamOneWinner ? "Winner" : "Final") + "</span>" +
+                "</div>" +
+                '<div class="game-score">' + formatNumber(item.teamOneScore) + " - " + formatNumber(item.teamTwoScore) + "</div>" +
+                '<div class="game-team">' +
+                  '<span class="game-team-name">' + escapeHtml(teamTwo) + "</span>" +
+                  '<span class="game-team-note' + (teamTwoWinner ? " is-winner" : "") + '">' + (teamTwoWinner ? "Winner" : "Final") + "</span>" +
+                "</div>" +
+              "</div>" +
+              '<div class="game-footer">Completed ' + escapeHtml(formatLongDate(item.completedAt)) + "</div>" +
+            "</li>"
+          );
+        }).join("");
+      }
+
+      function populateSeasonSelect(metadata) {
+        var seasons = Array.isArray(metadata && metadata.availableSeasons) ? metadata.availableSeasons.slice() : [];
+        seasons.sort(function(a, b) { return Number(b) - Number(a); });
+
+        if (!seasons.length && metadata && metadata.currentSeason !== undefined && metadata.currentSeason !== null) {
+          seasons = [metadata.currentSeason];
+        }
+
+        if (!seasons.length) {
+          elements.seasonSelect.innerHTML = '<option value="">No seasons</option>';
+          elements.seasonSelect.disabled = true;
+          return;
+        }
+
+        elements.seasonSelect.innerHTML = seasons.map(function(season) {
+          var selected = Number(season) === Number(state.currentSeason) ? " selected" : "";
+          return '<option value="' + escapeHtml(season) + '"' + selected + ">Season " + escapeHtml(season) + "</option>";
+        }).join("");
+        elements.seasonSelect.disabled = false;
+      }
+
+      function resetLoadingShell(season) {
+        elements.heroSeason.textContent = season ? "S" + season : "--";
+        elements.heroSeasonNote.textContent = season ? "Loading season " + season + " data..." : "Loading season data...";
+        elements.totalGamesValue.textContent = "--";
+        elements.totalPlayersValue.textContent = "--";
+        elements.lastGameValue.textContent = "--";
+        elements.summaryUpdatedValue.textContent = "--";
+        elements.scoringCount.textContent = "0";
+        elements.reboundsCount.textContent = "0";
+        elements.shootingCount.textContent = "0";
+        elements.scoringBody.innerHTML = '<tr><td colspan="5" class="empty-state">Loading scoring leaders...</td></tr>';
+        elements.reboundsBody.innerHTML = '<tr><td colspan="5" class="empty-state">Loading rebound leaders...</td></tr>';
+        elements.shootingBody.innerHTML = '<tr><td colspan="5" class="empty-state">Loading shooting leaders...</td></tr>';
+        elements.recentGamesList.innerHTML = '<li class="empty-state">Loading recent games...</li>';
+      }
+
+      function getSnapshotValue(snapshot) {
+        return snapshot && typeof snapshot.val === "function" ? snapshot.val() : null;
+      }
+
+      function loadSeasonData(season) {
+        if (!season) {
+          setStatus("No season selected or available in metadata.", "warning");
+          resetLoadingShell(null);
+          return Promise.resolve();
+        }
+
+        state.currentSeason = Number(season);
+        populateSeasonSelect(state.metadata);
+        resetLoadingShell(state.currentSeason);
+        setStatus("Loading season " + state.currentSeason + " stats...", "loading");
+
+        var db = firebase.database();
+        var summaryRef = db.ref("publicStats/seasons/" + state.currentSeason + "/summary");
+        var leadersRef = db.ref("publicStats/seasons/" + state.currentSeason + "/leaders");
+        var recentGamesRef = db.ref("publicStats/seasons/" + state.currentSeason + "/recentGames");
+
+        return Promise.all([summaryRef.get(), leadersRef.get(), recentGamesRef.get()])
+          .then(function(results) {
+            var summary = getSnapshotValue(results[0]);
+            var leaders = getSnapshotValue(results[1]);
+            var recentGames = getSnapshotValue(results[2]);
+
+            renderSummary(summary, state.currentSeason);
+            renderLeaders(leaders);
+            renderRecentGames(recentGames);
+            clearStatus();
+          })
+          .catch(function(error) {
+            setStatus("Unable to load season stats. " + (error && error.message ? error.message : "Unknown Firebase error."), "error");
+            renderSummary(null, state.currentSeason);
+            renderLeaders(null);
+            renderRecentGames(null);
+          });
+      }
+
+      function loadMetadataAndDashboard() {
+        if (isPlaceholderConfig(firebaseConfig)) {
+          setStatus("Firebase config placeholders are still in place. Replace the `REPLACE_WITH_REAL_*` values in `/beersketball-stats/index.html` to enable live stats.", "warning");
+          renderSummary(null, null);
+          renderLeaders(null);
+          renderRecentGames(null);
+          elements.seasonSelect.innerHTML = '<option value="">Config required</option>';
+          elements.seasonSelect.disabled = true;
+          return;
+        }
+
+        firebase.initializeApp(firebaseConfig);
+
+        var metadataRef = firebase.database().ref("publicStats/metadata");
+        setStatus("Loading stats from Firebase...", "loading");
+
+        metadataRef.get()
+          .then(function(snapshot) {
+            var metadata = getSnapshotValue(snapshot);
+
+            if (!metadata) {
+              throw new Error("The publicStats/metadata node was empty.");
+            }
+
+            state.metadata = metadata;
+            state.currentSeason = metadata.currentSeason;
+
+            elements.heroUpdated.textContent = formatRelativeDate(metadata.lastUpdated);
+            elements.heroUpdatedNote.textContent = formatLongDate(metadata.lastUpdated);
+
+            populateSeasonSelect(metadata);
+            return loadSeasonData(metadata.currentSeason);
+          })
+          .catch(function(error) {
+            setStatus("Unable to load metadata from Firebase. " + (error && error.message ? error.message : "Unknown Firebase error."), "error");
+            renderSummary(null, null);
+            renderLeaders(null);
+            renderRecentGames(null);
+          });
+      }
+
+      elements.seasonSelect.addEventListener("change", function(event) {
+        var selectedSeason = event.target.value;
+
+        if (!selectedSeason) {
+          return;
+        }
+
+        loadSeasonData(selectedSeason);
+      });
+
+      loadMetadataAndDashboard();
+    })();
+  </script>
+</body>
+</html>
