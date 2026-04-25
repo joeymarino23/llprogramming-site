@@ -70,6 +70,43 @@
       border-bottom: 1px solid var(--rule);
     }
 
+    .top-nav-inner {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      font-size: 14px;
+      color: #0f172a;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: #334155;
+      padding: 8px 10px;
+      border-radius: 10px;
+    }
+
+    .nav-links a:hover {
+      background: #f1f5f9;
+      text-decoration: none;
+    }
+
     .hero-shell,
     .section-shell,
     .footer-shell {
@@ -620,6 +657,10 @@
         --page-padding: 14px;
       }
 
+      .top-nav-inner {
+        padding: 10px 14px;
+      }
+
       .hero {
         padding-top: 18px;
       }
@@ -671,7 +712,6 @@
         <div class="hero-panel">
           <div class="hero-inner">
             <div class="hero-copy">
-              <p class="hero-kicker">Hidden Public Dashboard</p>
               <h1 class="hero-title">Beersketball Stats</h1>
               <p class="hero-subtitle">
                 Live season totals, leaderboard snapshots, and recent results powered by Firebase Realtime Database.
@@ -851,7 +891,7 @@
 
   <footer class="site-footer">
     <div class="footer-shell">
-      Public stats dashboard for Beersketball. This page is intentionally unlisted from the main site navigation.
+      Created by L&amp;L Programming LLC.
     </div>
   </footer>
 

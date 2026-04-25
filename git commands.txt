@@ -1,5 +1,5 @@
 git add .
-git commit -m "Add Echoes of the Goetia files"
+git commit -m "Modified Beersketball elements and footer"
 git push origin main 
 
 
