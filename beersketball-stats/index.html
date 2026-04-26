@@ -639,6 +639,99 @@
       display: none !important;
     }
 
+    .all-games-night {
+      padding: 10px 18px;
+      background: #f1f5f9;
+      border-bottom: 1px solid var(--rule);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .all-games-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 18px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .all-games-row:last-child {
+      border-bottom: none;
+    }
+
+    .all-games-row:hover {
+      background: rgba(29, 78, 216, 0.04);
+    }
+
+    .all-games-num {
+      flex: 0 0 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(15, 23, 42, 0.06);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .all-games-matchup {
+      flex: 1;
+      min-width: 0;
+      font-size: 14px;
+      font-weight: 700;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .all-games-score {
+      flex: 0 0 auto;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .all-games-winner {
+      flex: 0 0 auto;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(22, 101, 52, 0.09);
+      color: #166534;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 120px;
+    }
+
+    .all-games-link {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .all-games-link:hover {
+      background: #1e293b;
+      text-decoration: none;
+    }
+
+    @media (max-width: 560px) {
+      .all-games-winner { display: none; }
+      .all-games-score  { font-size: 14px; }
+    }
+
     @media (min-width: 860px) {
       .hero-inner {
         grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
@@ -887,6 +980,22 @@
         </ul>
       </article>
     </section>
+
+    <section class="section-shell" aria-labelledby="allGamesTitle">
+      <div class="section-head">
+        <div>
+          <h2 id="allGamesTitle" class="section-title">All Games</h2>
+          <p class="section-copy">Every recorded game for the selected season. Tap a row to view full stats.</p>
+        </div>
+        <span class="panel-badge" id="allGamesCount">0</span>
+      </div>
+
+      <article class="panel">
+        <div id="allGamesList" aria-live="polite">
+          <div class="empty-state">Loading all games...</div>
+        </div>
+      </article>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -933,7 +1042,9 @@
         recentGamesList: document.getElementById("recentGamesList"),
         scoringCount: document.getElementById("scoringCount"),
         reboundsCount: document.getElementById("reboundsCount"),
-        shootingCount: document.getElementById("shootingCount")
+        shootingCount: document.getElementById("shootingCount"),
+        allGamesList: document.getElementById("allGamesList"),
+        allGamesCount: document.getElementById("allGamesCount")
       };
 
       function isPlaceholderConfig(config) {
@@ -1120,6 +1231,8 @@
           var teamTwoWinner = winner === teamTwo;
           var matchupLabel = "Night " + formatNumber(item.night) + " Game " + formatNumber(item.game);
 
+          var gameLink = item.gameId ? "/beersketball-stats/game.html?id=" + encodeURIComponent(item.gameId) : null;
+
           return (
             '<li class="game-item" data-game-id="' + escapeHtml(item.gameId || "") + '">' +
               '<div class="game-topline">' +
@@ -1137,10 +1250,54 @@
                   '<span class="game-team-note' + (teamTwoWinner ? " is-winner" : "") + '">' + (teamTwoWinner ? "Winner" : "Final") + "</span>" +
                 "</div>" +
               "</div>" +
-              '<div class="game-footer">Completed ' + escapeHtml(formatLongDate(item.completedAt)) + "</div>" +
+              '<div class="game-footer">' +
+                "Completed " + escapeHtml(formatLongDate(item.completedAt)) +
+                (gameLink ? ' &nbsp;<a href="' + escapeHtml(gameLink) + '" style="font-weight:800;color:inherit;text-decoration:underline;">View Stats &rarr;</a>' : "") +
+              "</div>" +
             "</li>"
           );
         }).join("");
+      }
+
+      function renderAllGames(gamesData) {
+        var games = Object.keys(gamesData || {}).map(function(id) {
+          return gamesData[id] && gamesData[id].summary ? gamesData[id].summary : null;
+        }).filter(Boolean);
+
+        elements.allGamesCount.textContent = String(games.length);
+
+        if (!games.length) {
+          elements.allGamesList.innerHTML = '<div class="empty-state">No games recorded yet for this season.</div>';
+          return;
+        }
+
+        var byNight = {};
+        games.forEach(function(g) {
+          var n = Number(g.night) || 0;
+          if (!byNight[n]) byNight[n] = [];
+          byNight[n].push(g);
+        });
+
+        var nights = Object.keys(byNight).map(Number).sort(function(a, b) { return a - b; });
+
+        elements.allGamesList.innerHTML = nights.map(function(night) {
+          var rows = byNight[night]
+            .slice()
+            .sort(function(a, b) { return Number(a.game) - Number(b.game); })
+            .map(function(g) {
+              var href = g.gameId ? "/beersketball-stats/game.html?id=" + encodeURIComponent(g.gameId) : null;
+              return (
+                '<div class="all-games-row">' +
+                  '<div class="all-games-num">G' + escapeHtml(String(g.game || "?")) + '</div>' +
+                  '<div class="all-games-matchup">' + escapeHtml(g.teamOne || "Team 1") + ' vs ' + escapeHtml(g.teamTwo || "Team 2") + '</div>' +
+                  '<div class="all-games-score">' + escapeHtml(String(g.teamOneScore || 0)) + ' – ' + escapeHtml(String(g.teamTwoScore || 0)) + '</div>' +
+                  (g.winner ? '<div class="all-games-winner">' + escapeHtml(g.winner) + '</div>' : '') +
+                  (href ? '<a href="' + escapeHtml(href) + '" class="all-games-link">View Stats &rarr;</a>' : '') +
+                '</div>'
+              );
+            }).join('');
+          return '<div class="all-games-night">Night ' + escapeHtml(String(night)) + '</div>' + rows;
+        }).join('');
       }
 
       function populateSeasonSelect(metadata) {
@@ -1178,6 +1335,8 @@
         elements.reboundsBody.innerHTML = '<tr><td colspan="5" class="empty-state">Loading rebound leaders...</td></tr>';
         elements.shootingBody.innerHTML = '<tr><td colspan="5" class="empty-state">Loading shooting leaders...</td></tr>';
         elements.recentGamesList.innerHTML = '<li class="empty-state">Loading recent games...</li>';
+        elements.allGamesList.innerHTML = '<div class="empty-state">Loading all games...</div>';
+        elements.allGamesCount.textContent = "0";
       }
 
       function getSnapshotValue(snapshot) {
@@ -1200,16 +1359,21 @@
         var summaryRef = db.ref("publicStats/seasons/" + state.currentSeason + "/summary");
         var leadersRef = db.ref("publicStats/seasons/" + state.currentSeason + "/leaders");
         var recentGamesRef = db.ref("publicStats/seasons/" + state.currentSeason + "/recentGames");
+        var allGamesRef = db.ref("publicStats/games")
+          .orderByChild("summary/season")
+          .equalTo(Number(state.currentSeason));
 
-        return Promise.all([summaryRef.get(), leadersRef.get(), recentGamesRef.get()])
+        return Promise.all([summaryRef.get(), leadersRef.get(), recentGamesRef.get(), allGamesRef.get()])
           .then(function(results) {
             var summary = getSnapshotValue(results[0]);
             var leaders = getSnapshotValue(results[1]);
             var recentGames = getSnapshotValue(results[2]);
+            var allGamesData = getSnapshotValue(results[3]);
 
             renderSummary(summary, state.currentSeason);
             renderLeaders(leaders);
             renderRecentGames(recentGames);
+            renderAllGames(allGamesData);
             clearStatus();
           })
           .catch(function(error) {
@@ -1217,6 +1381,7 @@
             renderSummary(null, state.currentSeason);
             renderLeaders(null);
             renderRecentGames(null);
+            renderAllGames(null);
           });
       }
 

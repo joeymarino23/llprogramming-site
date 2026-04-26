@@ -1,5 +1,5 @@
 git add .
-git commit -m "Added config info from firebase"
+git commit -m "Added game links"
 git push origin main 
 
 
