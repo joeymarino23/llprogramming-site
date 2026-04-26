@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Player Stats – Beersketball</title>
+
+  <style>
+    :root {
+      --page-max-width: 1400px;
+      --page-padding: 20px;
+      --surface: rgba(255, 255, 255, 0.82);
+      --surface-strong: #ffffff;
+      --bg-top: #eef4ff;
+      --bg-bottom: #f8fafc;
+      --text: #0f172a;
+      --muted: #5b6474;
+      --rule: rgba(15, 23, 42, 0.1);
+      --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      --shadow-soft: 0 12px 24px rgba(15, 23, 42, 0.05);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --accent: #b91c1c;
+      --accent-2: #1d4ed8;
+      --accent-3: #f59e0b;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+      background:
+        radial-gradient(circle at top left, rgba(185, 28, 28, 0.11), transparent 26%),
+        radial-gradient(circle at top right, rgba(29, 78, 216, 0.1), transparent 28%),
+        linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+    }
+
+    a { color: inherit; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button, select { font: inherit; }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .top-nav-inner {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      font-size: 14px;
+      color: #0f172a;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: #334155;
+      padding: 8px 10px;
+      border-radius: 10px;
+    }
+
+    .nav-links a:hover {
+      background: #f1f5f9;
+      text-decoration: none;
+    }
+
+    .hero-shell,
+    .section-shell,
+    .footer-shell {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      padding-left: var(--page-padding);
+      padding-right: var(--page-padding);
+    }
+
+    .hero { padding: 32px 0 22px 0; }
+
+    .hero-panel {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(140deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.88)),
+        linear-gradient(140deg, rgba(185, 28, 28, 0.4), rgba(29, 78, 216, 0.35));
+      box-shadow: 0 30px 80px rgba(15, 23, 42, 0.22);
+      color: #ffffff;
+    }
+
+    .hero-panel::before,
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .hero-panel::before {
+      width: 320px; height: 320px;
+      top: -120px; right: -70px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.26), transparent 70%);
+    }
+
+    .hero-panel::after {
+      width: 280px; height: 280px;
+      bottom: -130px; left: -70px;
+      background: radial-gradient(circle, rgba(185, 28, 28, 0.32), transparent 72%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      padding: 26px;
+      display: grid;
+      gap: 24px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .back-link:hover { color: #ffffff; text-decoration: none; }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .hero-kicker::before {
+      content: "";
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #f59e0b;
+      box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.14);
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: clamp(36px, 6vw, 72px);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+      font-weight: 950;
+    }
+
+    .hero-meta {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      align-self: start;
+    }
+
+    .meta-card {
+      min-height: 100px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .meta-label {
+      display: block;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .meta-value {
+      display: block;
+      margin-top: 8px;
+      font-size: clamp(22px, 3.5vw, 36px);
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .meta-note {
+      margin-top: 6px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 12px;
+    }
+
+    main { padding-bottom: 56px; }
+    .section-shell { margin-top: 24px; }
+
+    .status-banner {
+      display: none;
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--rule);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .status-banner.is-visible { display: block; }
+
+    .status-banner[data-tone="loading"] {
+      border-color: rgba(29, 78, 216, 0.14);
+      background: rgba(219, 234, 254, 0.56);
+    }
+
+    .status-banner[data-tone="error"] {
+      border-color: rgba(185, 28, 28, 0.16);
+      background: rgba(254, 226, 226, 0.72);
+    }
+
+    .status-banner[data-tone="warning"] {
+      border-color: rgba(245, 158, 11, 0.18);
+      background: rgba(254, 243, 199, 0.82);
+    }
+
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .section-copy {
+      margin: 8px 0 0 0;
+      max-width: 65ch;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .table-container {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--rule);
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .table-scroll { overflow-x: auto; }
+
+    .stats-table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: max-content;
+      font-size: 12px;
+    }
+
+    .stats-table th,
+    .stats-table td {
+      padding: 7px 9px;
+      text-align: center;
+      white-space: nowrap;
+      border-right: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .stats-table th:last-child,
+    .stats-table td:last-child { border-right: none; }
+
+    .stats-table thead th {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #1a1a1a;
+      border-bottom: 2px solid rgba(15, 23, 42, 0.15);
+    }
+
+    .stats-table th.col-label,
+    .stats-table td.col-label {
+      text-align: left;
+      position: sticky;
+      left: 0;
+      z-index: 2;
+      min-width: 80px;
+      background: #1e293b;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 12px;
+      border-right: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stats-table thead th.col-label { z-index: 3; }
+
+    .stats-table tr.season-row:nth-child(even) td:not(.col-label) {
+      filter: brightness(0.93);
+    }
+
+    .stats-table tr.season-row:hover td { filter: brightness(0.88); }
+
+    .stats-table tr.career-row td:not(.col-label) {
+      font-weight: 900;
+      border-top: 2px solid rgba(15, 23, 42, 0.18);
+    }
+
+    .stats-table tr.career-row td.col-label {
+      background: #0f172a;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+
+    /* Recent games */
+    .games-panel { padding: 8px; }
+
+    .games-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .game-row-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: var(--surface-strong);
+      border: 1px solid rgba(15, 23, 42, 0.07);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .game-row-item:hover { background: #f8fafc; }
+
+    .game-result-badge {
+      flex: 0 0 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+    }
+
+    .game-result-badge.win  { background: rgba(22,101,52,0.1);  color: #166534; }
+    .game-result-badge.loss { background: rgba(185,28,28,0.09); color: #991b1b; }
+    .game-result-badge.na   { background: rgba(15,23,42,0.06);  color: var(--muted); }
+
+    .game-row-info { flex: 1; min-width: 0; }
+
+    .game-row-id {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .game-row-meta {
+      margin-top: 2px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .game-row-pts {
+      flex: 0 0 auto;
+      text-align: right;
+    }
+
+    .game-row-pts-value {
+      display: block;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .game-row-pts-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .game-row-link {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .game-row-link:hover { background: #1e293b; text-decoration: none; }
+
+    .empty-state {
+      padding: 20px 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .panel {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--rule);
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .site-footer {
+      padding: 0 0 48px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-shell { text-align: center; }
+    .is-hidden { display: none !important; }
+
+    @media (min-width: 860px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+        align-items: end;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .hero-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 560px) {
+      :root { --page-padding: 14px; }
+      .top-nav-inner { padding: 10px 14px; }
+      .hero { padding-top: 18px; }
+      .hero-inner { padding: 20px; }
+      .hero-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .game-row-link { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <header id="site-header" class="top-nav"></header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-shell">
+        <div class="hero-panel">
+          <div class="hero-inner">
+            <div id="heroContent">
+              <a href="/beersketball-stats/" class="back-link">&#8592; Back to Stats</a>
+              <p style="color:rgba(255,255,255,0.65);margin:16px 0 0 0;">Loading player&#8230;</p>
+            </div>
+            <div class="hero-meta" id="heroMeta" aria-label="Career highlights">
+              <div class="meta-card">
+                <span class="meta-label">Games</span>
+                <span class="meta-value" id="metaGP">--</span>
+                <div class="meta-note">Career games played</div>
+              </div>
+              <div class="meta-card">
+                <span class="meta-label">Points</span>
+                <span class="meta-value" id="metaPts">--</span>
+                <div class="meta-note">Career total</div>
+              </div>
+              <div class="meta-card">
+                <span class="meta-label">PPG</span>
+                <span class="meta-value" id="metaPPG">--</span>
+                <div class="meta-note">Points per game</div>
+              </div>
+              <div class="meta-card">
+                <span class="meta-label">FG%</span>
+                <span class="meta-value" id="metaFGPct">--</span>
+                <div class="meta-note">Field goal %</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell">
+      <div id="statusBanner" class="status-banner" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="section-shell is-hidden" id="statsSection" aria-labelledby="statsTitle">
+      <div class="section-head">
+        <div>
+          <h2 id="statsTitle" class="section-title">Season &amp; Career Stats</h2>
+          <p class="section-copy">All recorded seasons, newest first, with career totals at the bottom.</p>
+        </div>
+      </div>
+      <div class="table-container">
+        <div class="table-scroll">
+          <div id="statsTable"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell is-hidden" id="recentSection" aria-labelledby="recentTitle">
+      <div class="section-head">
+        <h2 id="recentTitle" class="section-title">Recent Games</h2>
+      </div>
+      <article class="panel games-panel">
+        <ul id="recentGamesList" class="games-list" aria-live="polite"></ul>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-shell">Created by L&amp;L Programming LLC.</div>
+  </footer>
+
+  <script src="/header.js?v=5"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script>
+    (function () {
+      var firebaseConfig = {
+        apiKey: "AIzaSyCybP5U8jqQdyxo1xYA6HUqRiH3ulhUQYo",
+        authDomain: "beersketball-2347a.firebaseapp.com",
+        databaseURL: "https://beersketball-2347a-default-rtdb.firebaseio.com",
+        projectId: "beersketball-2347a",
+        storageBucket: "beersketball-2347a.firebasestorage.app",
+        messagingSenderId: "404436634275",
+        appId: "1:404436634275:web:9dbf85edd354004f0e8d16",
+        measurementId: "G-PSEMQTX1PV"
+      };
+
+      var COLUMNS = [
+        { header: "Season",  field: "_season",             isLabel: true                              },
+        { header: "GP",      field: "gamesPlayed",         color: null                               },
+        { header: "Total",   field: "points",              color: "#C58EFF"                          },
+        { header: "PPG",     field: "_ppg",                color: "#C58EFF", computed: true          },
+        { header: "SC",      field: "scoredPoints",        color: null                               },
+        { header: "AST",     field: "assists",             color: null                               },
+        { header: "Overall", field: "_overallPct",         color: "#B8B8B8", computed: true          },
+        { header: "RA",      field: "reboundAttempts",     color: "#B8B8B8"                          },
+        { header: "Reb",     field: "reboundsMade",        color: "#B8B8B8"                          },
+        { header: "RB %",    field: "reboundPct",          color: "#FFC58E", isPct: true             },
+        { header: "FTA",     field: "freeThrowAttempts",   color: "#01C5FF"                          },
+        { header: "FT",      field: "freeThrowsMade",      color: null                               },
+        { header: "FT %",    field: "freeThrowPct",        color: "#C5FFFF", isPct: true             },
+        { header: "ATT",     field: "attempts",            color: null                               },
+        { header: "DN",      field: "attemptsMade",        color: "#FFFF8E"                          },
+        { header: "DL %",    field: "attemptPct",          color: "#8EC500", isPct: true             },
+        { header: "UTA",     field: "upTopAttempts",       color: null                               },
+        { header: "UTD",     field: "upTopMade",           color: "#FFFF00"                          },
+        { header: "UT %",    field: "upTopPct",            color: "#8EC500", isPct: true             },
+        { header: "FA",      field: "foulAttempts",        color: null                               },
+        { header: "FL",      field: "foulsMade",           color: "#B8B8B8"                          },
+        { header: "FO %",    field: "foulPct",             color: "#8B8B8B", isPct: true             },
+        { header: "CA",      field: "conversionAttempts",  color: null                               },
+        { header: "CV",      field: "conversionMade",      color: "#FFFF00"                          },
+        { header: "CV %",    field: "conversionPct",       color: "#8EC500", isPct: true             },
+        { header: "S",       field: "singles",             color: "#FFFF00"                          },
+        { header: "2X",      field: "doubles",             color: "#FFC58E"                          },
+        { header: "TRIP",    field: "triples",             color: "#01C5FF"                          },
+        { header: "FIVE",    field: "fives",               color: "#FFB800"                          },
+        { header: "ST",      field: "standees",            color: "#FF00FF"                          },
+        { header: "P",       field: "penalties",           color: "#8EC500"                          },
+        { header: "PA",      field: "penaltyShotsAttempted", color: "#8EC500"                        },
+        { header: "PM",      field: "penaltyShotsMade",    color: "#8EC500"                          },
+        { header: "P %",     field: "penaltyShotPct",      color: null,      isPct: true             },
+        { header: "DC",      field: "deadCans",            color: "#8B8B8B"                          }
+      ];
+
+      var el = {
+        heroContent:     document.getElementById("heroContent"),
+        metaGP:          document.getElementById("metaGP"),
+        metaPts:         document.getElementById("metaPts"),
+        metaPPG:         document.getElementById("metaPPG"),
+        metaFGPct:       document.getElementById("metaFGPct"),
+        statusBanner:    document.getElementById("statusBanner"),
+        statsSection:    document.getElementById("statsSection"),
+        statsTable:      document.getElementById("statsTable"),
+        recentSection:   document.getElementById("recentSection"),
+        recentGamesList: document.getElementById("recentGamesList")
+      };
+
+      function getParam(name) {
+        return new URLSearchParams(window.location.search).get(name) || "";
+      }
+
+      function esc(val) {
+        return String(val)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function fmtDate(iso) {
+        if (!iso) return "";
+        var d = new Date(iso);
+        if (isNaN(d.getTime())) return "";
+        return new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(d);
+      }
+
+      function setStatus(msg, tone) {
+        el.statusBanner.textContent = msg;
+        el.statusBanner.dataset.tone = tone || "loading";
+        el.statusBanner.classList.add("is-visible");
+      }
+
+      function clearStatus() {
+        el.statusBanner.classList.remove("is-visible");
+      }
+
+      function cellValue(col, row) {
+        if (col.isLabel) return esc(row._label || "--");
+        if (col.field === "_ppg") {
+          var gp = Number(row.gamesPlayed) || 0;
+          var pts = Number(row.points) || 0;
+          return gp === 0 ? "--" : (pts / gp).toFixed(1);
+        }
+        if (col.field === "_overallPct") {
+          var att = Number(row.reboundAttempts) || 0;
+          var made = Number(row.reboundsMade) || 0;
+          return att === 0 ? "--" : (made / att * 100).toFixed(1) + "%";
+        }
+        var val = row[col.field];
+        if (val === null || val === undefined || val === "") return "--";
+        if (col.isPct) {
+          var n = Number(val);
+          return isNaN(n) ? "--" : n.toFixed(1) + "%";
+        }
+        return esc(String(val));
+      }
+
+      function buildStatsTable(career, seasons) {
+        var thead = COLUMNS.map(function (col) {
+          var cls = col.isLabel ? ' class="col-label"' : "";
+          var bg  = col.color ? "background:" + col.color + ";" : col.isLabel ? "" : "background:#e2e8f0;";
+          return "<th" + cls + ' style="' + bg + '">' + esc(col.header) + "</th>";
+        }).join("");
+
+        function makeRow(rowData, rowClass) {
+          return "<tr class=\"" + rowClass + "\">" + COLUMNS.map(function (col) {
+            var val = cellValue(col, rowData);
+            if (col.isLabel) return '<td class="col-label">' + val + "</td>";
+            var style = col.color ? ' style="background:' + col.color + ';"' : "";
+            return "<td" + style + ">" + val + "</td>";
+          }).join("") + "</tr>";
+        }
+
+        var seasonKeys = Object.keys(seasons || {}).map(Number).sort(function (a, b) { return b - a; });
+        var rows = seasonKeys.map(function (n) {
+          return makeRow(Object.assign({ _label: "S" + n }, seasons[n] || {}), "season-row");
+        }).join("");
+
+        if (career) {
+          rows += makeRow(Object.assign({ _label: "Career" }, career), "career-row");
+        }
+
+        if (!rows) {
+          rows = '<tr><td colspan="' + COLUMNS.length + '" class="empty-state">No stats available.</td></tr>';
+        }
+
+        return "<table class=\"stats-table\"><thead><tr>" + thead + "</tr></thead><tbody>" + rows + "</tbody></table>";
+      }
+
+      function renderRecentGames(recentGames) {
+        var items = [];
+        if (Array.isArray(recentGames)) {
+          items = recentGames;
+        } else if (recentGames && typeof recentGames === "object") {
+          items = Object.values(recentGames);
+        }
+
+        items = items.filter(Boolean).sort(function (a, b) {
+          if (a.season !== b.season) return Number(b.season) - Number(a.season);
+          if (a.night  !== b.night)  return Number(b.night)  - Number(a.night);
+          return Number(b.game) - Number(a.game);
+        });
+
+        if (!items.length) {
+          el.recentGamesList.innerHTML = '<li class="empty-state">No recent games recorded.</li>';
+          return;
+        }
+
+        el.recentGamesList.innerHTML = items.map(function (g) {
+          var won = g.result === "W" || g.won === true;
+          var lost = g.result === "L" || g.won === false;
+          var badgeClass = won ? "win" : lost ? "loss" : "na";
+          var badgeText  = won ? "W"  : lost ? "L"  : "–";
+          var label = "S" + esc(String(g.season || "?")) + "  ·  Night " + esc(String(g.night || "?")) + "  Game " + esc(String(g.game || "?"));
+          var href  = g.gameId ? "/beersketball-stats/game.html?id=" + encodeURIComponent(g.gameId) : null;
+          var pts   = g.points !== undefined && g.points !== null ? String(g.points) : "--";
+
+          return (
+            '<li class="game-row-item">' +
+              '<div class="game-result-badge ' + badgeClass + '">' + badgeText + "</div>" +
+              '<div class="game-row-info">' +
+                '<div class="game-row-id">' + label + "</div>" +
+                (g.team ? '<div class="game-row-meta">' + esc(g.team) + "</div>" : "") +
+              "</div>" +
+              '<div class="game-row-pts">' +
+                '<span class="game-row-pts-value">' + esc(pts) + "</span>" +
+                '<span class="game-row-pts-label">pts</span>' +
+              "</div>" +
+              (href ? '<a href="' + esc(href) + '" class="game-row-link">View &rarr;</a>' : "") +
+            "</li>"
+          );
+        }).join("");
+      }
+
+      function renderPlayer(data) {
+        var profile     = data.profile  || {};
+        var career      = data.career   || null;
+        var seasons     = data.seasons  || {};
+        var recentGames = data.recentGames || null;
+
+        var name = profile.displayName || profile.name || "Unknown Player";
+        var gp   = career ? (Number(career.gamesPlayed) || 0) : 0;
+        var pts  = career ? (Number(career.points)      || 0) : 0;
+        var ppg  = gp > 0 ? (pts / gp).toFixed(1) : "--";
+        var fgp  = career && career.attemptPct != null ? Number(career.attemptPct).toFixed(1) + "%" : "--";
+        var since = profile.createdAt ? fmtDate(profile.createdAt) : "";
+
+        document.title = esc(name) + " – Beersketball Stats";
+
+        el.heroContent.innerHTML =
+          '<a href="/beersketball-stats/" class="back-link">&#8592; Back to Stats</a>' +
+          '<div class="hero-kicker">Player Profile' + (since ? " &nbsp;·&nbsp; Since " + esc(since) : "") + "</div>" +
+          '<h1 class="hero-title">' + esc(name) + "</h1>";
+
+        el.metaGP.textContent    = gp > 0 ? String(gp) : "--";
+        el.metaPts.textContent   = pts > 0 ? String(pts) : "--";
+        el.metaPPG.textContent   = ppg;
+        el.metaFGPct.textContent = fgp;
+
+        el.statsTable.innerHTML = buildStatsTable(career, seasons);
+        el.statsSection.classList.remove("is-hidden");
+
+        if (recentGames) {
+          renderRecentGames(recentGames);
+          el.recentSection.classList.remove("is-hidden");
+        }
+
+        clearStatus();
+      }
+
+      function init() {
+        var playerId = getParam("id");
+
+        if (!playerId) {
+          setStatus("No player ID in URL. Add ?id={playerId} to the URL.", "warning");
+          return;
+        }
+
+        setStatus("Loading player stats…", "loading");
+        firebase.initializeApp(firebaseConfig);
+
+        firebase.database().ref("publicStats/players/" + playerId).get()
+          .then(function (snap) {
+            var data = snap && typeof snap.val === "function" ? snap.val() : null;
+            if (!data) throw new Error("Player not found.");
+            renderPlayer(data);
+          })
+          .catch(function (err) {
+            setStatus("Error: " + (err && err.message ? err.message : "Unknown error."), "error");
+          });
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>

@@ -587,7 +587,7 @@
 
         function playerRow(p) {
           return "<tr class=\"player-row\">" + COLUMNS.map(function (col) {
-            if (col.isName) return '<td class="col-name">' + esc(p.displayName || p._id) + "</td>";
+            if (col.isName) return '<td class="col-name"><a href="/beersketball-stats/player.html?id=' + esc(p._id) + '" style="font-weight:700;text-decoration:none;color:inherit;" onmouseover="this.style.textDecoration=\'underline\'" onmouseout="this.style.textDecoration=\'none\'">' + esc(p.displayName || p._id) + "</a></td>";
             var style = col.color ? ' style="background:' + col.color + ';"' : "";
             return "<td" + style + ">" + cellValue(col, p) + "</td>";
           }).join("") + "</tr>";
