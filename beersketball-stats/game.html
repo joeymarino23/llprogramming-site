@@ -391,6 +391,19 @@
 
     .period-section { margin-top: 24px; }
 
+    .gamecast-pre {
+      margin: 0;
+      padding: 20px 24px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--text);
+      background: transparent;
+      overflow-x: auto;
+    }
+
     .site-footer {
       padding: 0 0 48px 0;
       color: var(--muted);
@@ -450,6 +463,15 @@
     </section>
 
     <div id="periodsContainer" class="section-shell"></div>
+
+    <section class="section-shell is-hidden" id="gamecastSection" aria-labelledby="gamecastTitle">
+      <div class="section-head">
+        <h2 id="gamecastTitle" class="section-title">Gamecast</h2>
+      </div>
+      <div class="table-container">
+        <pre id="gamecastContent" class="gamecast-pre"></pre>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -515,9 +537,11 @@
       var el = {
         heroGameContent: document.getElementById("heroGameContent"),
         statusBanner:    document.getElementById("statusBanner"),
-        fullGameSection: document.getElementById("fullGameSection"),
-        fullGameTable:   document.getElementById("fullGameTable"),
-        periodsContainer: document.getElementById("periodsContainer")
+        fullGameSection:  document.getElementById("fullGameSection"),
+        fullGameTable:    document.getElementById("fullGameTable"),
+        periodsContainer: document.getElementById("periodsContainer"),
+        gamecastSection:  document.getElementById("gamecastSection"),
+        gamecastContent:  document.getElementById("gamecastContent")
       };
 
       function getParam(name) {
@@ -669,6 +693,11 @@
           }).join("");
         } else {
           el.periodsContainer.innerHTML = "";
+        }
+
+        if (data.gamecast) {
+          el.gamecastContent.textContent = data.gamecast;
+          el.gamecastSection.classList.remove("is-hidden");
         }
 
         clearStatus();

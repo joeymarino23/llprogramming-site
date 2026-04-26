@@ -1,5 +1,5 @@
 git add .
-git commit -m "Fixed recent games from player page"
+git commit -m "Added gamecast to each game summary"
 git push origin main 
 
 
