@@ -1,5 +1,5 @@
 git add .
-git commit -m "Modified Beersketball elements and footer"
+git commit -m "Added config info from firebase"
 git push origin main 
 
 
