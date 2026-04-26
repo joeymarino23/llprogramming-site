@@ -729,7 +729,11 @@
           var lost = g.result === "L" || g.won === false;
           var badgeClass = won ? "win" : lost ? "loss" : "na";
           var badgeText  = won ? "W"  : lost ? "L"  : "–";
-          var label = "S" + esc(String(g.season || "?")) + "  ·  Night " + esc(String(g.night || "?")) + "  Game " + esc(String(g.game || "?"));
+          var parts  = (g.gameId || "").split("-");
+          var season = g.season != null ? g.season : (parts[0] || "?");
+          var night  = g.night  != null ? g.night  : (parts[1] || "?");
+          var game   = g.game   != null ? g.game   : (parts[2] || "?");
+          var label  = "S" + esc(String(season)) + "  ·  Night " + esc(String(night)) + "  Game " + esc(String(game));
           var href  = g.gameId ? "/beersketball-stats/game.html?id=" + encodeURIComponent(g.gameId) : null;
           var pts   = g.points !== undefined && g.points !== null ? String(g.points) : "--";
 
