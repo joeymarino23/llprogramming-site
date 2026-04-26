@@ -588,7 +588,8 @@
         function playerRow(p) {
           return "<tr class=\"player-row\">" + COLUMNS.map(function (col) {
             if (col.isName) return '<td class="col-name">' + esc(p.displayName || p._id) + "</td>";
-            return "<td>" + cellValue(col, p) + "</td>";
+            var style = col.color ? ' style="background:' + col.color + ';"' : "";
+            return "<td" + style + ">" + cellValue(col, p) + "</td>";
           }).join("") + "</tr>";
         }
 

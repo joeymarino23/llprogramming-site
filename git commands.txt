@@ -1,5 +1,5 @@
 git add .
-git commit -m "Added game links"
+git commit -m "Added color to the games stats"
 git push origin main 
 
 
