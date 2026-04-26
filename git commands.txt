@@ -1,5 +1,5 @@
 git add .
-git commit -m "Removed header"
+git commit -m "Fixed recent games from player page"
 git push origin main 
 
 
