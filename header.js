@@ -18,6 +18,7 @@
     { href: "/star", label: "STAR" },
     { href: "/playbukharo", label: "Play Bukharo!" },
     { href: "/echoesofthegoetia", label: "Echoes of the Goetia" },
+    { href: "/spellharvest", label: "Spellharvest" },
   ];
 
   // ============================================

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#091014">
+  <title>Privacy Information – Spellharvest</title>
+  <meta name="description" content="Privacy information for Spellharvest, an upcoming iPhone RPG from L&amp;L Programming LLC.">
+  <link rel="canonical" href="https://llprogramming.com/privacy/spellharvest">
+
+  <style>
+    :root {
+      --page-max-width: 900px;
+      --night: #091014;
+      --panel: #131b1c;
+      --sage: #85b993;
+      --parchment: #e0cfa6;
+      --text: #f7f5ef;
+      --muted: #b2b8b5;
+      --rule: rgba(224, 207, 166, 0.22);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.65;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 5%, rgba(133, 185, 147, 0.1), transparent 24rem),
+        #030607;
+    }
+
+    a { color: inherit; }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(7, 13, 16, 0.9);
+      border-bottom: 1px solid rgba(133, 185, 147, 0.16);
+      backdrop-filter: blur(16px);
+    }
+
+    .top-nav-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      flex: 0 0 auto;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 4px 8px;
+    }
+
+    .nav-links a {
+      padding: 7px 9px;
+      border-radius: 9px;
+      color: var(--muted);
+      font-size: 13px;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+      background: rgba(133, 185, 147, 0.13);
+    }
+
+    .content {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      padding: clamp(64px, 10vw, 112px) 20px;
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--sage);
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 10px 0 0;
+      font-size: clamp(42px, 7vw, 72px);
+      letter-spacing: -0.045em;
+      line-height: 1;
+    }
+
+    .status-card {
+      margin-top: 36px;
+      padding: clamp(24px, 5vw, 46px);
+      border: 1px solid var(--rule);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(19, 27, 28, 0.98), rgba(9, 16, 20, 0.98));
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+    }
+
+    .status-card h2 {
+      margin: 0;
+      color: var(--parchment);
+      font-size: clamp(26px, 4vw, 36px);
+      line-height: 1.15;
+    }
+
+    .status-card p { margin: 16px 0 0; color: var(--muted); }
+
+    .status-card a {
+      color: var(--sage);
+      font-weight: 750;
+      text-underline-offset: 4px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 30px;
+      color: var(--sage);
+      font-weight: 750;
+      text-underline-offset: 4px;
+    }
+
+    @media (max-width: 720px) {
+      .top-nav-inner { display: block; padding: 10px 14px; }
+      .brand { display: block; margin-bottom: 8px; }
+      .nav-links {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+      }
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links a { flex: 0 0 auto; }
+      .content { padding-inline: 14px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header id="site-header" class="top-nav"></header>
+
+  <main class="content">
+    <p class="eyebrow">Spellharvest</p>
+    <h1>Privacy information</h1>
+
+    <section class="status-card" aria-labelledby="privacy-status">
+      <h2 id="privacy-status">Coming soon</h2>
+      <p>Spellharvest is still in development and is not yet available on the App Store. Its privacy policy will be published here before release, once the app's final features and data practices are complete.</p>
+      <p>Questions may be sent to <a href="mailto:llprogramming@yahoo.com">llprogramming@yahoo.com</a>.</p>
+    </section>
+
+    <a class="back-link" href="/spellharvest">Back to Spellharvest</a>
+  </main>
+
+  <script src="/header.js?v=6"></script>
+</body>
+</html>

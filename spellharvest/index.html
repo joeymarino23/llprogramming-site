@@ -1,0 +1,1213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#091014">
+  <title>Spellharvest – Dark Fantasy Incremental RPG for iPhone</title>
+  <meta name="description" content="Harvest wild magic, craft a six-spell loadout, and follow a missing mentor across ten dark-fantasy regions in Spellharvest, coming soon to iPhone.">
+  <link rel="canonical" href="https://llprogramming.com/spellharvest">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Spellharvest">
+  <meta property="og:description" content="Harvest wild magic. Craft your spellbook. Find your missing mentor.">
+  <meta property="og:url" content="https://llprogramming.com/spellharvest">
+  <meta property="og:image" content="https://llprogramming.com/assets/spellharvest/icon/app-icon.png">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Spellharvest app icon showing a luminous magical seed framed by a silver crescent blade">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Spellharvest">
+  <meta name="twitter:description" content="Harvest wild magic. Craft your spellbook. Find your missing mentor.">
+  <meta name="twitter:image" content="https://llprogramming.com/assets/spellharvest/icon/app-icon.png">
+
+  <style>
+    :root {
+      --page-max-width: 1160px;
+      --night: #091014;
+      --night-deep: #030607;
+      --panel: #131b1c;
+      --panel-soft: #172321;
+      --moss: #2e4f40;
+      --sage: #85b993;
+      --sage-bright: #a5d5af;
+      --parchment: #e0cfa6;
+      --ember: #e06d38;
+      --text: #f7f5ef;
+      --muted: #b2b8b5;
+      --rule: rgba(224, 207, 166, 0.22);
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.46);
+      --radius: 26px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      color-scheme: dark;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(133, 185, 147, 0.09), transparent 24rem),
+        radial-gradient(circle at 92% 38%, rgba(224, 109, 56, 0.07), transparent 28rem),
+        var(--night-deep);
+    }
+
+    body.has-dialog { overflow: hidden; }
+
+    img { max-width: 100%; }
+
+    a { color: inherit; }
+
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .skip-link {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 200;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: var(--night);
+      background: var(--sage-bright);
+      transform: translateY(-150%);
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(7, 13, 16, 0.88);
+      border-bottom: 1px solid rgba(133, 185, 147, 0.16);
+      backdrop-filter: blur(16px);
+    }
+
+    .top-nav-inner {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      flex: 0 0 auto;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 4px 8px;
+    }
+
+    .nav-links a {
+      padding: 7px 9px;
+      border-radius: 9px;
+      color: var(--muted);
+      font-size: 13px;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover,
+    .nav-links a[aria-current="page"] {
+      color: var(--text);
+      background: rgba(133, 185, 147, 0.13);
+    }
+
+    .nav-links a:focus-visible,
+    .button:focus-visible,
+    .gallery-card:focus-visible,
+    .dialog-button:focus-visible,
+    .privacy-link:focus-visible {
+      outline: 3px solid var(--sage-bright);
+      outline-offset: 3px;
+    }
+
+    .container {
+      width: min(100% - 40px, var(--page-max-width));
+      margin-inline: auto;
+    }
+
+    .hero {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      padding: clamp(64px, 9vw, 112px) 0 clamp(76px, 10vw, 132px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(3, 6, 7, 0.98) 0%, rgba(3, 6, 7, 0.72) 48%, rgba(3, 6, 7, 0.34) 100%),
+        url("/assets/spellharvest/screenshots/webp/07-world-map-1242.webp") center 32% / cover;
+      opacity: 0.46;
+      filter: saturate(0.82);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 55%, var(--night-deep));
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.72fr);
+      align-items: center;
+      gap: clamp(44px, 7vw, 88px);
+    }
+
+    .hero-brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .app-icon {
+      width: 88px;
+      height: 88px;
+      border: 1px solid rgba(165, 213, 175, 0.35);
+      border-radius: 22px;
+      box-shadow: 0 14px 42px rgba(29, 217, 194, 0.16);
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--sage);
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      margin: 4px 0 0;
+      font-size: clamp(46px, 7vw, 82px);
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 0.95;
+    }
+
+    .hero-tagline {
+      max-width: 700px;
+      margin: 0;
+      color: var(--parchment);
+      font-size: clamp(25px, 3.2vw, 40px);
+      font-weight: 760;
+      letter-spacing: -0.025em;
+      line-height: 1.14;
+    }
+
+    .hero-copy {
+      max-width: 670px;
+      margin: 24px 0 0;
+      color: #d1d5d2;
+      font-size: clamp(16px, 1.7vw, 19px);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 12px 20px;
+      border: 1px solid rgba(165, 213, 175, 0.4);
+      border-radius: 999px;
+      color: var(--text);
+      background: var(--moss);
+      font-weight: 780;
+      text-decoration: none;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
+    }
+
+    .button-muted {
+      color: var(--sage-bright);
+      cursor: default;
+    }
+
+    .privacy-link {
+      color: var(--muted);
+      font-size: 14px;
+      text-underline-offset: 4px;
+    }
+
+    .phone-frame {
+      position: relative;
+      width: min(100%, 390px);
+      margin-inline: auto;
+      padding: 9px;
+      border: 1px solid rgba(224, 207, 166, 0.35);
+      border-radius: 34px;
+      background: linear-gradient(145deg, #2b3534, #060909 62%);
+      box-shadow: var(--shadow), 0 0 70px rgba(133, 185, 147, 0.11);
+      transform: rotate(1.2deg);
+    }
+
+    .phone-frame::before {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      top: 14px;
+      left: 50%;
+      width: 74px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateX(-50%);
+    }
+
+    .phone-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 27px;
+      background: #000;
+    }
+
+    .section {
+      padding: clamp(74px, 10vw, 128px) 0;
+    }
+
+    .section + .section { border-top: 1px solid rgba(224, 207, 166, 0.12); }
+
+    .section-heading {
+      max-width: 780px;
+      margin-bottom: 42px;
+    }
+
+    .section-heading.center {
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .section-title {
+      margin: 10px 0 0;
+      font-size: clamp(34px, 5vw, 58px);
+      letter-spacing: -0.038em;
+      line-height: 1.02;
+    }
+
+    .section-lede {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.75vw, 19px);
+    }
+
+    .loop-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 48px;
+    }
+
+    .loop-card {
+      position: relative;
+      min-height: 190px;
+      padding: 24px;
+      overflow: hidden;
+      border: 1px solid var(--rule);
+      border-radius: 20px;
+      background: linear-gradient(155deg, rgba(23, 35, 33, 0.95), rgba(10, 15, 16, 0.95));
+    }
+
+    .loop-number {
+      display: block;
+      color: var(--ember);
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: 0.18em;
+    }
+
+    .loop-card h3 {
+      margin: 18px 0 8px;
+      color: var(--parchment);
+      font-size: 24px;
+    }
+
+    .loop-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .image-pair {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(18px, 3vw, 34px);
+      align-items: start;
+    }
+
+    .editorial-image {
+      margin: 0;
+      padding: 12px;
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      background: rgba(19, 27, 28, 0.82);
+      box-shadow: var(--shadow);
+    }
+
+    .editorial-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: calc(var(--radius) - 10px);
+    }
+
+    .editorial-image figcaption {
+      padding: 13px 5px 2px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .image-pair .editorial-image:nth-child(2) { margin-top: 72px; }
+
+    .feature-layout {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(40px, 7vw, 90px);
+    }
+
+    .feature-layout.reverse { grid-template-columns: minmax(0, 1fr) minmax(280px, 0.82fr); }
+
+    .feature-layout.reverse .feature-media { order: 2; }
+
+    .feature-copy h2 {
+      margin: 10px 0 0;
+      font-size: clamp(34px, 4.5vw, 56px);
+      letter-spacing: -0.035em;
+      line-height: 1.04;
+    }
+
+    .feature-copy > p:not(.eyebrow) {
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      padding: 0;
+      margin: 26px 0 0;
+      list-style: none;
+    }
+
+    .feature-list li {
+      padding: 11px 13px;
+      border: 1px solid rgba(133, 185, 147, 0.18);
+      border-radius: 12px;
+      color: #d6dbd8;
+      background: rgba(46, 79, 64, 0.18);
+      font-size: 14px;
+    }
+
+    .region-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0;
+      margin: 27px 0 0;
+      list-style: none;
+    }
+
+    .region-list li {
+      padding: 7px 11px;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      color: var(--parchment);
+      background: rgba(224, 207, 166, 0.06);
+      font-size: 13px;
+    }
+
+    .media-stack {
+      position: relative;
+      min-height: 710px;
+    }
+
+    .media-stack .editorial-image {
+      position: absolute;
+      width: min(76%, 420px);
+    }
+
+    .media-stack .editorial-image:first-child { top: 0; left: 0; }
+
+    .media-stack .editorial-image:last-child {
+      right: 0;
+      bottom: 0;
+      width: min(62%, 340px);
+    }
+
+    .story-panel {
+      padding: clamp(24px, 4vw, 48px);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 90% 0%, rgba(133, 185, 147, 0.11), transparent 20rem),
+        linear-gradient(145deg, rgba(23, 35, 33, 0.96), rgba(10, 15, 16, 0.96));
+    }
+
+    .progression-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .progression-card {
+      overflow: hidden;
+      border: 1px solid var(--rule);
+      border-radius: 22px;
+      background: var(--panel);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.25);
+    }
+
+    .progression-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .progression-card-copy { padding: 22px; }
+
+    .progression-card h3 {
+      margin: 0;
+      color: var(--parchment);
+      font-size: 21px;
+    }
+
+    .progression-card p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .gallery-track {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(250px, 300px);
+      gap: 18px;
+      overflow-x: auto;
+      padding: 8px 4px 24px;
+      scroll-snap-type: x mandatory;
+      scrollbar-color: var(--moss) transparent;
+      overscroll-behavior-inline: contain;
+    }
+
+    .gallery-card {
+      scroll-snap-align: start;
+      overflow: hidden;
+      border: 1px solid var(--rule);
+      border-radius: 20px;
+      color: inherit;
+      background: var(--panel);
+      text-decoration: none;
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+
+    .gallery-card:hover {
+      border-color: rgba(165, 213, 175, 0.62);
+      transform: translateY(-4px);
+    }
+
+    .gallery-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .gallery-caption { display: block; padding: 17px 18px 19px; }
+
+    .gallery-caption strong { display: block; color: var(--parchment); }
+
+    .gallery-caption span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .gallery-card.secondary { opacity: 0.78; }
+
+    .gallery-note {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .closing {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      padding: clamp(90px, 13vw, 156px) 0;
+      text-align: center;
+    }
+
+    .closing::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background:
+        linear-gradient(rgba(3, 6, 7, 0.62), rgba(3, 6, 7, 0.92)),
+        url("/assets/spellharvest/screenshots/webp/10-harvest-beyond-1242.webp") center 48% / cover;
+      filter: saturate(0.75);
+    }
+
+    .closing h2 {
+      max-width: 820px;
+      margin: 10px auto 0;
+      font-size: clamp(40px, 6vw, 70px);
+      letter-spacing: -0.045em;
+      line-height: 1;
+    }
+
+    .closing p:not(.eyebrow) {
+      max-width: 650px;
+      margin: 22px auto 0;
+      color: #d8d9d4;
+      font-size: 18px;
+    }
+
+    .closing .button-row { justify-content: center; }
+
+    .site-footer {
+      padding: 30px 0 38px;
+      border-top: 1px solid var(--rule);
+      color: var(--muted);
+      background: #030506;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 14px 28px;
+    }
+
+    .footer-inner p { margin: 0; }
+
+    .footer-inner a { text-underline-offset: 4px; }
+
+    .lightbox {
+      width: min(94vw, 1120px);
+      max-height: 92vh;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid rgba(224, 207, 166, 0.35);
+      border-radius: 24px;
+      color: var(--text);
+      background: #080d0f;
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.78);
+    }
+
+    .lightbox::backdrop {
+      background: rgba(0, 0, 0, 0.86);
+      backdrop-filter: blur(8px);
+    }
+
+    .lightbox-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 250px;
+      max-height: 92vh;
+    }
+
+    .lightbox-media {
+      display: grid;
+      min-height: 0;
+      place-items: center;
+      padding: 18px;
+      overflow: auto;
+      background: #000;
+    }
+
+    .lightbox-media img {
+      display: block;
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      max-height: calc(92vh - 36px);
+    }
+
+    .lightbox-sidebar {
+      display: flex;
+      flex-direction: column;
+      padding: 22px;
+      border-left: 1px solid var(--rule);
+    }
+
+    .lightbox-counter {
+      margin: 0;
+      color: var(--sage);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .lightbox-title {
+      margin: 12px 0 0;
+      color: var(--parchment);
+      font-size: 25px;
+      line-height: 1.1;
+    }
+
+    .lightbox-description {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .dialog-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 28px;
+    }
+
+    .dialog-button {
+      min-height: 44px;
+      border: 1px solid var(--rule);
+      border-radius: 11px;
+      color: var(--text);
+      background: var(--panel-soft);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 760;
+    }
+
+    .dialog-close {
+      grid-column: 1 / -1;
+      background: var(--moss);
+    }
+
+    @media (max-width: 900px) {
+      .hero-layout { grid-template-columns: 1fr 330px; gap: 34px; }
+      .loop-grid { grid-template-columns: repeat(2, 1fr); }
+      .feature-layout,
+      .feature-layout.reverse { grid-template-columns: minmax(250px, 0.75fr) minmax(0, 1fr); gap: 38px; }
+      .progression-grid { gap: 14px; }
+      .progression-card-copy { padding: 18px; }
+    }
+
+    @media (max-width: 720px) {
+      .top-nav-inner {
+        display: block;
+        padding: 10px 14px;
+      }
+
+      .brand { display: block; margin-bottom: 8px; }
+
+      .nav-links {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+      }
+
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links a { flex: 0 0 auto; }
+
+      .container { width: min(100% - 28px, var(--page-max-width)); }
+
+      .hero { padding-top: 52px; }
+
+      .hero::before {
+        background:
+          linear-gradient(rgba(3, 6, 7, 0.85), rgba(3, 6, 7, 0.68)),
+          url("/assets/spellharvest/screenshots/webp/07-world-map-621.webp") center top / cover;
+      }
+
+      .hero-layout { grid-template-columns: 1fr; }
+      .hero-content { text-align: center; }
+      .hero-brand { justify-content: center; }
+      .hero-copy { margin-inline: auto; }
+      .button-row { justify-content: center; }
+      .phone-frame { width: min(86vw, 360px); transform: none; }
+
+      .image-pair,
+      .feature-layout,
+      .feature-layout.reverse,
+      .progression-grid { grid-template-columns: 1fr; }
+
+      .image-pair .editorial-image:nth-child(2) { margin-top: 0; }
+      .feature-layout.reverse .feature-media { order: initial; }
+      .feature-copy { text-align: left; }
+
+      .media-stack {
+        display: grid;
+        grid-template-columns: 1fr 0.8fr;
+        align-items: end;
+        min-height: 0;
+      }
+
+      .media-stack .editorial-image,
+      .media-stack .editorial-image:first-child,
+      .media-stack .editorial-image:last-child {
+        position: static;
+        width: 100%;
+      }
+
+      .media-stack .editorial-image:last-child { margin-left: -28px; }
+
+      .progression-grid {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(255px, 82vw);
+        overflow-x: auto;
+        padding-bottom: 18px;
+        scroll-snap-type: x mandatory;
+      }
+
+      .progression-card { scroll-snap-align: start; }
+
+      .lightbox-layout { display: block; overflow-y: auto; }
+      .lightbox-media { min-height: 58vh; }
+      .lightbox-media img { max-height: 70vh; }
+      .lightbox-sidebar { border-top: 1px solid var(--rule); border-left: 0; }
+      .dialog-controls { margin-top: 16px; }
+    }
+
+    @media (max-width: 480px) {
+      .app-icon { width: 72px; height: 72px; border-radius: 18px; }
+      .hero-brand { gap: 14px; }
+      .hero-title { font-size: clamp(39px, 13vw, 54px); }
+      .hero-tagline { font-size: 27px; }
+      .loop-grid { grid-template-columns: 1fr; }
+      .loop-card { min-height: 0; }
+      .feature-list { grid-template-columns: 1fr; }
+      .media-stack { grid-template-columns: 1fr; gap: 18px; }
+      .media-stack .editorial-image:last-child { width: 78%; margin: -70px 0 0 auto; }
+      .gallery-track { grid-auto-columns: minmax(235px, 82vw); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .gallery-card:hover { transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header id="site-header" class="top-nav"></header>
+
+  <main id="main-content">
+    <section class="hero" aria-labelledby="spellharvest-title">
+      <div class="container hero-layout">
+        <div class="hero-content">
+          <div class="hero-brand">
+            <picture>
+              <source srcset="/assets/spellharvest/icon/app-icon-256.webp 256w, /assets/spellharvest/icon/app-icon-512.webp 512w" type="image/webp">
+              <img class="app-icon" src="/assets/spellharvest/icon/app-icon.png" width="1024" height="1024" alt="Spellharvest app icon">
+            </picture>
+            <div>
+              <p class="eyebrow">Coming soon to iPhone</p>
+              <h1 class="hero-title" id="spellharvest-title">Spellharvest</h1>
+            </div>
+          </div>
+
+          <p class="hero-tagline">Harvest wild magic. Craft your spellbook. Find your missing mentor.</p>
+          <p class="hero-copy">A portrait iPhone incremental RPG where every creature leaves behind the ingredients for your next spell. Build a six-spell loadout, trigger elemental reactions, and follow a story across ten hand-painted regions.</p>
+
+          <div class="button-row">
+            <span class="button button-muted" aria-label="Spellharvest is coming soon to the App Store">Coming soon</span>
+            <a class="privacy-link" href="/privacy/spellharvest">Privacy information</a>
+          </div>
+        </div>
+
+        <div class="phone-frame">
+          <picture>
+            <source srcset="/assets/spellharvest/screenshots/webp/01-boss-battle-621.webp 621w, /assets/spellharvest/screenshots/webp/01-boss-battle-1242.webp 1242w" type="image/webp">
+            <img src="/assets/spellharvest/screenshots/original/01-boss-battle.png" width="1242" height="2688" alt="Spellharvest battle against the Corrupted Treant boss, with spell choices and enemy intent visible" fetchpriority="high" decoding="async">
+          </picture>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="gameplay-loop-title">
+      <div class="container">
+        <div class="section-heading center">
+          <p class="eyebrow">A living cycle of magic</p>
+          <h2 class="section-title" id="gameplay-loop-title">Every victory changes what you can cast next.</h2>
+          <p class="section-lede">Ingredients recovered from dangerous creatures become permanent spells, deeper mastery, and decisive empowered casts.</p>
+        </div>
+
+        <div class="loop-grid" aria-label="Core gameplay loop">
+          <article class="loop-card">
+            <span class="loop-number">01</span>
+            <h3>Battle</h3>
+            <p>Read enemy intent, manage cooldowns, and turn elemental weaknesses into spell reactions.</p>
+          </article>
+          <article class="loop-card">
+            <span class="loop-number">02</span>
+            <h3>Harvest</h3>
+            <p>Defeated creatures leave behind arcane dust, living components, and rare magical patterns.</p>
+          </article>
+          <article class="loop-card">
+            <span class="loop-number">03</span>
+            <h3>Craft</h3>
+            <p>Craft a discovered spell once to learn it permanently, then shape a loadout for the road ahead.</p>
+          </article>
+          <article class="loop-card">
+            <span class="loop-number">04</span>
+            <h3>Master</h3>
+            <p>Invest your harvest in lasting upgrades or spend it to force the right spell at the right moment.</p>
+          </article>
+        </div>
+
+        <div class="image-pair">
+          <figure class="editorial-image">
+            <picture>
+              <source srcset="/assets/spellharvest/screenshots/webp/02-spellbook-621.webp 621w, /assets/spellharvest/screenshots/webp/02-spellbook-1242.webp 1242w" type="image/webp">
+              <img src="/assets/spellharvest/screenshots/original/02-spellbook.png" width="1242" height="2688" loading="lazy" decoding="async" alt="Spellbook showing a six-spell loadout and discovered spells">
+            </picture>
+            <figcaption>One protected at-will spell. Five freely chosen spells. A loadout that grows with you.</figcaption>
+          </figure>
+
+          <figure class="editorial-image">
+            <picture>
+              <source srcset="/assets/spellharvest/screenshots/webp/05-inventory-621.webp 621w, /assets/spellharvest/screenshots/webp/05-inventory-1242.webp 1242w" type="image/webp">
+              <img src="/assets/spellharvest/screenshots/original/05-inventory.png" width="1242" height="2688" loading="lazy" decoding="async" alt="Inventory filled with harvested magical components including arcane dust, spider silk, and elemental essences">
+            </picture>
+            <figcaption>Every component is part reward, part recipe, and part tactical resource.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="campaign-title">
+      <div class="container feature-layout">
+        <figure class="editorial-image feature-media">
+          <picture>
+            <source srcset="/assets/spellharvest/screenshots/webp/10-harvest-beyond-621.webp 621w, /assets/spellharvest/screenshots/webp/10-harvest-beyond-1242.webp 1242w" type="image/webp">
+            <img src="/assets/spellharvest/screenshots/original/10-harvest-beyond.png" width="1242" height="2688" loading="lazy" decoding="async" alt="The Harvest Beyond final campaign region, showing a branching path toward The Empty Hand">
+          </picture>
+          <figcaption>The journey reaches the edge of the world—and asks what harvesting magic truly means.</figcaption>
+        </figure>
+
+        <div class="feature-copy">
+          <p class="eyebrow">A complete campaign</p>
+          <h2 id="campaign-title">Ten regions. Two hundred encounters. One living trail of magic.</h2>
+          <p>Follow Master Elowen from the first blackened seed to The Harvest Beyond. Each region brings new landmarks, checkpoints, bosses, battle mechanics, and Replay Hunts after completion.</p>
+          <ul class="region-list" aria-label="Campaign regions">
+            <li>Whispering Woods</li>
+            <li>Frozen Peaks</li>
+            <li>Embercrag Range</li>
+            <li>The Gloamvault</li>
+            <li>The Meridian Bloom</li>
+            <li>The Starless Reach</li>
+            <li>The Unwritten Shore</li>
+            <li>The Answering Wild</li>
+            <li>The Pilgrim Sky</li>
+            <li>The Harvest Beyond</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="combat-title">
+      <div class="container feature-layout reverse">
+        <div class="media-stack feature-media" aria-label="Tactical battle and campaign screenshots">
+          <figure class="editorial-image">
+            <picture>
+              <source srcset="/assets/spellharvest/screenshots/webp/01-boss-battle-621.webp 621w, /assets/spellharvest/screenshots/webp/01-boss-battle-1242.webp 1242w" type="image/webp">
+              <img src="/assets/spellharvest/screenshots/original/01-boss-battle.png" width="1242" height="2688" loading="lazy" decoding="async" alt="Boss battle with status effects, visible enemy intent, and elemental spell choices">
+            </picture>
+            <figcaption>Plan around visible intent and multi-phase bosses.</figcaption>
+          </figure>
+          <figure class="editorial-image">
+            <picture>
+              <source srcset="/assets/spellharvest/screenshots/webp/03-frozen-peaks-621.webp 621w, /assets/spellharvest/screenshots/webp/03-frozen-peaks-1242.webp 1242w" type="image/webp">
+              <img src="/assets/spellharvest/screenshots/original/03-frozen-peaks.png" width="1242" height="2688" loading="lazy" decoding="async" alt="Frozen Peaks region map approaching The Pale Wyrm boss encounter">
+            </picture>
+            <figcaption>Prepare for each region's distinct threats.</figcaption>
+          </figure>
+        </div>
+
+        <div class="feature-copy">
+          <p class="eyebrow">Tactical spell combat</p>
+          <h2 id="combat-title">The enemy tells you what comes next. What you do with that knowledge is yours.</h2>
+          <p>Build around cooldowns, status effects, elemental affinities, and reactions. Save a spell for the next phase, spend ingredients to cast it now, or trust your at-will attack while the rest of your spellbook recovers.</p>
+          <ul class="feature-list">
+            <li>Six-slot spell loadouts</li>
+            <li>Visible enemy intent</li>
+            <li>Elemental reactions</li>
+            <li>Weaknesses and resistances</li>
+            <li>Status-driven tactics</li>
+            <li>Multi-phase region bosses</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="story-title">
+      <div class="container feature-layout">
+        <figure class="editorial-image feature-media">
+          <picture>
+            <source srcset="/assets/spellharvest/screenshots/webp/09-field-journal-621.webp 621w, /assets/spellharvest/screenshots/webp/09-field-journal-1242.webp 1242w" type="image/webp">
+            <img src="/assets/spellharvest/screenshots/original/09-field-journal.png" width="1242" height="2688" loading="lazy" decoding="async" alt="Field Journal preserving recovered story entries from the Whispering Woods">
+          </picture>
+          <figcaption>Every recovered page remains available in the Field Journal.</figcaption>
+        </figure>
+
+        <div class="feature-copy story-panel">
+          <p class="eyebrow">A story that stays with you</p>
+          <h2 id="story-title">Follow the notes your mentor left behind.</h2>
+          <p>Trace Master Elowen through skippable region introductions, checkpoint discoveries, boss revelations, and region endings. Every recovered page is preserved in the Field Journal, so the story remains available without interrupting Replay Hunts.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="progression-title">
+      <div class="container">
+        <div class="section-heading center">
+          <p class="eyebrow">Build a lasting character</p>
+          <h2 class="section-title" id="progression-title">What you learn, earn, and uncover travels with you.</h2>
+          <p class="section-lede">Spell mastery, equipment, harvested collections, persistent statistics, and three independent local save slots carry your choices across the campaign and into the postgame.</p>
+        </div>
+
+        <div class="progression-grid">
+          <article class="progression-card">
+            <picture>
+              <source srcset="/assets/spellharvest/screenshots/webp/08-wayfarers-cart-621.webp 621w, /assets/spellharvest/screenshots/webp/08-wayfarers-cart-1242.webp 1242w" type="image/webp">
+              <img src="/assets/spellharvest/screenshots/original/08-wayfarers-cart.png" width="1242" height="2688" loading="lazy" decoding="async" alt="Mara the Wayfarer's traveling merchant cart with supplies and equipment for sale">
+            </picture>
+            <div class="progression-card-copy">
+              <h3>The Wayfarer's Cart</h3>
+              <p>Find rotating supplies, rare bundles, and fully identified equipment on the road.</p>
+            </div>
+          </article>
+
+          <article class="progression-card">
+            <picture>
+              <source srcset="/assets/spellharvest/screenshots/webp/06-character-progression-621.webp 621w, /assets/spellharvest/screenshots/webp/06-character-progression-1242.webp 1242w" type="image/webp">
+              <img src="/assets/spellharvest/screenshots/original/06-character-progression.png" width="1242" height="2688" loading="lazy" decoding="async" alt="Level 25 Spellcaster character screen showing equipment and persistent combat statistics">
+            </picture>
+            <div class="progression-card-copy">
+              <h3>Your Spellcaster</h3>
+              <p>Grow in power, equip affixed gear, and keep a record of the journey you survived.</p>
+            </div>
+          </article>
+
+          <article class="progression-card">
+            <picture>
+              <source srcset="/assets/spellharvest/screenshots/webp/05-inventory-621.webp 621w, /assets/spellharvest/screenshots/webp/05-inventory-1242.webp 1242w" type="image/webp">
+              <img src="/assets/spellharvest/screenshots/original/05-inventory.png" width="1242" height="2688" loading="lazy" decoding="async" alt="Spellharvest inventory showing a growing collection of magical components">
+            </picture>
+            <div class="progression-card-copy">
+              <h3>A Harvest Kept</h3>
+              <p>Carry components forward for new recipes, mastery capstones, and empowered casting.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="gallery-title">
+      <div class="container">
+        <div class="section-heading center">
+          <p class="eyebrow">Inside Spellharvest</p>
+          <h2 class="section-title" id="gallery-title">The road from first harvest to final spell.</h2>
+          <p class="section-lede">Explore combat, spellcraft, story, world maps, equipment, and the journey's furthest reaches.</p>
+        </div>
+
+        <div class="gallery-track" aria-label="Spellharvest screenshot gallery">
+          <a class="gallery-card" href="/assets/spellharvest/screenshots/original/01-boss-battle.png" data-gallery-index="0">
+            <img src="/assets/spellharvest/screenshots/webp/01-boss-battle-621.webp" width="621" height="1344" loading="lazy" decoding="async" alt="Corrupted Treant boss battle">
+            <span class="gallery-caption"><strong>Face the Heartwood</strong><span>Read the field, prepare your reactions, and survive the boss.</span></span>
+          </a>
+          <a class="gallery-card" href="/assets/spellharvest/screenshots/original/10-harvest-beyond.png" data-gallery-index="1">
+            <img src="/assets/spellharvest/screenshots/webp/10-harvest-beyond-621.webp" width="621" height="1344" loading="lazy" decoding="async" alt="The Harvest Beyond region map">
+            <span class="gallery-caption"><strong>Reach the edge</strong><span>Follow one trail of magic across ten complete regions.</span></span>
+          </a>
+          <a class="gallery-card" href="/assets/spellharvest/screenshots/original/02-spellbook.png" data-gallery-index="2">
+            <img src="/assets/spellharvest/screenshots/webp/02-spellbook-621.webp" width="621" height="1344" loading="lazy" decoding="async" alt="Spellbook and spell loadout">
+            <span class="gallery-caption"><strong>Shape your spellbook</strong><span>Choose five spells around a protected at-will attack.</span></span>
+          </a>
+          <a class="gallery-card" href="/assets/spellharvest/screenshots/original/09-field-journal.png" data-gallery-index="3">
+            <img src="/assets/spellharvest/screenshots/webp/09-field-journal-621.webp" width="621" height="1344" loading="lazy" decoding="async" alt="Field Journal story archive">
+            <span class="gallery-caption"><strong>Keep every discovery</strong><span>Return to recovered pages whenever you choose.</span></span>
+          </a>
+          <a class="gallery-card" href="/assets/spellharvest/screenshots/original/03-frozen-peaks.png" data-gallery-index="4">
+            <img src="/assets/spellharvest/screenshots/webp/03-frozen-peaks-621.webp" width="621" height="1344" loading="lazy" decoding="async" alt="Frozen Peaks campaign map">
+            <span class="gallery-caption"><strong>Cross the Frozen Peaks</strong><span>Conquer landmarks and approach a region boss.</span></span>
+          </a>
+          <a class="gallery-card" href="/assets/spellharvest/screenshots/original/08-wayfarers-cart.png" data-gallery-index="5">
+            <img src="/assets/spellharvest/screenshots/webp/08-wayfarers-cart-621.webp" width="621" height="1344" loading="lazy" decoding="async" alt="The Wayfarer's Cart merchant">
+            <span class="gallery-caption"><strong>Meet the Wayfarer</strong><span>Trade for supplies, bundles, and equipment.</span></span>
+          </a>
+          <a class="gallery-card" href="/assets/spellharvest/screenshots/original/05-inventory.png" data-gallery-index="6">
+            <img src="/assets/spellharvest/screenshots/webp/05-inventory-621.webp" width="621" height="1344" loading="lazy" decoding="async" alt="Harvested component inventory">
+            <span class="gallery-caption"><strong>Gather the impossible</strong><span>Every creature can leave part of your next spell behind.</span></span>
+          </a>
+          <a class="gallery-card" href="/assets/spellharvest/screenshots/original/06-character-progression.png" data-gallery-index="7">
+            <img src="/assets/spellharvest/screenshots/webp/06-character-progression-621.webp" width="621" height="1344" loading="lazy" decoding="async" alt="Character progression and equipment">
+            <span class="gallery-caption"><strong>Carry your progress</strong><span>Build power, equipment, mastery, and persistent records.</span></span>
+          </a>
+          <a class="gallery-card secondary" href="/assets/spellharvest/screenshots/original/04-tactical-battle.png" data-gallery-index="8">
+            <img src="/assets/spellharvest/screenshots/webp/04-tactical-battle-621.webp" width="621" height="1344" loading="lazy" decoding="async" alt="Early tactical battle against a Giant Rat">
+            <span class="gallery-caption"><strong>Begin with one choice</strong><span>Learn the rhythm of intent, cooldowns, and survival.</span></span>
+          </a>
+          <a class="gallery-card secondary" href="/assets/spellharvest/screenshots/original/07-world-map.png" data-gallery-index="9">
+            <img src="/assets/spellharvest/screenshots/webp/07-world-map-621.webp" width="621" height="1344" loading="lazy" decoding="async" alt="Beginning of the Whispering Woods world map">
+            <span class="gallery-caption"><strong>Enter the Whispering Woods</strong><span>The first path begins at the forest gate.</span></span>
+          </a>
+        </div>
+        <p class="gallery-note">Swipe or scroll to explore. Select any image for a full-size view.</p>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="closing-title">
+      <div class="container">
+        <p class="eyebrow">The first path is waiting</p>
+        <h2 id="closing-title">What will you harvest from magic?</h2>
+        <p>Begin in the Whispering Woods, shape a spellbook from what you find, and carry your choices to the edge of the world.</p>
+        <div class="button-row">
+          <span class="button button-muted" aria-label="Spellharvest is coming soon to the App Store">Coming soon</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 L&amp;L Programming LLC</p>
+      <p><a href="/privacy/spellharvest">Spellharvest privacy information</a> · <a href="mailto:llprogramming@yahoo.com">Support</a></p>
+    </div>
+  </footer>
+
+  <dialog class="lightbox" id="screenshot-dialog" aria-labelledby="lightbox-title">
+    <div class="lightbox-layout">
+      <div class="lightbox-media">
+        <img id="lightbox-image" src="/assets/spellharvest/screenshots/webp/01-boss-battle-1242.webp" width="1242" height="2688" alt="">
+      </div>
+      <div class="lightbox-sidebar">
+        <p class="lightbox-counter" id="lightbox-counter">Screenshot 1 of 10</p>
+        <h2 class="lightbox-title" id="lightbox-title">Face the Heartwood</h2>
+        <p class="lightbox-description" id="lightbox-description">Read the field, prepare your reactions, and survive the boss.</p>
+        <div class="dialog-controls">
+          <button class="dialog-button" id="lightbox-previous" type="button" aria-label="Previous screenshot">Previous</button>
+          <button class="dialog-button" id="lightbox-next" type="button" aria-label="Next screenshot">Next</button>
+          <button class="dialog-button dialog-close" id="lightbox-close" type="button">Close gallery</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="/header.js?v=6"></script>
+  <script>
+    (function () {
+      const dialog = document.getElementById("screenshot-dialog");
+      const galleryLinks = Array.from(document.querySelectorAll("[data-gallery-index]"));
+      const dialogImage = document.getElementById("lightbox-image");
+      const dialogTitle = document.getElementById("lightbox-title");
+      const dialogDescription = document.getElementById("lightbox-description");
+      const dialogCounter = document.getElementById("lightbox-counter");
+      const previousButton = document.getElementById("lightbox-previous");
+      const nextButton = document.getElementById("lightbox-next");
+      const closeButton = document.getElementById("lightbox-close");
+      let currentIndex = 0;
+      let opener = null;
+
+      function detailsFor(index) {
+        const link = galleryLinks[index];
+        return {
+          image: link.querySelector("img"),
+          title: link.querySelector("strong").textContent,
+          description: link.querySelector(".gallery-caption span").textContent
+        };
+      }
+
+      function showScreenshot(index) {
+        currentIndex = (index + galleryLinks.length) % galleryLinks.length;
+        const details = detailsFor(currentIndex);
+        const sourceName = details.image.getAttribute("src").replace("-621.webp", "-1242.webp");
+        dialogImage.src = sourceName;
+        dialogImage.alt = details.image.alt;
+        dialogTitle.textContent = details.title;
+        dialogDescription.textContent = details.description;
+        dialogCounter.textContent = "Screenshot " + (currentIndex + 1) + " of " + galleryLinks.length;
+      }
+
+      function openDialog(index, sourceLink) {
+        opener = sourceLink;
+        showScreenshot(index);
+        document.body.classList.add("has-dialog");
+        dialog.showModal();
+        closeButton.focus();
+      }
+
+      for (const link of galleryLinks) {
+        link.addEventListener("click", function (event) {
+          if (typeof dialog.showModal !== "function") { return; }
+          event.preventDefault();
+          openDialog(Number(link.dataset.galleryIndex), link);
+        });
+      }
+
+      previousButton.addEventListener("click", function () { showScreenshot(currentIndex - 1); });
+      nextButton.addEventListener("click", function () { showScreenshot(currentIndex + 1); });
+      closeButton.addEventListener("click", function () { dialog.close(); });
+
+      dialog.addEventListener("click", function (event) {
+        if (event.target === dialog) { dialog.close(); }
+      });
+
+      dialog.addEventListener("keydown", function (event) {
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          showScreenshot(currentIndex - 1);
+        } else if (event.key === "ArrowRight") {
+          event.preventDefault();
+          showScreenshot(currentIndex + 1);
+        }
+      });
+
+      dialog.addEventListener("close", function () {
+        document.body.classList.remove("has-dialog");
+        if (opener) { opener.focus(); }
+      });
+    })();
+  </script>
+</body>
+</html>
