@@ -10,15 +10,9 @@
   // ============================================
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/conquestofshadows", label: "Conquest of Shadows" },
-    { href: "/waroftheheavens", label: "War of the Heavens" },
-    { href: "/supernaturalslayer", label: "Supernatural Slayer" },
-    { href: "/birdvsevil", label: "Bird vs Evil" },
-    { href: "/mermaidmaths", label: "Mermaid Maths" },
-    { href: "/star", label: "STAR" },
-    { href: "/playbukharo", label: "Play Bukharo!" },
-    { href: "/echoesofthegoetia", label: "Echoes of the Goetia" },
-    { href: "/spellharvest", label: "Spellharvest" },
+    { href: "/#work", label: "Work" },
+    { href: "/#capabilities", label: "Capabilities" },
+    { href: "/#contact", label: "Support" },
   ];
 
   // ============================================
@@ -40,7 +34,7 @@
   // Build complete header HTML
   const headerHtml = `
     <div class="top-nav-inner">
-      <div class="brand">L&L PROGRAMMING LLC</div>
+      <a class="brand" href="/" aria-label="L&amp;L Programming home">L&amp;L PROGRAMMING LLC</a>
       <nav class="nav-links" aria-label="Site">
         ${linksHtml}
       </nav>
