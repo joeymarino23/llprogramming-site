@@ -3,416 +3,464 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Conquest of Shadows</title>
+  <meta name="theme-color" content="#08090a">
+  <title>Conquest of Shadows – Build, Command, Conquer</title>
+  <meta name="description" content="Build your stronghold, command powerful armies, and conquer a living 100×100 hex world in Conquest of Shadows for iPhone and iPad.">
+  <link rel="canonical" href="https://llprogramming.com/conquestofshadows">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Conquest of Shadows">
+  <meta property="og:description" content="Build your stronghold. Command your armies. Dominate a living world.">
+  <meta property="og:url" content="https://llprogramming.com/conquestofshadows">
+  <meta property="og:image" content="https://llprogramming.com/assets/conquestofshadows/icon/app-icon.png">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="A shadowed ruler overlooking the dark realm of Conquest of Shadows">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Conquest of Shadows">
+  <meta name="twitter:description" content="Build your stronghold. Command your armies. Dominate a living world.">
+  <meta name="twitter:image" content="https://llprogramming.com/assets/conquestofshadows/icon/app-icon.png">
 
   <style>
     :root {
-      --page-max-width: 1040px;
-      --hero-bg: #1f2636;
-      --text: #111827;
-      --muted: #6b7280;
-      --rule: #e5e7eb;
-      --bullet: #9ca3af;
-      --card: #ffffff;
-      --shadow: 0 8px 24px rgba(17, 24, 39, 0.08);
-      --radius: 12px;
+      --page-max-width: 1180px;
+      --ink: #08090a;
+      --deep: #030404;
+      --coal: #101214;
+      --iron: #1a1e21;
+      --soft-iron: #22272a;
+      --bone: #e7e1d3;
+      --steel: #abb4b8;
+      --muted: #929a9d;
+      --bronze: #a96c31;
+      --gold: #e0ad4f;
+      --blue: #4487ef;
+      --red: #d74848;
+      --rule: rgba(224, 173, 79, 0.22);
+      --steel-rule: rgba(197, 206, 209, 0.18);
+      --shadow: 0 26px 75px rgba(0, 0, 0, 0.55);
+      --radius: 24px;
     }
 
     * { box-sizing: border-box; }
-
+    html { scroll-behavior: smooth; color-scheme: dark; }
     body {
       margin: 0;
-      font-family: -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      color: var(--text);
-      background: #ffffff;
+      min-width: 320px;
+      overflow-x: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       line-height: 1.6;
+      color: var(--bone);
+      background: radial-gradient(circle at 12% 8%, rgba(169,108,49,.09), transparent 28rem), radial-gradient(circle at 90% 40%, rgba(68,135,239,.055), transparent 30rem), var(--deep);
+    }
+    body.has-dialog { overflow: hidden; }
+    img { max-width: 100%; }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .skip-link { position: fixed; top: 10px; left: 10px; z-index: 200; padding: 10px 14px; border-radius: 10px; color: var(--ink); background: var(--gold); transform: translateY(-160%); }
+    .skip-link:focus { transform: translateY(0); }
+
+    .top-nav { position: sticky; top: 0; z-index: 50; background: rgba(8,9,10,.9); border-bottom: 1px solid rgba(224,173,79,.15); backdrop-filter: blur(16px); }
+    .top-nav-inner { max-width: var(--page-max-width); margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { flex: 0 0 auto; color: var(--bone); font-size: 14px; font-weight: 900; letter-spacing: .04em; white-space: nowrap; }
+    .nav-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px 8px; }
+    .nav-links a { padding: 7px 9px; border-radius: 9px; color: var(--steel); font-size: 13px; text-decoration: none; }
+    .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--bone); background: rgba(224,173,79,.11); }
+    .nav-links a:focus-visible, .button:focus-visible, .gallery-card:focus-visible, .dialog-button:focus-visible, .text-link:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+    .container { width: min(100% - 40px, var(--page-max-width)); margin-inline: auto; }
+    .eyebrow { margin: 0; color: var(--gold); font-size: 13px; font-weight: 850; letter-spacing: .21em; text-transform: uppercase; }
+
+    .hero { position: relative; isolation: isolate; overflow: hidden; padding: clamp(62px,9vw,112px) 0 clamp(110px,13vw,170px); }
+    .hero::before { content: ""; position: absolute; z-index: -2; inset: 0; background: linear-gradient(90deg, rgba(3,4,4,.98) 0%, rgba(3,4,4,.9) 44%, rgba(3,4,4,.38) 100%), url("/assets/conquestofshadows/icon/app-icon-1024.webp") right 42% center / min(66vw,900px) auto no-repeat; }
+    .hero::after { content: ""; position: absolute; z-index: -1; inset: 0; background: radial-gradient(circle at 70% 48%, transparent 0 23%, rgba(3,4,4,.32) 50%, rgba(3,4,4,.9) 100%), linear-gradient(to bottom, transparent 60%, var(--deep)); }
+    .hero-content { max-width: 690px; padding: clamp(20px,4vw,48px) 0; }
+    .hero-brand { display: flex; align-items: center; gap: 18px; margin-bottom: 28px; }
+    .app-icon { width: 88px; height: 88px; border: 1px solid rgba(224,173,79,.38); border-radius: 22px; box-shadow: 0 14px 45px rgba(0,0,0,.55); }
+    .hero-title { max-width: 720px; margin: 5px 0 0; font-size: clamp(47px,7.2vw,84px); font-weight: 900; letter-spacing: -.047em; line-height: .93; text-wrap: balance; }
+    .hero-tagline { max-width: 680px; margin: 27px 0 0; font-size: clamp(25px,3.2vw,39px); font-weight: 760; letter-spacing: -.03em; line-height: 1.12; text-wrap: balance; }
+    .hero-copy { max-width: 640px; margin: 22px 0 0; color: #c3c9ca; font-size: clamp(16px,1.7vw,19px); }
+    .button-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 30px; }
+    .button { display: inline-flex; min-height: 50px; align-items: center; justify-content: center; padding: 12px 21px; border: 1px solid rgba(224,173,79,.5); border-radius: 999px; color: #1a1209; background: linear-gradient(135deg,#f0c46a,#bd7935); font-weight: 830; text-decoration: none; box-shadow: 0 13px 34px rgba(0,0,0,.4); }
+    .text-link { color: var(--steel); font-size: 14px; text-underline-offset: 4px; }
+
+    .war-table-wrap { position: relative; z-index: 2; margin-top: clamp(-94px,-7vw,-55px); }
+    .war-table { margin: 0; padding: 10px; border: 1px solid rgba(224,173,79,.3); border-radius: 26px; background: linear-gradient(145deg,#2a2d2d,#090a0a 68%); box-shadow: var(--shadow), 0 0 70px rgba(224,173,79,.055); }
+    .war-table img { display: block; width: 100%; height: auto; border-radius: 17px; }
+    .war-table figcaption { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 20px; padding: 15px 9px 6px; color: var(--steel); font-size: 14px; }
+    .territory-key, .key-item { display: inline-flex; align-items: center; }
+    .territory-key { flex-wrap: wrap; gap: 14px; }
+    .key-item { gap: 7px; }
+    .key-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--blue); }
+    .key-dot.enemy { background: var(--red); }
+
+    .section { padding: clamp(76px,10vw,128px) 0; }
+    .section + .section { border-top: 1px solid rgba(197,206,209,.1); }
+    .section-heading { max-width: 800px; margin-bottom: 44px; }
+    .section-heading.center { margin-inline: auto; text-align: center; }
+    .section-title, .feature-copy h2 { margin: 10px 0 0; font-size: clamp(35px,5vw,59px); letter-spacing: -.042em; line-height: 1.02; text-wrap: balance; }
+    .section-lede { margin: 18px 0 0; color: var(--steel); font-size: clamp(16px,1.75vw,19px); }
+
+    .strategy-loop { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+    .strategy-card { min-height: 205px; padding: 24px; border: 1px solid var(--steel-rule); border-radius: 20px; background: linear-gradient(145deg,rgba(34,39,42,.96),rgba(12,14,15,.96)); box-shadow: 0 14px 38px rgba(0,0,0,.24); }
+    .strategy-number { color: var(--bronze); font-size: 13px; font-weight: 850; letter-spacing: .17em; }
+    .strategy-card h3 { margin: 22px 0 8px; color: var(--gold); font-size: 25px; }
+    .strategy-card p { margin: 0; color: var(--steel); font-size: 14px; }
+
+    .feature-layout { display: grid; grid-template-columns: minmax(0,1.08fr) minmax(300px,.72fr); align-items: center; gap: clamp(42px,7vw,92px); }
+    .feature-layout.reverse { grid-template-columns: minmax(300px,.72fr) minmax(0,1.08fr); }
+    .feature-layout.reverse .feature-media { order: 2; }
+    .feature-copy h2 { font-size: clamp(35px,4.8vw,58px); }
+    .feature-copy > p:not(.eyebrow) { margin: 20px 0 0; color: var(--steel); font-size: 17px; }
+    .feature-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; padding: 0; margin: 27px 0 0; list-style: none; }
+    .feature-list li { padding: 11px 13px; border: 1px solid var(--steel-rule); border-radius: 12px; color: #cdd2d3; background: rgba(34,39,42,.7); font-size: 14px; }
+    .editorial-image { margin: 0; padding: 10px; border: 1px solid var(--rule); border-radius: var(--radius); background: linear-gradient(145deg,#272a2a,#090a0a 70%); box-shadow: var(--shadow); }
+    .editorial-image img { display: block; width: 100%; height: auto; border-radius: calc(var(--radius) - 9px); }
+    .editorial-image figcaption { padding: 13px 6px 3px; color: var(--muted); font-size: 14px; }
+
+    .overworld-section { position: relative; isolation: isolate; overflow: hidden; }
+    .overworld-section::before { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg,rgba(3,4,4,.96),rgba(3,4,4,.83) 52%,rgba(3,4,4,.92)), url("/assets/conquestofshadows/screenshots/webp/screen-01-1600.webp") center / cover; opacity: .52; filter: saturate(.68); }
+    .world-stat { display: inline-flex; align-items: baseline; gap: 10px; margin-top: 28px; padding: 16px 19px; border: 1px solid rgba(68,135,239,.36); border-radius: 15px; background: rgba(10,16,26,.8); }
+    .world-stat strong { color: var(--blue); font-size: 30px; line-height: 1; }
+    .world-stat span { color: var(--steel); font-size: 14px; }
+
+    .stronghold-grid { display: grid; grid-template-columns: 1.08fr .92fr; align-items: start; gap: clamp(20px,3vw,34px); }
+    .stronghold-grid .editorial-image:last-child { margin-top: 74px; }
+    .mission-strip { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 27px 0 0; list-style: none; }
+    .mission-strip li { padding: 8px 12px; border: 1px solid var(--rule); border-radius: 999px; color: var(--gold); background: rgba(169,108,49,.09); font-size: 13px; font-weight: 750; }
+    .army-stack { display: grid; gap: 20px; }
+    .army-stack .editorial-image:last-child { width: 78%; margin: -64px 0 0 auto; }
+
+    .adventure-grid { display: grid; grid-template-columns: repeat(12,1fr); gap: 18px; }
+    .adventure-card { grid-column: span 6; overflow: hidden; border: 1px solid var(--steel-rule); border-radius: 22px; background: var(--coal); box-shadow: 0 17px 45px rgba(0,0,0,.3); }
+    .adventure-card.wide { grid-column: span 7; }
+    .adventure-card.narrow { grid-column: span 5; }
+    .adventure-card img { display: block; width: 100%; height: auto; }
+    .adventure-copy { padding: 22px; }
+    .adventure-copy h3 { margin: 0; color: var(--gold); font-size: 22px; }
+    .adventure-copy p { margin: 8px 0 0; color: var(--steel); font-size: 14px; }
+
+    .gallery-track { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px,380px); gap: 18px; overflow-x: auto; padding: 8px 4px 24px; scroll-snap-type: x mandatory; scrollbar-color: var(--bronze) transparent; overscroll-behavior-inline: contain; }
+    .gallery-card { scroll-snap-align: start; overflow: hidden; border: 1px solid var(--steel-rule); border-radius: 19px; color: inherit; background: var(--coal); text-decoration: none; transition: transform 180ms ease,border-color 180ms ease; }
+    .gallery-card:hover { border-color: rgba(224,173,79,.58); transform: translateY(-4px); }
+    .gallery-card img { display: block; width: 100%; height: auto; background: #000; }
+    .gallery-caption { display: block; padding: 17px 18px 19px; }
+    .gallery-caption strong { display: block; color: var(--gold); }
+    .gallery-caption span { display: block; margin-top: 3px; color: var(--muted); font-size: 13px; }
+    .gallery-note { margin: 18px 0 0; color: var(--muted); font-size: 14px; text-align: center; }
+
+    .closing { position: relative; isolation: isolate; overflow: hidden; padding: clamp(94px,13vw,160px) 0; text-align: center; }
+    .closing::before { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(rgba(3,4,4,.52),rgba(3,4,4,.92)), url("/assets/conquestofshadows/icon/app-icon-1024.webp") center 44% / cover; filter: saturate(.74); }
+    .closing h2 { max-width: 830px; margin: 10px auto 0; font-size: clamp(41px,6vw,72px); letter-spacing: -.047em; line-height: 1; text-wrap: balance; }
+    .closing p:not(.eyebrow) { max-width: 690px; margin: 22px auto 0; color: #d0d4d3; font-size: 18px; }
+    .closing .button-row { justify-content: center; }
+
+    .site-footer { padding: 30px 0 38px; border-top: 1px solid var(--rule); color: var(--muted); background: #030404; font-size: 14px; }
+    .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px 28px; }
+    .footer-inner p { margin: 0; }
+    .footer-inner a { text-underline-offset: 4px; }
+
+    .lightbox { width: min(95vw,1220px); max-height: 92vh; padding: 0; overflow: hidden; border: 1px solid rgba(224,173,79,.35); border-radius: 23px; color: var(--bone); background: #090a0a; box-shadow: 0 30px 100px rgba(0,0,0,.8); }
+    .lightbox::backdrop { background: rgba(0,0,0,.88); backdrop-filter: blur(8px); }
+    .lightbox-layout { display: grid; grid-template-rows: minmax(0,1fr) auto; max-height: 92vh; }
+    .lightbox-media { display: grid; min-height: 0; place-items: center; padding: 18px; overflow: auto; background: #000; }
+    .lightbox-media img { display: block; width: auto; max-width: 100%; height: auto; max-height: calc(92vh - 150px); }
+    .lightbox-footer { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 20px; padding: 18px 20px; border-top: 1px solid var(--rule); }
+    .lightbox-counter { margin: 0; color: var(--bronze); font-size: 12px; font-weight: 850; letter-spacing: .15em; text-transform: uppercase; }
+    .lightbox-title { margin: 4px 0 0; color: var(--gold); font-size: 21px; line-height: 1.15; }
+    .lightbox-description { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+    .dialog-controls { display: flex; gap: 8px; }
+    .dialog-button { min-height: 43px; padding: 8px 14px; border: 1px solid var(--steel-rule); border-radius: 10px; color: var(--bone); background: var(--soft-iron); cursor: pointer; font: inherit; font-weight: 760; }
+    .dialog-close { color: #1a1209; background: var(--gold); }
+
+    @media (max-width: 900px) {
+      .strategy-loop { grid-template-columns: repeat(2,1fr); }
+      .feature-layout, .feature-layout.reverse { grid-template-columns: 1fr; gap: 42px; }
+      .feature-layout.reverse .feature-media { order: initial; }
+      .feature-media { max-width: 760px; margin-inline: auto; }
+      .adventure-card.wide, .adventure-card.narrow { grid-column: span 6; }
     }
 
-    a { color: inherit; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    /* ===== Top Nav ===== */
-    .top-nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--rule);
+    @media (max-width: 720px) {
+      .top-nav-inner { display: block; padding: 10px 14px; }
+      .brand { display: block; margin-bottom: 8px; }
+      .nav-links { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links a { flex: 0 0 auto; }
+      .container { width: min(100% - 28px,var(--page-max-width)); }
+      .hero { padding-top: 46px; padding-bottom: 145px; }
+      .hero::before { background: linear-gradient(rgba(3,4,4,.64),rgba(3,4,4,.9)), url("/assets/conquestofshadows/icon/app-icon-1024.webp") center top / cover; }
+      .hero-content { margin-inline: auto; text-align: center; }
+      .hero-brand, .button-row { justify-content: center; }
+      .hero-copy { margin-inline: auto; }
+      .war-table-wrap { margin-top: -105px; }
+      .war-table figcaption { display: block; }
+      .territory-key { margin-top: 7px; }
+      .stronghold-grid { grid-template-columns: 1fr; }
+      .stronghold-grid .editorial-image:last-child { width: 86%; margin: -46px 0 0 auto; }
+      .adventure-grid { grid-auto-flow: column; grid-auto-columns: minmax(280px,84vw); overflow-x: auto; padding-bottom: 18px; scroll-snap-type: x mandatory; }
+      .adventure-card, .adventure-card.wide, .adventure-card.narrow { grid-column: auto; scroll-snap-align: start; }
+      .gallery-track { grid-auto-columns: minmax(280px,84vw); }
+      .lightbox-footer { grid-template-columns: 1fr; }
+      .dialog-button { flex: 1; }
     }
 
-    .top-nav-inner {
-      max-width: var(--page-max-width);
-      margin: 0 auto;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
+    @media (max-width: 480px) {
+      .app-icon { width: 72px; height: 72px; border-radius: 18px; }
+      .hero-brand { gap: 14px; }
+      .hero-title { font-size: clamp(42px,13vw,58px); }
+      .hero-tagline { font-size: 27px; }
+      .strategy-loop { grid-template-columns: 1fr; }
+      .strategy-card { min-height: 0; }
+      .feature-list { grid-template-columns: 1fr; }
+      .army-stack .editorial-image:last-child { width: 88%; margin-top: -38px; }
+      .dialog-controls { display: grid; grid-template-columns: 1fr 1fr; }
+      .dialog-close { grid-column: 1 / -1; }
     }
 
-    .brand {
-      font-weight: 900;
-      letter-spacing: 0.02em;
-      font-size: 14px;
-      color: #0f172a;
-      white-space: nowrap;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .nav-links a {
-      font-size: 14px;
-      color: #334155;
-      padding: 8px 10px;
-      border-radius: 10px;
-    }
-
-    .nav-links a:hover {
-      background: #f1f5f9;
-      text-decoration: none;
-    }
-
-    /* ===== HERO ===== */
-    .hero {
-      background: var(--hero-bg);
-      padding: 64px 20px 56px 20px;
-    }
-
-    .hero-inner {
-      max-width: var(--page-max-width);
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .hero-title {
-      margin: 0;
-      font-size: clamp(44px, 5.4vw, 74px);
-      line-height: 1.03;
-      letter-spacing: -0.02em;
-      color: #ffffff;
-      font-weight: 900;
-    }
-
-    /* ===== CONTENT ===== */
-    .container {
-      max-width: var(--page-max-width);
-      margin: 0 auto;
-      padding: 44px 20px 64px 20px;
-    }
-
-    .kicker {
-      margin: 0 0 10px 0;
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--muted);
-    }
-
-    .tagline {
-      margin: 0 0 12px 0;
-      font-size: 18px;
-      font-weight: 800;
-      color: #374151;
-    }
-
-    .lede {
-      margin: 0 0 22px 0;
-      color: var(--muted);
-      font-size: 15.5px;
-    }
-
-    .section-title {
-      margin: 28px 0 8px 0;
-      font-size: 16px;
-      font-weight: 900;
-      color: #374151;
-    }
-
-    /* Better bullets */
-    .feature-list {
-      list-style: none;
-      padding: 0;
-      margin: 10px 0 0 0;
-    }
-
-    .feature-list li {
-      position: relative;
-      padding-left: 18px;
-      margin: 10px 0;
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .feature-list li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      top: 0;
-      color: var(--bullet);
-      font-weight: 900;
-      line-height: 1.6;
-    }
-
-    .divider {
-      margin: 34px 0;
-      border: none;
-      border-top: 1px solid var(--rule);
-    }
-
-    /* ===== Screenshot Gallery ===== */
-    .media-block {
-      margin-top: 22px;
-    }
-
-    .media-frame {
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid var(--rule);
-      background: #0b1220;
-      box-shadow: var(--shadow);
-    }
-
-    .media-frame img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .thumb-strip {
-      margin-top: 14px;
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: 74px;
-      gap: 10px;
-      overflow-x: auto;
-      padding-bottom: 6px;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .thumb-button {
-      border: 1px solid var(--rule);
-      background: #0b1220;
-      border-radius: 10px;
-      overflow: hidden;
-      padding: 0;
-      cursor: pointer;
-      width: 74px;
-      height: 74px;
-      flex: 0 0 auto;
-      box-shadow: 0 2px 10px rgba(17, 24, 39, 0.06);
-      outline: none;
-      transition: transform 0.15s ease, opacity 0.15s ease, border-color 0.15s ease;
-    }
-
-    .thumb-button img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      opacity: 0.92;
-    }
-
-    .thumb-button:hover {
-      transform: scale(1.04);
-    }
-
-    .thumb-button:hover img {
-      opacity: 1;
-    }
-
-    .thumb-button.is-active {
-      border-color: #94a3b8;
-    }
-
-    .thumb-button:focus-visible {
-      outline: 3px solid rgba(59, 130, 246, 0.55);
-      outline-offset: 2px;
-    }
-
-    .footer-note {
-      margin-top: 26px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    @media (max-width: 560px) {
-      .top-nav-inner { padding: 10px 14px; }
-      .hero { padding: 54px 14px 46px 14px; }
-      .container { padding: 36px 14px 56px 14px; }
-      .thumb-strip { grid-auto-columns: 64px; }
-      .thumb-button { width: 64px; height: 64px; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .gallery-card:hover { transform: none; }
     }
   </style>
 </head>
 
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <header id="site-header" class="top-nav"></header>
 
-  <header class="hero">
-    <div class="hero-inner">
-      <h1 class="hero-title">Conquest of Shadows</h1>
-    </div>
-  </header>
-
-  <main class="container">
-    <p class="kicker">Conquest of Shadows</p>
-    <p class="tagline">Build your stronghold. Command your armies. Dominate a living world.</p>
-
-    <p class="lede">
-      Enter a vast hex-based Overworld where every territory can be conquered. Construct your castle, expand your base,
-      gather resources, and defend your lands from rival players. Every decision matters as you rise to power in a world
-      shaped entirely by players.
-    </p>
-
-    <h2 class="section-title">Build &amp; Evolve Your Empire</h2>
-    <ul class="feature-list">
-      <li>Construct key buildings such as Barracks, Archery Ranges, Iron Mines, Lumber Camps, Stone Quarries, and more</li>
-      <li>Upgrade your base to boost production and accelerate your rise</li>
-      <li>Strengthen your castle walls and secure your realm from invaders</li>
-    </ul>
-
-    <h2 class="section-title">Conquer the Overworld</h2>
-    <ul class="feature-list">
-      <li>Explore a massive 100×100 strategic map</li>
-      <li>Claim new territories to expand your influence and unlock powerful bonuses</li>
-      <li>Launch real-time attacks with travel timers and dynamic battle outcomes</li>
-      <li>Defend your land using army missions and strategic positioning</li>
-    </ul>
-
-    <h2 class="section-title">Command Powerful Armies</h2>
-    <ul class="feature-list">
-      <li>Train diverse units and build custom battle compositions</li>
-      <li>Calculate attack power, defense strength, and win probabilities with server-validated combat</li>
-      <li>Send armies to attack, capture, defend, or abandon territories with animated travel lines and countdown timers</li>
-    </ul>
-
-    <h2 class="section-title">Gather Resources &amp; Grow Stronger</h2>
-    <ul class="feature-list">
-      <li>Mine gold, iron, lumber, and stone from both your base and conquered lands</li>
-      <li>Boost your hourly income through expansion and building synergy</li>
-      <li>Spend resources to construct, upgrade, and fuel your war machine</li>
-    </ul>
-
-    <h2 class="section-title">Discover Dungeons &amp; Ancient Relics</h2>
-    <ul class="feature-list">
-      <li>Spend Adventuring Points to delve into dangerous dungeons</li>
-      <li>Battle unique creatures, earn experience, level up, and unlock rewards</li>
-      <li>Collect relic fragments to unlock powerful bonuses</li>
-    </ul>
-
-    <h2 class="section-title">Become a Legend</h2>
-    <p class="lede">
-      Whether you prefer rapid expansion, fortress-style defense, dungeon diving, or strategic warfare,
-      <strong>Conquest of Shadows</strong> offers endless ways to rise. Claim your first territory, build your empire,
-      unlock magical power, and carve your name into a world that lives and reacts around you.
-    </p>
-
-    <p class="tagline">The conquest begins now</p>
-
-    <hr class="divider">
-
-    <!-- Screenshot Gallery -->
-    <section class="media-block" aria-label="Screenshots">
-      <div class="media-frame">
-        <img
-          id="mainScreenshot"
-          src="/assets/conquestofshadows/screenshots/screen-01.png"
-          alt="Conquest of Shadows gameplay screenshot">
-      </div>
-
-      <div class="thumb-strip" aria-label="Screenshot thumbnails">
-        <button class="thumb-button is-active" type="button" data-full="/assets/conquestofshadows/screenshots/screen-01.png" aria-label="Show screenshot 1">
-          <img src="/assets/conquestofshadows/screenshots/screen-01.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/conquestofshadows/screenshots/screen-02.png" aria-label="Show screenshot 2">
-          <img src="/assets/conquestofshadows/screenshots/screen-02.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/conquestofshadows/screenshots/screen-03.png" aria-label="Show screenshot 3">
-          <img src="/assets/conquestofshadows/screenshots/screen-03.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/conquestofshadows/screenshots/screen-04.png" aria-label="Show screenshot 4">
-          <img src="/assets/conquestofshadows/screenshots/screen-04.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/conquestofshadows/screenshots/screen-05.png" aria-label="Show screenshot 5">
-          <img src="/assets/conquestofshadows/screenshots/screen-05.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/conquestofshadows/screenshots/screen-06.png" aria-label="Show screenshot 6">
-          <img src="/assets/conquestofshadows/screenshots/screen-06.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/conquestofshadows/screenshots/screen-07.png" aria-label="Show screenshot 7">
-          <img src="/assets/conquestofshadows/screenshots/screen-07.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/conquestofshadows/screenshots/screen-08.png" aria-label="Show screenshot 8">
-          <img src="/assets/conquestofshadows/screenshots/screen-08.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/conquestofshadows/screenshots/screen-09.png" aria-label="Show screenshot 9">
-          <img src="/assets/conquestofshadows/screenshots/screen-09.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/conquestofshadows/screenshots/screen-10.png" aria-label="Show screenshot 10">
-          <img src="/assets/conquestofshadows/screenshots/screen-10.png" loading="lazy" alt="">
-        </button>
+  <main id="main-content">
+    <section class="hero" aria-labelledby="conquest-title">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-brand">
+            <img class="app-icon" src="/assets/conquestofshadows/icon/app-icon-256.webp" srcset="/assets/conquestofshadows/icon/app-icon-256.webp 256w, /assets/conquestofshadows/icon/app-icon-512.webp 512w" sizes="88px" width="256" height="256" alt="Conquest of Shadows app icon">
+            <p class="eyebrow">Strategy RPG for iPhone and iPad</p>
+          </div>
+          <h1 class="hero-title" id="conquest-title">Conquest of Shadows</h1>
+          <p class="hero-tagline">Build your stronghold. Command your armies. Dominate a living world.</p>
+          <p class="hero-copy">Enter a vast hex-based Overworld where every territory can be conquered. Raise an empire from stone and steel, send armies beyond your walls, and defend what you claim from rival players.</p>
+          <div class="button-row">
+            <a class="button" href="https://apps.apple.com/us/app/conquest-of-shadows/id6745531957" aria-label="Download Conquest of Shadows on the App Store">Download on the App Store</a>
+            <a class="text-link" href="/privacy/conquest-of-shadows">Privacy policy</a>
+          </div>
+        </div>
       </div>
     </section>
 
-    <p class="footer-note">
-      Privacy Policy:
-      <a href="/privacy/conquest-of-shadows">/privacy/conquest-of-shadows</a>
-    </p>
+    <div class="container war-table-wrap">
+      <figure class="war-table">
+        <img src="/assets/conquestofshadows/screenshots/webp/screen-01-900.webp" srcset="/assets/conquestofshadows/screenshots/webp/screen-01-900.webp 900w, /assets/conquestofshadows/screenshots/webp/screen-01-1600.webp 1600w" sizes="(max-width: 1220px) calc(100vw - 40px), 1180px" width="900" height="675" alt="Hex-based Overworld with player and enemy territories, active armies, travel routes, and mission timers" fetchpriority="high" decoding="async">
+        <figcaption>
+          <span>Your war table spans a 100×100 living Overworld.</span>
+          <span class="territory-key" aria-label="Map territory key"><span class="key-item"><span class="key-dot"></span>Your dominion</span><span class="key-item"><span class="key-dot enemy"></span>Rival territory</span></span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <section class="section" aria-labelledby="strategy-loop-title">
+      <div class="container">
+        <div class="section-heading center">
+          <p class="eyebrow">A kingdom in motion</p>
+          <h2 class="section-title" id="strategy-loop-title">Every decision strengthens the next.</h2>
+          <p class="section-lede">Your stronghold feeds your armies. Your armies claim territory. Your territory fuels the next campaign.</p>
+        </div>
+        <div class="strategy-loop" aria-label="Core strategy loop">
+          <article class="strategy-card"><span class="strategy-number">01</span><h3>Build</h3><p>Shape a productive stronghold from mines, barracks, workshops, defenses, and magical structures.</p></article>
+          <article class="strategy-card"><span class="strategy-number">02</span><h3>Train</h3><p>Raise swordsmen, archers, knights, and specialized forces for the campaign ahead.</p></article>
+          <article class="strategy-card"><span class="strategy-number">03</span><h3>Conquer</h3><p>Send real-time missions across the map to raid, attack, capture, and expand your influence.</p></article>
+          <article class="strategy-card"><span class="strategy-number">04</span><h3>Defend</h3><p>Position armies, reinforce valuable territory, and make every rival pay for crossing your borders.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section overworld-section" aria-labelledby="overworld-title">
+      <div class="container feature-layout">
+        <figure class="editorial-image feature-media">
+          <img src="/assets/conquestofshadows/screenshots/webp/screen-04-900.webp" srcset="/assets/conquestofshadows/screenshots/webp/screen-04-900.webp 900w, /assets/conquestofshadows/screenshots/webp/screen-04-1600.webp 1600w" sizes="(max-width: 900px) calc(100vw - 40px), 680px" width="900" height="416" loading="lazy" decoding="async" alt="Battle History showing raids, successful defenses, casualties, and territory coordinates">
+          <figcaption>Every raid, defense, victory, and loss becomes part of your kingdom's history.</figcaption>
+        </figure>
+        <div class="feature-copy">
+          <p class="eyebrow">The Overworld</p>
+          <h2 id="overworld-title">Every hex can change hands.</h2>
+          <p>Claim territory for strategic bonuses, watch armies travel in real time, and respond to threats before they reach your walls. Position matters—and so does knowing when to strike.</p>
+          <div class="world-stat"><strong>10,000</strong><span>territories across a 100×100 strategic map</span></div>
+          <ul class="feature-list"><li>Real-time travel timers</li><li>Territory resource bonuses</li><li>Active mission tracking</li><li>Persistent battle history</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="stronghold-title">
+      <div class="container feature-layout reverse">
+        <div class="stronghold-grid feature-media" aria-label="Stronghold and construction screenshots">
+          <figure class="editorial-image">
+            <img src="/assets/conquestofshadows/screenshots/webp/screen-02-900.webp" srcset="/assets/conquestofshadows/screenshots/webp/screen-02-900.webp 900w, /assets/conquestofshadows/screenshots/webp/screen-02-1600.webp 1600w" sizes="(max-width: 900px) 55vw, 410px" width="900" height="416" loading="lazy" decoding="async" alt="Developed castle stronghold with resource totals, buildings, and navigation">
+            <figcaption>Balance production, military power, defense, and magical research.</figcaption>
+          </figure>
+          <figure class="editorial-image">
+            <img src="/assets/conquestofshadows/screenshots/webp/screen-03-900.webp" srcset="/assets/conquestofshadows/screenshots/webp/screen-03-900.webp 900w, /assets/conquestofshadows/screenshots/webp/screen-03-1600.webp 1600w" sizes="(max-width: 900px) 45vw, 350px" width="900" height="416" loading="lazy" decoding="async" alt="Construction choices including Archery Range, Barracks, and Blacksmith">
+            <figcaption>Choose what your empire needs next.</figcaption>
+          </figure>
+        </div>
+        <div class="feature-copy">
+          <p class="eyebrow">Build and evolve</p>
+          <h2 id="stronghold-title">Your castle is an economy, an arsenal, and a target.</h2>
+          <p>Place and upgrade the structures that define your strategy. Mine gold, iron, lumber, and stone; unlock stronger armies; accelerate production; and strengthen the walls that protect it all.</p>
+          <ul class="feature-list"><li>Resource-producing mines</li><li>Barracks and Archery Ranges</li><li>Blacksmiths and workshops</li><li>Fortifications and walls</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="armies-title">
+      <div class="container feature-layout">
+        <div class="army-stack feature-media">
+          <figure class="editorial-image">
+            <img src="/assets/conquestofshadows/screenshots/webp/screen-08-900.webp" srcset="/assets/conquestofshadows/screenshots/webp/screen-08-900.webp 900w, /assets/conquestofshadows/screenshots/webp/screen-08-1600.webp 1600w" sizes="(max-width: 900px) calc(100vw - 40px), 680px" width="900" height="416" loading="lazy" decoding="async" alt="Three armies made up of swordsmen, archers, and mounted knights">
+            <figcaption>Command multiple armies and expand capacity with Command Posts.</figcaption>
+          </figure>
+          <figure class="editorial-image">
+            <img src="/assets/conquestofshadows/screenshots/webp/screen-07-900.webp" srcset="/assets/conquestofshadows/screenshots/webp/screen-07-900.webp 900w, /assets/conquestofshadows/screenshots/webp/screen-07-1600.webp 1600w" sizes="(max-width: 900px) 70vw, 500px" width="900" height="416" loading="lazy" decoding="async" alt="Inventory showing a Fire Wand, Frostbite Edge, and Holy Shield">
+            <figcaption>Equip the weapons and defenses your next battle demands.</figcaption>
+          </figure>
+        </div>
+        <div class="feature-copy">
+          <p class="eyebrow">Command your forces</p>
+          <h2 id="armies-title">Raise the army the next campaign demands.</h2>
+          <p>Build complementary forces, compare their strength, and send them where they will matter most. Every march has a destination, an arrival time, and a risk.</p>
+          <ul class="mission-strip" aria-label="Army mission types"><li>Attack</li><li>Raid</li><li>Capture</li><li>Defend</li><li>Explore</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="adventure-title">
+      <div class="container">
+        <div class="section-heading center">
+          <p class="eyebrow">Beyond the castle walls</p>
+          <h2 class="section-title" id="adventure-title">Ancient power waits beneath the map.</h2>
+          <p class="section-lede">Spend Adventuring Points to enter dangerous dungeons, battle strange creatures, recover relic fragments, and unlock magical options for your ruler.</p>
+        </div>
+        <div class="adventure-grid">
+          <article class="adventure-card wide">
+            <img src="/assets/conquestofshadows/screenshots/webp/screen-09-900.webp" srcset="/assets/conquestofshadows/screenshots/webp/screen-09-900.webp 900w, /assets/conquestofshadows/screenshots/webp/screen-09-1600.webp 1600w" sizes="(max-width: 720px) 84vw, 680px" width="900" height="416" loading="lazy" decoding="async" alt="Dungeon choices including ancient stone, crystal, and overgrown entrances">
+            <div class="adventure-copy"><h3>Enter forgotten dungeons</h3><p>Choose a destination, prepare your loadout, and venture beneath territory you control.</p></div>
+          </article>
+          <article class="adventure-card narrow">
+            <img src="/assets/conquestofshadows/screenshots/webp/screen-06-900.webp" srcset="/assets/conquestofshadows/screenshots/webp/screen-06-900.webp 900w, /assets/conquestofshadows/screenshots/webp/screen-06-1600.webp 1600w" sizes="(max-width: 720px) 84vw, 480px" width="900" height="416" loading="lazy" decoding="async" alt="Captured Bat Swarm, Cave Rat, and Crystal Cave Spider">
+            <div class="adventure-copy"><h3>Capture the creatures you face</h3><p>Build a record of the strange enemies discovered in the darkness.</p></div>
+          </article>
+          <article class="adventure-card narrow">
+            <img src="/assets/conquestofshadows/screenshots/webp/screen-05-900.webp" srcset="/assets/conquestofshadows/screenshots/webp/screen-05-900.webp 900w, /assets/conquestofshadows/screenshots/webp/screen-05-1600.webp 1600w" sizes="(max-width: 720px) 84vw, 480px" width="900" height="416" loading="lazy" decoding="async" alt="Obsidian Rune Shard relic marked with ancient symbols">
+            <div class="adventure-copy"><h3>Reassemble ancient relics</h3><p>Collect fragments and unlock lasting advantages for the empire above.</p></div>
+          </article>
+          <article class="adventure-card wide">
+            <img src="/assets/conquestofshadows/screenshots/webp/screen-10-900.webp" srcset="/assets/conquestofshadows/screenshots/webp/screen-10-900.webp 900w, /assets/conquestofshadows/screenshots/webp/screen-10-1600.webp 1600w" sizes="(max-width: 720px) 84vw, 680px" width="900" height="416" loading="lazy" decoding="async" alt="Spell preparation screen with Magic Missile, Mage Armor, Detect Relic, and Force Wave">
+            <div class="adventure-copy"><h3>Prepare a magical loadout</h3><p>Select the spells and protections that fit the danger waiting beyond the entrance.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="gallery-title">
+      <div class="container">
+        <div class="section-heading center">
+          <p class="eyebrow">Inside the realm</p>
+          <h2 class="section-title" id="gallery-title">From the war table to the dungeon door.</h2>
+          <p class="section-lede">Explore the Overworld, stronghold construction, army management, battle history, equipment, creatures, relics, and spell preparation.</p>
+        </div>
+        <div class="gallery-track" aria-label="Conquest of Shadows screenshot gallery">
+          <a class="gallery-card" href="/assets/conquestofshadows/screenshots/screen-01.png" data-gallery-index="0"><img src="/assets/conquestofshadows/screenshots/webp/screen-01-900.webp" width="900" height="675" loading="lazy" decoding="async" alt="Hex-based Overworld and active army routes"><span class="gallery-caption"><strong>The living Overworld</strong><span>Claim territory and watch campaigns unfold in real time.</span></span></a>
+          <a class="gallery-card" href="/assets/conquestofshadows/screenshots/screen-02.png" data-gallery-index="1"><img src="/assets/conquestofshadows/screenshots/webp/screen-02-900.webp" width="900" height="416" loading="lazy" decoding="async" alt="Developed stronghold and resource economy"><span class="gallery-caption"><strong>Your stronghold</strong><span>Build the economy and defenses behind every conquest.</span></span></a>
+          <a class="gallery-card" href="/assets/conquestofshadows/screenshots/screen-08.png" data-gallery-index="2"><img src="/assets/conquestofshadows/screenshots/webp/screen-08-900.webp" width="900" height="416" loading="lazy" decoding="async" alt="Swordsmen, archers, and knights in separate armies"><span class="gallery-caption"><strong>Armies under command</strong><span>Assemble forces for offense, defense, and exploration.</span></span></a>
+          <a class="gallery-card" href="/assets/conquestofshadows/screenshots/screen-09.png" data-gallery-index="3"><img src="/assets/conquestofshadows/screenshots/webp/screen-09-900.webp" width="900" height="416" loading="lazy" decoding="async" alt="Three distinct dungeon entrances"><span class="gallery-caption"><strong>Doors beneath the realm</strong><span>Spend Adventuring Points to seek danger and reward.</span></span></a>
+          <a class="gallery-card" href="/assets/conquestofshadows/screenshots/screen-03.png" data-gallery-index="4"><img src="/assets/conquestofshadows/screenshots/webp/screen-03-900.webp" width="900" height="416" loading="lazy" decoding="async" alt="Archery Range, Barracks, and Blacksmith construction choices"><span class="gallery-caption"><strong>Choose what to build</strong><span>Develop the structures your strategy needs next.</span></span></a>
+          <a class="gallery-card" href="/assets/conquestofshadows/screenshots/screen-04.png" data-gallery-index="5"><img src="/assets/conquestofshadows/screenshots/webp/screen-04-900.webp" width="900" height="416" loading="lazy" decoding="async" alt="Battle History with raids and defensive victories"><span class="gallery-caption"><strong>A history of conflict</strong><span>Review raids, defenses, casualties, and territory outcomes.</span></span></a>
+          <a class="gallery-card" href="/assets/conquestofshadows/screenshots/screen-07.png" data-gallery-index="6"><img src="/assets/conquestofshadows/screenshots/webp/screen-07-900.webp" width="900" height="416" loading="lazy" decoding="async" alt="Fire Wand, Frostbite Edge, and Holy Shield inventory"><span class="gallery-caption"><strong>Weapons of conquest</strong><span>Equip magical weapons and defenses for the next fight.</span></span></a>
+          <a class="gallery-card" href="/assets/conquestofshadows/screenshots/screen-06.png" data-gallery-index="7"><img src="/assets/conquestofshadows/screenshots/webp/screen-06-900.webp" width="900" height="416" loading="lazy" decoding="async" alt="Captured dungeon creatures"><span class="gallery-caption"><strong>Creatures captured</strong><span>Record the enemies found beneath your territory.</span></span></a>
+          <a class="gallery-card" href="/assets/conquestofshadows/screenshots/screen-05.png" data-gallery-index="8"><img src="/assets/conquestofshadows/screenshots/webp/screen-05-900.webp" width="900" height="416" loading="lazy" decoding="async" alt="Obsidian Rune Shard relic"><span class="gallery-caption"><strong>Ancient relics</strong><span>Gather fragments of power lost beneath the world.</span></span></a>
+          <a class="gallery-card" href="/assets/conquestofshadows/screenshots/screen-10.png" data-gallery-index="9"><img src="/assets/conquestofshadows/screenshots/webp/screen-10-900.webp" width="900" height="416" loading="lazy" decoding="async" alt="Spell preparation and loadout selection"><span class="gallery-caption"><strong>Magic prepared</strong><span>Choose the spells that answer the next dungeon's threats.</span></span></a>
+        </div>
+        <p class="gallery-note">Swipe or scroll to explore. Select any image for a full-size view.</p>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="closing-title">
+      <div class="container">
+        <p class="eyebrow">The world is waiting</p>
+        <h2 id="closing-title">How much of the realm will bear your banner?</h2>
+        <p>Raise your stronghold, send your armies beyond its walls, and claim your place in a world shaped by conquest.</p>
+        <div class="button-row"><a class="button" href="https://apps.apple.com/us/app/conquest-of-shadows/id6745531957" aria-label="Download Conquest of Shadows on the App Store">Download on the App Store</a></div>
+      </div>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner"><p>&copy; 2026 L&amp;L Programming LLC</p><p><a href="/privacy/conquest-of-shadows">Conquest of Shadows privacy policy</a> · <a href="mailto:llprogramming@yahoo.com">Support</a></p></div>
+  </footer>
+
+  <dialog class="lightbox" id="screenshot-dialog" aria-labelledby="lightbox-title">
+    <div class="lightbox-layout">
+      <div class="lightbox-media"><img id="lightbox-image" src="/assets/conquestofshadows/screenshots/webp/screen-01-1600.webp" width="1600" height="1200" alt=""></div>
+      <div class="lightbox-footer">
+        <div><p class="lightbox-counter" id="lightbox-counter">Screenshot 1 of 10</p><h2 class="lightbox-title" id="lightbox-title">The living Overworld</h2><p class="lightbox-description" id="lightbox-description">Claim territory and watch campaigns unfold in real time.</p></div>
+        <div class="dialog-controls"><button class="dialog-button" id="lightbox-previous" type="button" aria-label="Previous screenshot">Previous</button><button class="dialog-button" id="lightbox-next" type="button" aria-label="Next screenshot">Next</button><button class="dialog-button dialog-close" id="lightbox-close" type="button">Close</button></div>
+      </div>
+    </div>
+  </dialog>
 
   <script src="/header.js?v=6"></script>
   <script>
     (function () {
-      const mainImage = document.getElementById("mainScreenshot");
-      const thumbnailButtons = Array.from(document.querySelectorAll(".thumb-button"));
+      const dialog = document.getElementById("screenshot-dialog");
+      const galleryLinks = Array.from(document.querySelectorAll("[data-gallery-index]"));
+      const image = document.getElementById("lightbox-image");
+      const title = document.getElementById("lightbox-title");
+      const description = document.getElementById("lightbox-description");
+      const counter = document.getElementById("lightbox-counter");
+      const previous = document.getElementById("lightbox-previous");
+      const next = document.getElementById("lightbox-next");
+      const close = document.getElementById("lightbox-close");
+      let currentIndex = 0;
+      let opener = null;
 
-      function setActiveThumbnail(activeButton) {
-        for (const button of thumbnailButtons) {
-          button.classList.toggle("is-active", button === activeButton);
-        }
+      function detailsFor(index) {
+        const link = galleryLinks[index];
+        return { image: link.querySelector("img"), title: link.querySelector("strong").textContent, description: link.querySelector(".gallery-caption span").textContent };
       }
 
-      function setMainScreenshot(imageUrl, activeButton) {
-        if (!imageUrl) { return; }
-        mainImage.src = imageUrl;
-        setActiveThumbnail(activeButton);
+      function show(index) {
+        currentIndex = (index + galleryLinks.length) % galleryLinks.length;
+        const details = detailsFor(currentIndex);
+        image.src = details.image.getAttribute("src").replace("-900.webp", "-1600.webp");
+        image.alt = details.image.alt;
+        image.width = 1600;
+        image.height = currentIndex === 0 ? 1200 : 740;
+        title.textContent = details.title;
+        description.textContent = details.description;
+        counter.textContent = "Screenshot " + (currentIndex + 1) + " of " + galleryLinks.length;
       }
 
-      for (const button of thumbnailButtons) {
-        button.addEventListener("click", function () {
-          const imageUrl = button.getAttribute("data-full");
-          setMainScreenshot(imageUrl, button);
+      for (const link of galleryLinks) {
+        link.addEventListener("click", function (event) {
+          if (typeof dialog.showModal !== "function") { return; }
+          event.preventDefault();
+          opener = link;
+          show(Number(link.dataset.galleryIndex));
+          document.body.classList.add("has-dialog");
+          dialog.showModal();
+          close.focus();
         });
       }
 
-      // Optional: keyboard support (left/right arrows) when focus is within the strip
-      document.querySelector(".thumb-strip")?.addEventListener("keydown", function (event) {
-        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") { return; }
-        const focusedIndex = thumbnailButtons.findIndex((button) => button === document.activeElement);
-        if (focusedIndex < 0) { return; }
-
-        event.preventDefault();
-
-        const direction = (event.key === "ArrowRight") ? 1 : -1;
-        const nextIndex = (focusedIndex + direction + thumbnailButtons.length) % thumbnailButtons.length;
-        thumbnailButtons[nextIndex].focus();
-        const imageUrl = thumbnailButtons[nextIndex].getAttribute("data-full");
-        setMainScreenshot(imageUrl, thumbnailButtons[nextIndex]);
+      previous.addEventListener("click", function () { show(currentIndex - 1); });
+      next.addEventListener("click", function () { show(currentIndex + 1); });
+      close.addEventListener("click", function () { dialog.close(); });
+      dialog.addEventListener("click", function (event) { if (event.target === dialog) { dialog.close(); } });
+      dialog.addEventListener("keydown", function (event) {
+        if (event.key === "ArrowLeft") { event.preventDefault(); show(currentIndex - 1); }
+        if (event.key === "ArrowRight") { event.preventDefault(); show(currentIndex + 1); }
       });
+      dialog.addEventListener("close", function () { document.body.classList.remove("has-dialog"); if (opener) { opener.focus(); } });
     })();
   </script>
 </body>
