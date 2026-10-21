@@ -154,6 +154,7 @@
 
     .nav-links a:focus-visible,
     .button:focus-visible,
+    .launch-poster-link:focus-visible,
     .gallery-card:focus-visible,
     .dialog-button:focus-visible,
     .privacy-link:focus-visible {
@@ -349,6 +350,35 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
+
+    .launch-poster {
+      padding: clamp(36px, 6vw, 72px) 0 0;
+    }
+
+    .launch-poster-link {
+      display: block;
+      overflow: hidden;
+      border: 1px solid rgba(224, 207, 166, 0.32);
+      border-radius: var(--radius);
+      background: #050708;
+      box-shadow: var(--shadow), 0 0 70px rgba(133, 185, 147, 0.09);
+      text-decoration: none;
+      transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+    }
+
+    .launch-poster-link:hover {
+      border-color: rgba(165, 213, 175, 0.62);
+      box-shadow: 0 30px 84px rgba(0, 0, 0, 0.52), 0 0 80px rgba(133, 185, 147, 0.13);
+      transform: translateY(-3px);
+    }
+
+    .launch-poster-link img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .launch-poster-mobile-cta { display: none; }
 
     .visually-hidden {
       position: absolute;
@@ -836,6 +866,14 @@
       .launch-fact:nth-child(even) { border-left: 1px solid var(--rule); }
       .launch-fact:last-child { grid-column: 1 / -1; border-left: 0; }
 
+      .launch-poster { padding-top: 30px; }
+      .launch-poster-link { border-radius: 18px; }
+      .launch-poster-mobile-cta {
+        width: fit-content;
+        margin: 18px auto 0;
+        display: flex;
+      }
+
       .image-pair,
       .feature-layout,
       .feature-layout.reverse,
@@ -898,6 +936,7 @@
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
+      .launch-poster-link:hover { transform: none; }
       .gallery-card:hover { transform: none; }
     }
   </style>
@@ -950,6 +989,16 @@
           <div class="launch-fact"><strong>3</strong><span>Independent save slots</span></div>
           <div class="launch-fact"><strong>Offline</strong><span>Single-player adventure</span></div>
         </div>
+      </div>
+    </section>
+
+    <section class="launch-poster" aria-labelledby="launch-poster-title">
+      <div class="container">
+        <h2 class="visually-hidden" id="launch-poster-title">Spellharvest is available now</h2>
+        <a class="launch-poster-link" href="https://apps.apple.com/app/id6803519648">
+          <img src="/assets/spellharvest/social/launch-card.jpg" width="1733" height="908" loading="lazy" decoding="async" alt="Spellharvest — Available now on the App Store">
+        </a>
+        <a class="button launch-poster-mobile-cta" href="https://apps.apple.com/app/id6803519648" aria-label="Download Spellharvest on the App Store">Download on the App Store</a>
       </div>
     </section>
 
