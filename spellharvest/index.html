@@ -5,20 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#091014">
   <title>Spellharvest – Dark Fantasy Incremental RPG for iPhone</title>
-  <meta name="description" content="Harvest wild magic, craft a six-spell loadout, and follow a missing mentor across ten dark-fantasy regions in Spellharvest, coming soon to iPhone.">
-  <link rel="canonical" href="https://llprogramming.com/spellharvest">
+  <meta name="description" content="Harvest wild magic, craft a six-spell loadout, and follow a missing mentor across ten dark-fantasy regions in Spellharvest, available now for iPhone.">
+  <link rel="canonical" href="https://llprogramming.com/spellharvest/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Spellharvest">
-  <meta property="og:description" content="Harvest wild magic. Craft your spellbook. Find your missing mentor.">
-  <meta property="og:url" content="https://llprogramming.com/spellharvest">
-  <meta property="og:image" content="https://llprogramming.com/assets/spellharvest/icon/app-icon.png">
-  <meta property="og:image:width" content="1024">
-  <meta property="og:image:height" content="1024">
-  <meta property="og:image:alt" content="Spellharvest app icon showing a luminous magical seed framed by a silver crescent blade">
+  <meta property="og:description" content="Harvest wild magic. Craft your spellbook. Find your missing mentor. Available now for iPhone.">
+  <meta property="og:url" content="https://llprogramming.com/spellharvest/">
+  <meta property="og:image" content="https://llprogramming.com/assets/spellharvest/social/launch-card.jpg">
+  <meta property="og:image:width" content="1733">
+  <meta property="og:image:height" content="908">
+  <meta property="og:image:alt" content="Spellharvest launch artwork spanning a magical forest and frozen mountain realm">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Spellharvest">
-  <meta name="twitter:description" content="Harvest wild magic. Craft your spellbook. Find your missing mentor.">
-  <meta name="twitter:image" content="https://llprogramming.com/assets/spellharvest/icon/app-icon.png">
+  <meta name="twitter:description" content="Harvest wild magic. Craft your spellbook. Find your missing mentor. Available now for iPhone.">
+  <meta name="twitter:image" content="https://llprogramming.com/assets/spellharvest/social/launch-card.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Spellharvest",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "iOS",
+    "description": "A single-player incremental role-playing game about hunting creatures, harvesting ingredients, crafting permanent spells, and mastering elemental reactions across ten dark-fantasy regions.",
+    "url": "https://llprogramming.com/spellharvest/",
+    "installUrl": "https://apps.apple.com/app/id6803519648",
+    "image": "https://llprogramming.com/assets/spellharvest/icon/app-icon.png",
+    "publisher": {
+      "@type": "Organization",
+      "name": "L&L Programming LLC"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 
   <style>
     :root {
@@ -251,11 +274,6 @@
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
     }
 
-    .button-muted {
-      color: var(--sage-bright);
-      cursor: default;
-    }
-
     .privacy-link {
       color: var(--muted);
       font-size: 14px;
@@ -293,6 +311,54 @@
       height: auto;
       border-radius: 27px;
       background: #000;
+    }
+
+    .launch-facts {
+      position: relative;
+      z-index: 2;
+      border-bottom: 1px solid var(--rule);
+      background: rgba(12, 18, 18, 0.94);
+    }
+
+    .launch-facts-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .launch-fact {
+      min-width: 0;
+      padding: 28px 18px;
+      text-align: center;
+    }
+
+    .launch-fact + .launch-fact { border-left: 1px solid var(--rule); }
+
+    .launch-fact strong {
+      display: block;
+      color: var(--parchment);
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1;
+    }
+
+    .launch-fact span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 760;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     .section {
@@ -717,6 +783,10 @@
 
     @media (max-width: 900px) {
       .hero-layout { grid-template-columns: 1fr 330px; gap: 34px; }
+      .launch-facts-grid { grid-template-columns: repeat(3, 1fr); }
+      .launch-fact:nth-child(4),
+      .launch-fact:nth-child(5) { border-top: 1px solid var(--rule); }
+      .launch-fact:nth-child(4) { border-left: 0; }
       .loop-grid { grid-template-columns: repeat(2, 1fr); }
       .feature-layout,
       .feature-layout.reverse { grid-template-columns: minmax(250px, 0.75fr) minmax(0, 1fr); gap: 38px; }
@@ -759,6 +829,12 @@
       .hero-copy { margin-inline: auto; }
       .button-row { justify-content: center; }
       .phone-frame { width: min(86vw, 360px); transform: none; }
+
+      .launch-facts-grid { grid-template-columns: repeat(2, 1fr); }
+      .launch-fact:nth-child(n) { border-top: 1px solid var(--rule); border-left: 0; }
+      .launch-fact:nth-child(-n + 2) { border-top: 0; }
+      .launch-fact:nth-child(even) { border-left: 1px solid var(--rule); }
+      .launch-fact:last-child { grid-column: 1 / -1; border-left: 0; }
 
       .image-pair,
       .feature-layout,
@@ -841,7 +917,7 @@
               <img class="app-icon" src="/assets/spellharvest/icon/app-icon.png" width="1024" height="1024" alt="Spellharvest app icon">
             </picture>
             <div>
-              <p class="eyebrow">Coming soon to iPhone</p>
+              <p class="eyebrow">Available now on iPhone</p>
               <h1 class="hero-title" id="spellharvest-title">Spellharvest</h1>
             </div>
           </div>
@@ -850,7 +926,7 @@
           <p class="hero-copy">A portrait iPhone incremental RPG where every creature leaves behind the ingredients for your next spell. Build a six-spell loadout, trigger elemental reactions, and follow a story across ten distinct dark-fantasy regions.</p>
 
           <div class="button-row">
-            <span class="button button-muted" aria-label="Spellharvest is coming soon to the App Store">Coming soon</span>
+            <a class="button" href="https://apps.apple.com/app/id6803519648" aria-label="Download Spellharvest on the App Store">Download on the App Store</a>
             <a class="privacy-link" href="/privacy/spellharvest">Privacy information</a>
           </div>
         </div>
@@ -860,6 +936,19 @@
             <source srcset="/assets/spellharvest/screenshots/webp/01-boss-battle-621.webp 621w, /assets/spellharvest/screenshots/webp/01-boss-battle-1242.webp 1242w" type="image/webp">
             <img src="/assets/spellharvest/screenshots/original/01-boss-battle.png" width="1242" height="2688" alt="Spellharvest battle against the Corrupted Treant boss, with spell choices and enemy intent visible" fetchpriority="high" decoding="async">
           </picture>
+        </div>
+      </div>
+    </section>
+
+    <section class="launch-facts" aria-labelledby="launch-facts-title">
+      <div class="container">
+        <h2 class="visually-hidden" id="launch-facts-title">Spellharvest at a glance</h2>
+        <div class="launch-facts-grid">
+          <div class="launch-fact"><strong>60+</strong><span>Spells to discover</span></div>
+          <div class="launch-fact"><strong>90</strong><span>Unique creatures</span></div>
+          <div class="launch-fact"><strong>200</strong><span>Campaign encounters</span></div>
+          <div class="launch-fact"><strong>3</strong><span>Independent save slots</span></div>
+          <div class="launch-fact"><strong>Offline</strong><span>Single-player adventure</span></div>
         </div>
       </div>
     </section>
@@ -1099,11 +1188,11 @@
 
     <section class="closing" aria-labelledby="closing-title">
       <div class="container">
-        <p class="eyebrow">The first path is waiting</p>
+        <p class="eyebrow">Your harvest begins now</p>
         <h2 id="closing-title">What will you harvest from magic?</h2>
         <p>Begin in the Whispering Woods, shape a spellbook from what you find, and carry your choices to the edge of the world.</p>
         <div class="button-row">
-          <span class="button button-muted" aria-label="Spellharvest is coming soon to the App Store">Coming soon</span>
+          <a class="button" href="https://apps.apple.com/app/id6803519648" aria-label="Download Spellharvest on the App Store">Download on the App Store</a>
         </div>
       </div>
     </section>
