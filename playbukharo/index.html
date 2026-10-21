@@ -3,380 +3,221 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Play Bukharo!</title>
-
+  <meta name="theme-color" content="#071610">
+  <title>Play Bukharo! – Bring Everyone to the Table</title>
+  <meta name="description" content="Bring friends together for Play Bukharo!, the Indian card game for iOS. Play on one device or online, with adjustable settings for new and experienced players.">
+  <link rel="canonical" href="https://llprogramming.com/playbukharo/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Play Bukharo! – Bring Everyone to the Table">
+  <meta property="og:description" content="Your friends. Your table. Your next winning hand.">
+  <meta property="og:url" content="https://llprogramming.com/playbukharo/">
+  <meta property="og:image" content="https://llprogramming.com/assets/playbukharo/screenshots/webp/screen-04-1800.webp">
+  <meta property="og:image:alt" content="Friends playing Bukharo around a green card table">
+  <meta name="twitter:card" content="summary_large_image">
   <style>
-    :root {
-      --page-max-width: 1040px;
-      --hero-bg: #1f2636;
-      --text: #111827;
-      --muted: #6b7280;
-      --rule: #e5e7eb;
-      --bullet: #9ca3af;
-      --card: #ffffff;
-      --shadow: 0 8px 24px rgba(17, 24, 39, 0.08);
-      --radius: 12px;
-    }
-
+    :root { --page-max-width: 1180px; --night: #071610; --deep: #040c09; --panel: #10241b; --gold: #e8bf70; --ivory: #f6f0e2; --muted: #b5c5ba; --rule: rgba(232,191,112,.23); --radius: 24px; --shadow: 0 26px 80px rgba(0,0,0,.45); }
     * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      color: var(--text);
-      background: #ffffff;
-      line-height: 1.6;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    /* ===== Top Nav ===== */
-    .top-nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .top-nav-inner {
-      max-width: var(--page-max-width);
-      margin: 0 auto;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .brand {
-      font-weight: 900;
-      letter-spacing: 0.02em;
-      font-size: 14px;
-      color: #0f172a;
-      white-space: nowrap;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .nav-links a {
-      font-size: 14px;
-      color: #334155;
-      padding: 8px 10px;
-      border-radius: 10px;
-    }
-
-    .nav-links a:hover {
-      background: #f1f5f9;
-      text-decoration: none;
-    }
-
-    /* ===== HERO ===== */
-    .hero {
-      background: var(--hero-bg);
-      padding: 64px 20px 56px 20px;
-    }
-
-    .hero-inner {
-      max-width: var(--page-max-width);
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .hero-title {
-      margin: 0;
-      font-size: clamp(44px, 5.4vw, 74px);
-      line-height: 1.03;
-      letter-spacing: -0.02em;
-      color: #ffffff;
-      font-weight: 900;
-    }
-
-    /* ===== CONTENT ===== */
-    .container {
-      max-width: var(--page-max-width);
-      margin: 0 auto;
-      padding: 44px 20px 64px 20px;
-    }
-
-    .kicker {
-      margin: 0 0 10px 0;
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--muted);
-    }
-
-    .tagline {
-      margin: 0 0 12px 0;
-      font-size: 18px;
-      font-weight: 800;
-      color: #374151;
-    }
-
-    .lede {
-      margin: 0 0 22px 0;
-      color: var(--muted);
-      font-size: 15.5px;
-    }
-
-    .section-title {
-      margin: 28px 0 8px 0;
-      font-size: 16px;
-      font-weight: 900;
-      color: #374151;
-    }
-
-    /* Better bullets */
-    .feature-list {
-      list-style: none;
-      padding: 0;
-      margin: 10px 0 0 0;
-    }
-
-    .feature-list li {
-      position: relative;
-      padding-left: 18px;
-      margin: 10px 0;
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .feature-list li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      top: 0;
-      color: var(--bullet);
-      font-weight: 900;
-      line-height: 1.6;
-    }
-
-    .divider {
-      margin: 34px 0;
-      border: none;
-      border-top: 1px solid var(--rule);
-    }
-
-    /* ===== Screenshot Gallery ===== */
-    .media-block {
-      margin-top: 22px;
-    }
-
-    .media-frame {
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid var(--rule);
-      background: #0b1220;
-      box-shadow: var(--shadow);
-    }
-
-    .media-frame img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .thumb-strip {
-      margin-top: 14px;
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: 74px;
-      gap: 10px;
-      overflow-x: auto;
-      padding-bottom: 6px;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .thumb-button {
-      border: 1px solid var(--rule);
-      background: #0b1220;
-      border-radius: 10px;
-      overflow: hidden;
-      padding: 0;
-      cursor: pointer;
-      width: 74px;
-      height: 74px;
-      flex: 0 0 auto;
-      box-shadow: 0 2px 10px rgba(17, 24, 39, 0.06);
-      outline: none;
-      transition: transform 0.15s ease, opacity 0.15s ease, border-color 0.15s ease;
-    }
-
-    .thumb-button img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      opacity: 0.92;
-    }
-
-    .thumb-button:hover {
-      transform: scale(1.04);
-    }
-
-    .thumb-button:hover img {
-      opacity: 1;
-    }
-
-    .thumb-button.is-active {
-      border-color: #94a3b8;
-    }
-
-    .thumb-button:focus-visible {
-      outline: 3px solid rgba(59, 130, 246, 0.55);
-      outline-offset: 2px;
-    }
-
-    .footer-note {
-      margin-top: 26px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    @media (max-width: 560px) {
-      .top-nav-inner { padding: 10px 14px; }
-      .hero { padding: 54px 14px 46px 14px; }
-      .container { padding: 36px 14px 56px 14px; }
-      .thumb-strip { grid-auto-columns: 64px; }
-      .thumb-button { width: 64px; height: 64px; }
-    }
+    html { color-scheme: dark; scroll-behavior: smooth; }
+    body { margin: 0; min-width: 320px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ivory); background: radial-gradient(ellipse at 85% 8%,#163f2b 0,transparent 38rem),var(--deep); line-height: 1.65; }
+    body.has-dialog { overflow: hidden; }
+    a { color: inherit; text-underline-offset: 4px; }
+    img { display: block; max-width: 100%; height: auto; }
+    button { font: inherit; cursor: pointer; }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--gold); outline-offset: 5px; }
+    .container { width: min(100% - 40px,var(--page-max-width)); margin-inline: auto; }
+    .skip-link { position: fixed; top: 10px; left: 10px; z-index: 100; padding: 10px 16px; background: var(--gold); color: var(--deep); transform: translateY(-160%); }
+    .skip-link:focus { transform: translateY(0); }
+    .top-nav { position: sticky; top: 0; z-index: 50; background: rgba(4,12,9,.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--rule); }
+    .top-nav-inner { max-width: var(--page-max-width); margin: auto; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .brand { font-size: 14px; font-weight: 900; letter-spacing: .04em; text-decoration: none; }
+    .nav-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+    .nav-links a { padding: 7px 10px; border-radius: 8px; color: var(--muted); font-size: 13px; text-decoration: none; }
+    .nav-links a:hover { background: var(--panel); color: var(--ivory); }
+    .eyebrow { margin: 0 0 18px; color: var(--gold); font-size: 12px; font-weight: 800; letter-spacing: .19em; text-transform: uppercase; }
+    .hero { position: relative; overflow: hidden; padding: clamp(66px,8vw,112px) 0 64px; }
+    .hero::before { content: "♠"; position: absolute; right: -25px; top: -170px; color: rgba(232,191,112,.035); font-size: 620px; line-height: 1; pointer-events: none; }
+    .hero-inner { position: relative; display: grid; grid-template-columns: .92fr 1.08fr; align-items: center; gap: 36px; }
+    .hero-title { margin: 0; font-size: clamp(60px,7.6vw,104px); line-height: .96; letter-spacing: -.06em; font-weight: 900; }
+    .hero-title span { color: var(--gold); }
+    .hero-tagline { margin: 26px 0 16px; max-width: 500px; font-size: clamp(24px,2.7vw,34px); line-height: 1.2; letter-spacing: -.03em; font-weight: 700; text-wrap: balance; }
+    .hero-description { color: var(--muted); max-width: 470px; font-size: 17px; }
+    .button-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 28px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 13px 20px; border: 1px solid var(--gold); border-radius: 10px; background: var(--gold); color: #152016; font-size: 14px; font-weight: 800; text-decoration: none; transition: transform 180ms ease,background 180ms ease; }
+    .button:hover { background: #f6d797; transform: translateY(-2px); }
+    .button.secondary { background: transparent; color: var(--ivory); border-color: var(--rule); }
+    .hero-note { margin: 18px 0 0; color: var(--muted); font-size: 12px; }
+    figure { margin: 0; }
+    .table-stage { position: relative; padding: 48px 0 22px; }
+    .suit-row { display: flex; gap: 16px; color: var(--gold); font-size: 28px; letter-spacing: .1em; }
+    .table-stage > .suit-row { position: absolute; top: 0; right: 18px; }
+    .suit-red { color: #d99586; }
+    .editorial-image { padding: 9px; border: 1px solid var(--rule); border-radius: var(--radius); background: linear-gradient(140deg,#284634,#0b1711 70%); box-shadow: var(--shadow); }
+    .editorial-image img { width: 100%; border-radius: 16px; }
+    .table-stage .editorial-image { transform: rotate(-3deg); }
+    figcaption { padding: 12px 8px 5px; color: var(--muted); font-size: 12px; }
+    .table-label { display: inline-flex; position: relative; float: right; margin: 0 16px 0 0; padding: 9px 16px; border: 1px solid var(--rule); border-radius: 99px; background: var(--night); color: var(--gold); font-size: 12px; box-shadow: var(--shadow); }
+    .facts { border-block: 1px solid var(--rule); background: rgba(16,36,27,.65); }
+    .facts-inner { display: grid; grid-template-columns: repeat(3,1fr); }
+    .fact { padding: 26px 24px; text-align: center; }
+    .fact + .fact { border-left: 1px solid var(--rule); }
+    .fact strong { display: block; font-size: 19px; color: var(--gold); }
+    .fact span { color: var(--muted); font-size: 13px; }
+    .section { padding: clamp(60px,8vw,100px) 0; scroll-margin-top: 90px; }
+    .section-heading { max-width: 720px; margin: 0 auto 36px; text-align: center; }
+    h2 { margin: 0; font-size: clamp(32px,4vw,48px); line-height: 1.12; letter-spacing: -.035em; text-wrap: balance; }
+    .section-lede, .feature-copy > p:not(.eyebrow) { color: var(--muted); font-size: 17px; }
+    .feature-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .feature-card { padding: 28px; border: 1px solid var(--rule); border-radius: 20px; background: linear-gradient(145deg,#142c20,#0a1711); }
+    .card-suit { color: var(--gold); font-size: 36px; line-height: 1; }
+    .feature-card h3 { margin: 20px 0 10px; font-size: 23px; letter-spacing: -.025em; }
+    .feature-card p { margin: 0; color: var(--muted); font-size: 15px; }
+    .rules-note { margin: 26px 0 0; text-align: center; color: var(--muted); font-size: 13px; }
+    .feature-layout { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: clamp(28px,5vw,72px); }
+    .feature-layout.reverse { grid-template-columns: 1fr 1.15fr; }
+    .feature-layout.reverse .feature-media { order: 2; }
+    .feature-copy .eyebrow { margin-bottom: 16px; }
+    .feature-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 0; }
+    .feature-list li { padding: 8px 12px; border: 1px solid var(--rule); border-radius: 8px; color: var(--gold); background: rgba(232,191,112,.04); font-size: 13px; }
+    .settings-section { background: linear-gradient(90deg,rgba(26,60,39,.3),transparent); border-block: 1px solid rgba(232,191,112,.1); }
+    .gallery-track { display: grid; grid-auto-flow: column; grid-auto-columns: min(80vw,460px); gap: 20px; overflow-x: auto; padding: 6px 4px 24px; scroll-snap-type: x mandatory; scrollbar-color: #987b45 var(--night); }
+    .gallery-card { overflow: hidden; scroll-snap-align: start; border: 1px solid var(--rule); border-radius: 18px; background: var(--panel); text-decoration: none; transition: border-color 180ms ease; }
+    .gallery-card:hover { border-color: var(--gold); }
+    .gallery-card img { width: 100%; }
+    .gallery-caption { display: block; padding: 18px 20px; }
+    .gallery-caption strong { display: block; color: var(--gold); font-size: 18px; }
+    .gallery-caption span { display: block; margin-top: 5px; color: var(--muted); font-size: 13px; }
+    .gallery-note { text-align: center; color: var(--muted); font-size: 13px; }
+    .closing { padding: 80px 20px; border-top: 1px solid var(--rule); text-align: center; background: radial-gradient(ellipse at bottom,#224b32,transparent 70%),var(--night); }
+    .closing .suit-row, .closing .button-row { justify-content: center; }
+    .closing h2 { margin-top: 24px; }
+    .closing p { color: var(--muted); max-width: 540px; margin: 20px auto; }
+    .site-footer { padding: 28px 0; border-top: 1px solid var(--rule); color: var(--muted); font-size: 12px; }
+    .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px 24px; }
+    .lightbox { width: min(96vw,1300px); max-height: 92vh; overflow: auto; padding: 0; border: 1px solid var(--rule); border-radius: 20px; color: var(--ivory); background: var(--deep); box-shadow: var(--shadow); }
+    .lightbox::backdrop { background: rgba(0,0,0,.88); backdrop-filter: blur(8px); }
+    .lightbox img { width: 100%; height: auto; max-height: 65vh; object-fit: contain; background: #000; }
+    .lightbox-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding: 20px; }
+    .lightbox-counter { margin: 0 0 5px; font-size: 12px; color: var(--gold); }
+    .lightbox h2 { font-size: 24px; }
+    .lightbox-description { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
+    .dialog-controls { display: flex; flex-wrap: wrap; gap: 10px; }
+    .dialog-button { min-height: 44px; padding: 8px 14px; border: 1px solid var(--rule); border-radius: 8px; color: var(--ivory); background: var(--panel); }
+    .dialog-close { color: var(--deep); background: var(--gold); }
+    @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; } .hero-copy { max-width: 650px; } .table-stage { max-width: 760px; width: 100%; margin: 10px auto 0; } .hero-title br { display: none; } .feature-layout,.feature-layout.reverse { grid-template-columns: 1fr; gap: 32px; } .feature-layout.reverse .feature-media { order: 0; } .feature-copy { max-width: 650px; } }
+    @media (max-width: 560px) { .container { width: calc(100% - 28px); } .top-nav-inner { padding: 12px 14px; flex-wrap: wrap; gap: 8px; } .nav-links { justify-content: flex-start; gap: 2px; } .nav-links a { padding: 5px 8px; } .hero { padding: 48px 0; } .hero-title { font-size: clamp(56px,15vw,80px); } .hero-tagline { font-size: 27px; } .table-stage { padding-top: 32px; } .table-stage > .suit-row { font-size: 22px; } .fact { padding: 20px 7px; } .fact strong { font-size: 15px; } .fact span { font-size: 11px; } .feature-grid { grid-template-columns: 1fr; } .feature-card { padding: 24px; } .closing { padding: 60px 14px; } .footer-inner { display: block; } .button-row .button { flex: 1 1 auto; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *,*::before,*::after { transition: none !important; } }
   </style>
 </head>
-
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header id="site-header" class="top-nav"></header>
-
-  <header class="hero">
-    <div class="hero-inner">
-      <h1 class="hero-title">Play Bukharo!</h1>
-    </div>
-  </header>
-
-  <main class="container">
-    <p class="kicker">Card Game</p>
-    <p class="tagline">An iOS version of the popular Indian card game known as Bukharo.</p>
-
-    <p class="lede">
-      Designed for both new and experienced players, young and old players alike. Play with friends at home or online via our multi-player option!
-    </p>
-
-    <h2 class="section-title">Adjustable Settings</h2>
-    <ul class="feature-list">
-      <li>Make it easier to teach new players to start</li>
-      <li>Disable settings later to provide a more challenging game for experienced players</li>
-    </ul>
-
-    <h2 class="section-title">Game Rules</h2>
-    <p class="lede">
-      Based on the standard rules of Bukharo as described on PlayBukharo.com.
-    </p>
-
-    <hr class="divider">
-
-    <!-- Screenshot Gallery -->
-    <section class="media-block" aria-label="Screenshots">
-      <div class="media-frame">
-        <img
-          id="mainScreenshot"
-          src="/assets/playbukharo/screenshots/screen-01.png"
-          alt="Play Bukharo! gameplay screenshot">
-      </div>
-
-      <div class="thumb-strip" aria-label="Screenshot thumbnails">
-        <button class="thumb-button is-active" type="button" data-full="/assets/playbukharo/screenshots/screen-01.png" aria-label="Show screenshot 1">
-          <img src="/assets/playbukharo/screenshots/screen-01.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/playbukharo/screenshots/screen-02.png" aria-label="Show screenshot 2">
-          <img src="/assets/playbukharo/screenshots/screen-02.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/playbukharo/screenshots/screen-03.png" aria-label="Show screenshot 3">
-          <img src="/assets/playbukharo/screenshots/screen-03.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/playbukharo/screenshots/screen-04.png" aria-label="Show screenshot 4">
-          <img src="/assets/playbukharo/screenshots/screen-04.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/playbukharo/screenshots/screen-05.png" aria-label="Show screenshot 5">
-          <img src="/assets/playbukharo/screenshots/screen-05.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/playbukharo/screenshots/screen-06.png" aria-label="Show screenshot 6">
-          <img src="/assets/playbukharo/screenshots/screen-06.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/playbukharo/screenshots/screen-07.png" aria-label="Show screenshot 7">
-          <img src="/assets/playbukharo/screenshots/screen-07.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/playbukharo/screenshots/screen-08.png" aria-label="Show screenshot 8">
-          <img src="/assets/playbukharo/screenshots/screen-08.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/playbukharo/screenshots/screen-09.png" aria-label="Show screenshot 9">
-          <img src="/assets/playbukharo/screenshots/screen-09.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/playbukharo/screenshots/screen-10.png" aria-label="Show screenshot 10">
-          <img src="/assets/playbukharo/screenshots/screen-10.png" loading="lazy" alt="">
-        </button>
+  <main id="main">
+    <section class="hero" aria-labelledby="bukharo-title">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">A classic card game. A shared experience.</p>
+          <h1 class="hero-title" id="bukharo-title">Play<br> <span>Bukharo!</span></h1>
+          <p class="hero-tagline">Your friends. Your table. Your next winning hand.</p>
+          <p class="hero-description">Bring the popular Indian card game to your next game night. Gather around one device or play online with friends.</p>
+          <div class="button-row"><a class="button" href="https://apps.apple.com/us/app/play-bukharo/id1550023789">Download on the App Store</a><a class="button secondary" href="#discover">Explore the game ↓</a></div>
+          <p class="hero-note">For new players, familiar faces, and friendly rivalries.</p>
+        </div>
+        <div class="table-stage">
+          <div class="suit-row" aria-hidden="true"><span>♠</span><span class="suit-red">♥</span><span>♣</span><span class="suit-red">♦</span></div>
+          <figure class="editorial-image"><picture><source type="image/webp" srcset="/assets/playbukharo/screenshots/webp/screen-04-900.webp 900w, /assets/playbukharo/screenshots/webp/screen-04-1800.webp 1800w" sizes="(max-width: 760px) 100vw, 800px"><img src="/assets/playbukharo/screenshots/screen-04.png" width="2688" height="1242" fetchpriority="high" decoding="async" alt="Multiplayer Bukharo table with named players and a live score summary"></picture><figcaption>Four seats. Familiar cards. Plenty of reasons for one more round.</figcaption></figure>
+          <span class="table-label">Your next game night starts here</span>
+        </div>
       </div>
     </section>
-
-    <p class="footer-note">
-      Privacy Policy:
-      <a href="/privacy/play-bukharo">/privacy/play-bukharo</a>
-    </p>
+    <div class="facts"><div class="container facts-inner"><div class="fact"><strong>Play together</strong><span>One device, shared fun</span></div><div class="fact"><strong>Meet online</strong><span>Friends on multiple devices</span></div><div class="fact"><strong>Make it yours</strong><span>Adjustable game settings</span></div></div></div>
+    <section class="section" id="discover" aria-labelledby="discover-title">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Everyone has a seat</p><h2 id="discover-title">A familiar game.<br>A fresh reason to get together.</h2><p class="section-lede">Play Bukharo! brings a classic Indian card game to iOS, with room for beginners and experienced players alike.</p></div>
+        <div class="feature-grid">
+          <article class="feature-card"><span class="card-suit" aria-hidden="true">♠</span><h3>Share the table</h3><p>Bring friends together on a single device for a game at home.</p></article>
+          <article class="feature-card"><span class="card-suit" aria-hidden="true">♥</span><h3>Keep friends in play</h3><p>Choose multiplayer to enjoy a game together online, each on your own device.</p></article>
+          <article class="feature-card"><span class="card-suit" aria-hidden="true">♣</span><h3>Find your rhythm</h3><p>Start with helpful settings while learning, then adjust them as everyone gains confidence.</p></article>
+        </div>
+        <p class="rules-note">Based on the standard rules of Bukharo as described on <a href="https://playbukharo.com/">PlayBukharo.com</a>.</p>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="friends-title">
+      <div class="container feature-layout">
+        <figure class="editorial-image feature-media"><picture><source type="image/webp" srcset="/assets/playbukharo/screenshots/webp/screen-03-900.webp 900w, /assets/playbukharo/screenshots/webp/screen-03-1800.webp 1800w" sizes="(max-width: 760px) 100vw, 800px"><img src="/assets/playbukharo/screenshots/screen-03.png" width="2688" height="1242" loading="lazy" decoding="async" alt="Four-player Bukharo game with hands arranged around the green card table"></picture><figcaption>The whole table, with each hand and the game summary in view.</figcaption></figure>
+        <div class="feature-copy"><p class="eyebrow">Good company. Great hands.</p><h2 id="friends-title">Bring everyone<br>to the table.</h2><p>Make Bukharo part of your next get-together. Play with friends on one device, or choose the multiplayer option to connect online.</p><p>The cards are familiar. The company makes every round your own.</p><ul class="feature-list"><li>Single-device play</li><li>Online multiplayer</li><li>Live score summary</li></ul></div>
+      </div>
+    </section>
+    <section class="section settings-section" aria-labelledby="settings-title">
+      <div class="container feature-layout reverse">
+        <figure class="editorial-image feature-media"><picture><source type="image/webp" srcset="/assets/playbukharo/screenshots/webp/screen-02-900.webp 900w, /assets/playbukharo/screenshots/webp/screen-02-1800.webp 1800w" sizes="(max-width: 760px) 100vw, 800px"><img src="/assets/playbukharo/screenshots/screen-02.png" width="2688" height="1242" loading="lazy" decoding="async" alt="Adjustable settings for player count, showing cards, and highlighting valid plays"></picture><figcaption>Choose player count, card visibility, and helpful highlights.</figcaption></figure>
+        <div class="feature-copy"><p class="eyebrow">A welcoming first hand</p><h2 id="settings-title">Learn together.<br>Raise the challenge.</h2><p>Teaching someone new? Adjustable settings help make the first rounds easier to follow, with options to show cards and highlight valid plays.</p><p>As the table gets comfortable, turn off the extra help for a more challenging game.</p><ul class="feature-list"><li>Adjustable settings</li><li>Card visibility options</li><li>Helpful highlights</li></ul></div>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="gallery-title">
+      <div class="container"><div class="section-heading"><p class="eyebrow">Inside Play Bukharo!</p><h2 id="gallery-title">Take a look around the table.</h2><p class="section-lede">Explore the hands, the settings, and the moments that bring a round to life.</p></div>
+        <div class="gallery-track" aria-label="Play Bukharo screenshot gallery">
+          <a class="gallery-card" href="/assets/playbukharo/screenshots/screen-04.png" data-gallery-index="0"><picture><source type="image/webp" srcset="/assets/playbukharo/screenshots/webp/screen-04-900.webp 900w, /assets/playbukharo/screenshots/webp/screen-04-1800.webp 1800w" sizes="(max-width: 760px) 100vw, 800px"><img src="/assets/playbukharo/screenshots/screen-04.png" width="2688" height="1242" loading="lazy" decoding="async" alt="Multiplayer Bukharo table with named players and a live score summary"></picture><span class="gallery-caption"><strong>Meet at the table</strong><span>A multiplayer game with friends around the table.</span></span></a>
+          <a class="gallery-card" href="/assets/playbukharo/screenshots/screen-05.png" data-gallery-index="1"><picture><source type="image/webp" srcset="/assets/playbukharo/screenshots/webp/screen-05-900.webp 900w, /assets/playbukharo/screenshots/webp/screen-05-1800.webp 1800w" sizes="(max-width: 760px) 100vw, 800px"><img src="/assets/playbukharo/screenshots/screen-05.png" width="2688" height="1242" loading="lazy" decoding="async" alt="An individual player’s hand with cards, combinations, and the game summary"></picture><span class="gallery-caption"><strong>Your hand, your next move</strong><span>An individual hand alongside the game summary.</span></span></a>
+          <a class="gallery-card" href="/assets/playbukharo/screenshots/screen-03.png" data-gallery-index="2"><picture><source type="image/webp" srcset="/assets/playbukharo/screenshots/webp/screen-03-900.webp 900w, /assets/playbukharo/screenshots/webp/screen-03-1800.webp 1800w" sizes="(max-width: 760px) 100vw, 800px"><img src="/assets/playbukharo/screenshots/screen-03.png" width="2688" height="1242" loading="lazy" decoding="async" alt="Four-player Bukharo game with hands arranged around the green card table"></picture><span class="gallery-caption"><strong>See the whole game</strong><span>Four hands arranged around one shared table.</span></span></a>
+          <a class="gallery-card" href="/assets/playbukharo/screenshots/screen-02.png" data-gallery-index="3"><picture><source type="image/webp" srcset="/assets/playbukharo/screenshots/webp/screen-02-900.webp 900w, /assets/playbukharo/screenshots/webp/screen-02-1800.webp 1800w" sizes="(max-width: 760px) 100vw, 800px"><img src="/assets/playbukharo/screenshots/screen-02.png" width="2688" height="1242" loading="lazy" decoding="async" alt="Adjustable settings for player count, showing cards, and highlighting valid plays"></picture><span class="gallery-caption"><strong>Set the pace</strong><span>Adjust settings to suit the players at your table.</span></span></a>
+          <a class="gallery-card" href="/assets/playbukharo/screenshots/screen-06.png" data-gallery-index="4"><picture><source type="image/webp" srcset="/assets/playbukharo/screenshots/webp/screen-06-900.webp 900w, /assets/playbukharo/screenshots/webp/screen-06-1800.webp 1800w" sizes="(max-width: 760px) 100vw, 800px"><img src="/assets/playbukharo/screenshots/screen-06.png" width="2688" height="1242" loading="lazy" decoding="async" alt="A concealed player hand at the Bukharo table"></picture><span class="gallery-caption"><strong>Keep cards concealed</strong><span>A view of a concealed player hand.</span></span></a>
+          <a class="gallery-card" href="/assets/playbukharo/screenshots/screen-07.png" data-gallery-index="5"><picture><source type="image/webp" srcset="/assets/playbukharo/screenshots/webp/screen-07-900.webp 900w, /assets/playbukharo/screenshots/webp/screen-07-1800.webp 1800w" sizes="(max-width: 760px) 100vw, 800px"><img src="/assets/playbukharo/screenshots/screen-07.png" width="2688" height="1242" loading="lazy" decoding="async" alt="Four-player game with one revealed hand and highlighted cards"></picture><span class="gallery-caption"><strong>Follow the action</strong><span>Cards, current turn, and scores in one view.</span></span></a>
+          <a class="gallery-card" href="/assets/playbukharo/screenshots/screen-08.png" data-gallery-index="6"><picture><source type="image/webp" srcset="/assets/playbukharo/screenshots/webp/screen-08-900.webp 900w, /assets/playbukharo/screenshots/webp/screen-08-1800.webp 1800w" sizes="(max-width: 760px) 100vw, 800px"><img src="/assets/playbukharo/screenshots/screen-08.png" width="2688" height="1242" loading="lazy" decoding="async" alt="Bukharo table showing the current turn and score summary"></picture><span class="gallery-caption"><strong>Watch the round unfold</strong><span>Keep track of the game as play moves around the table.</span></span></a>
+          <a class="gallery-card" href="/assets/playbukharo/screenshots/screen-09.png" data-gallery-index="7"><picture><source type="image/webp" srcset="/assets/playbukharo/screenshots/webp/screen-09-900.webp 900w, /assets/playbukharo/screenshots/webp/screen-09-1800.webp 1800w" sizes="(max-width: 760px) 100vw, 800px"><img src="/assets/playbukharo/screenshots/screen-09.png" width="2688" height="1242" loading="lazy" decoding="async" alt="Bukharo game in progress with several combinations on the table"></picture><span class="gallery-caption"><strong>Play another combination</strong><span>A table full of cards as the round progresses.</span></span></a>
+          <a class="gallery-card" href="/assets/playbukharo/screenshots/screen-10.png" data-gallery-index="8"><picture><source type="image/webp" srcset="/assets/playbukharo/screenshots/webp/screen-10-900.webp 900w, /assets/playbukharo/screenshots/webp/screen-10-1800.webp 1800w" sizes="(max-width: 760px) 100vw, 800px"><img src="/assets/playbukharo/screenshots/screen-10.png" width="2688" height="1242" loading="lazy" decoding="async" alt="End-of-game results showing the winning player and final scores"></picture><span class="gallery-caption"><strong>Celebrate the finish</strong><span>The final scores and winning player.</span></span></a>
+          <a class="gallery-card" href="/assets/playbukharo/screenshots/screen-01.png" data-gallery-index="9"><picture><source type="image/webp" srcset="/assets/playbukharo/screenshots/webp/screen-01-900.webp 900w, /assets/playbukharo/screenshots/webp/screen-01-1800.webp 1800w" sizes="(max-width: 760px) 100vw, 800px"><img src="/assets/playbukharo/screenshots/screen-01.png" width="2688" height="1242" loading="lazy" decoding="async" alt="Play Bukharo main menu with single-device and multiple-device options"></picture><span class="gallery-caption"><strong>Choose how to play</strong><span>Start on one device or choose multiple devices.</span></span></a>
+        </div><p class="gallery-note">Swipe or scroll to explore. Select a screenshot for a larger view.</p>
+      </div>
+    </section>
+    <section class="closing" aria-labelledby="closing-title"><div class="container"><div class="suit-row" aria-hidden="true"><span>♠</span><span class="suit-red">♥</span><span>♣</span><span class="suit-red">♦</span></div><h2 id="closing-title">Ready for another hand?</h2><p>Gather your friends, find your seat, and make a little time for Play Bukharo!</p><div class="button-row"><a class="button" href="https://apps.apple.com/us/app/play-bukharo/id1550023789">Download on the App Store</a></div></div></section>
   </main>
-
+  <footer class="site-footer"><div class="container footer-inner"><p>&copy; 2026 L&amp;L Programming LLC</p><p><a href="/privacy/play-bukharo">Privacy Policy</a> · <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms of Use</a> · <a href="mailto:llprogramming@yahoo.com">Support</a></p></div></footer>
+  <dialog class="lightbox" id="screenshot-dialog" aria-labelledby="lightbox-title" aria-describedby="lightbox-description">
+    <img id="lightbox-image" width="2688" height="1242" alt="">
+    <div class="lightbox-footer"><div><p class="lightbox-counter" id="lightbox-counter"></p><h2 id="lightbox-title">Around the table</h2><p class="lightbox-description" id="lightbox-description"></p></div><div class="dialog-controls"><button class="dialog-button" id="lightbox-previous" type="button" aria-label="Previous screenshot">← Previous</button><button class="dialog-button" id="lightbox-next" type="button" aria-label="Next screenshot">Next →</button><button class="dialog-button dialog-close" id="lightbox-close" type="button">Close gallery</button></div></div>
+  </dialog>
   <script src="/header.js?v=7"></script>
   <script>
     (function () {
-      const mainImage = document.getElementById("mainScreenshot");
-      const thumbnailButtons = Array.from(document.querySelectorAll(".thumb-button"));
-
-      function setActiveThumbnail(activeButton) {
-        for (const button of thumbnailButtons) {
-          button.classList.toggle("is-active", button === activeButton);
-        }
+      const dialog = document.getElementById("screenshot-dialog");
+      const gallery = document.querySelector(".gallery-track");
+      const links = Array.from(gallery.querySelectorAll("[data-gallery-index]"));
+      const image = document.getElementById("lightbox-image");
+      const title = document.getElementById("lightbox-title");
+      const description = document.getElementById("lightbox-description");
+      const counter = document.getElementById("lightbox-counter");
+      const closeButton = document.getElementById("lightbox-close");
+      let currentIndex = 0;
+      let opener = null;
+      function showScreenshot(index) {
+        currentIndex = (index + links.length) % links.length;
+        const link = links[currentIndex];
+        image.src = link.getAttribute("href").replace(/screenshots\/(screen-\d+)\.png$/, "screenshots/webp/$1-1800.webp");
+        image.alt = link.querySelector("img").alt;
+        title.textContent = link.querySelector("strong").textContent;
+        description.textContent = link.querySelector(".gallery-caption span").textContent;
+        counter.textContent = "Screenshot " + (currentIndex + 1) + " of " + links.length;
       }
-
-      function setMainScreenshot(imageUrl, activeButton) {
-        if (!imageUrl) { return; }
-        mainImage.src = imageUrl;
-        setActiveThumbnail(activeButton);
-      }
-
-      for (const button of thumbnailButtons) {
-        button.addEventListener("click", function () {
-          const imageUrl = button.getAttribute("data-full");
-          setMainScreenshot(imageUrl, button);
-        });
-      }
-
-      // Optional: keyboard support (left/right arrows) when focus is within the strip
-      document.querySelector(".thumb-strip")?.addEventListener("keydown", function (event) {
-        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") { return; }
-        const focusedIndex = thumbnailButtons.findIndex((button) => button === document.activeElement);
-        if (focusedIndex < 0) { return; }
-
+      gallery.addEventListener("click", function (event) {
+        const link = event.target.closest("[data-gallery-index]");
+        if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || typeof dialog.showModal !== "function") { return; }
         event.preventDefault();
-
-        const direction = (event.key === "ArrowRight") ? 1 : -1;
-        const nextIndex = (focusedIndex + direction + thumbnailButtons.length) % thumbnailButtons.length;
-        thumbnailButtons[nextIndex].focus();
-        const imageUrl = thumbnailButtons[nextIndex].getAttribute("data-full");
-        setMainScreenshot(imageUrl, thumbnailButtons[nextIndex]);
+        opener = link;
+        showScreenshot(Number(link.dataset.galleryIndex));
+        dialog.showModal();
+        document.body.classList.add("has-dialog");
+        closeButton.focus();
       });
+      document.getElementById("lightbox-previous").addEventListener("click", function () { showScreenshot(currentIndex - 1); });
+      document.getElementById("lightbox-next").addEventListener("click", function () { showScreenshot(currentIndex + 1); });
+      closeButton.addEventListener("click", function () { dialog.close(); });
+      dialog.addEventListener("click", function (event) { if (event.target === dialog && (event.clientX < dialog.getBoundingClientRect().left || event.clientX > dialog.getBoundingClientRect().right || event.clientY < dialog.getBoundingClientRect().top || event.clientY > dialog.getBoundingClientRect().bottom)) { dialog.close(); } });
+      dialog.addEventListener("keydown", function (event) {
+        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") { return; }
+        event.preventDefault();
+        showScreenshot(currentIndex + (event.key === "ArrowRight" ? 1 : -1));
+      });
+      dialog.addEventListener("close", function () { document.body.classList.remove("has-dialog"); if (opener) { opener.focus(); } });
     })();
   </script>
 </body>
