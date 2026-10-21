@@ -3,410 +3,385 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>War of the Heavens</title>
-
+  <meta name="theme-color" content="#080f1b">
+  <title>War of the Heavens – Command the Angels</title>
+  <meta name="description" content="Command angelic armies, develop your celestial economy, and reclaim worlds from demonic forces in War of the Heavens, a strategy game for iPhone.">
+  <link rel="canonical" href="https://llprogramming.com/waroftheheavens/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="War of the Heavens – Command the Angels">
+  <meta property="og:description" content="Command the angels. Reclaim the realms. The fate of the heavens is yours to decide.">
+  <meta property="og:url" content="https://llprogramming.com/waroftheheavens/">
+  <meta property="og:image" content="https://llprogramming.com/assets/waroftheheavens/icon/app-icon.png">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Angelic warriors above a celestial battlefield">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="War of the Heavens">
+  <meta name="twitter:description" content="Command the angels. Reclaim the realms.">
+  <meta name="twitter:image" content="https://llprogramming.com/assets/waroftheheavens/icon/app-icon.png">
   <style>
     :root {
-      --page-max-width: 1040px;
-      --hero-bg: #1f2636;
-      --text: #111827;
-      --muted: #6b7280;
-      --rule: #e5e7eb;
-      --bullet: #9ca3af;
-      --card: #ffffff;
-      --shadow: 0 8px 24px rgba(17, 24, 39, 0.08);
-      --radius: 12px;
+      --page-max-width: 1180px;
+      --ink: #080f1b;
+      --deep: #040912;
+      --coal: #0e1928;
+      --iron: #142237;
+      --soft-iron: #1b2d42;
+      --bone: #f3eee3;
+      --steel: #b4c2d2;
+      --muted: #a3b2c4;
+      --bronze: #c9a260;
+      --gold: #edc77e;
+      --blue: #86c9ff;
+      --red: #e77962;
+      --rule: rgba(224, 173, 79, 0.22);
+      --steel-rule: rgba(197, 206, 209, 0.18);
+      --shadow: 0 26px 75px rgba(0, 0, 0, 0.55);
+      --radius: 24px;
     }
 
     * { box-sizing: border-box; }
-
+    html { scroll-behavior: smooth; color-scheme: dark; }
     body {
       margin: 0;
-      font-family: -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      color: var(--text);
-      background: #ffffff;
+      min-width: 320px;
+      overflow-x: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       line-height: 1.6;
+      color: var(--bone);
+      background: radial-gradient(circle at 12% 8%, rgba(169,108,49,.09), transparent 28rem), radial-gradient(circle at 90% 40%, rgba(68,135,239,.055), transparent 30rem), var(--deep);
+    }
+    body.has-dialog { overflow: hidden; }
+    img { max-width: 100%; }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .skip-link { position: fixed; top: 10px; left: 10px; z-index: 200; padding: 10px 14px; border-radius: 10px; color: var(--ink); background: var(--gold); transform: translateY(-160%); }
+    .skip-link:focus { transform: translateY(0); }
+
+    .top-nav { position: sticky; top: 0; z-index: 50; background: rgba(8,15,27,.9); border-bottom: 1px solid rgba(224,173,79,.15); backdrop-filter: blur(16px); }
+    .top-nav-inner { max-width: var(--page-max-width); margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { flex: 0 0 auto; color: var(--bone); font-size: 14px; font-weight: 900; letter-spacing: .04em; white-space: nowrap; }
+    .nav-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px 8px; }
+    .nav-links a { padding: 7px 9px; border-radius: 9px; color: var(--steel); font-size: 13px; text-decoration: none; }
+    .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--bone); background: rgba(224,173,79,.11); }
+    .nav-links a:focus-visible, .button:focus-visible, .gallery-card:focus-visible, .dialog-button:focus-visible, .text-link:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+    .container { width: min(100% - 40px, var(--page-max-width)); margin-inline: auto; }
+    .eyebrow { margin: 0; color: var(--gold); font-size: 13px; font-weight: 850; letter-spacing: .21em; text-transform: uppercase; }
+
+    .hero { position: relative; isolation: isolate; padding: clamp(44px,7vw,92px) 0 100px; overflow: hidden; }
+    .hero::before { content: ""; position: absolute; z-index: -1; inset: 0; background: radial-gradient(ellipse at 85% 40%,rgba(99,161,209,.15),transparent 55%),radial-gradient(ellipse at 50% 100%,rgba(231,121,98,.07),transparent 55%); }
+    .hero-layout { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); align-items: center; gap: 28px; }
+    .hero-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .app-icon { width: 62px; height: 62px; border-radius: 16px; border: 1px solid var(--rule); }
+    .hero-brand .eyebrow { font-size: 11px; letter-spacing: .16em; }
+    .hero-brand small { display: block; margin-top: 5px; color: var(--steel); font-size: 13px; }
+    .hero-title { margin: 0; font-size: clamp(50px,6.5vw,86px); font-weight: 900; letter-spacing: -.055em; line-height: .98; text-wrap: balance; }
+    .hero-title span { display: block; color: var(--gold); }
+    .hero-tagline { margin: 25px 0 0; max-width: 520px; font-size: clamp(25px,2.8vw,35px); font-weight: 750; line-height: 1.15; letter-spacing: -.025em; text-wrap: balance; }
+    .hero-copy { max-width: 540px; margin: 20px 0 0; color: var(--steel); font-size: 17px; }
+    .hero-art { position: relative; margin: 0 -35px 0 0; }
+    .hero-art img { display: block; width: 100%; height: auto; border-radius: 48% 48% 20px 20px; mask-image: linear-gradient(#000 78%,transparent); }
+    .hero-art figcaption { position: absolute; bottom: 15px; left: 0; right: 0; text-align: center; color: var(--gold); font-size: 11px; text-transform: uppercase; letter-spacing: .28em; }
+    .button-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 30px; }
+    .button { display: inline-flex; min-height: 50px; align-items: center; justify-content: center; padding: 12px 21px; border: 1px solid rgba(224,173,79,.5); border-radius: 999px; color: #1a1209; background: linear-gradient(135deg,#f0c46a,#bd7935); font-weight: 830; text-decoration: none; box-shadow: 0 13px 34px rgba(0,0,0,.4); }
+    .text-link { color: var(--steel); font-size: 14px; text-underline-offset: 4px; }
+
+    .war-table-wrap { position: relative; z-index: 2; margin-top: clamp(-94px,-7vw,-55px); }
+    .war-table { margin: 0; padding: 10px; border: 1px solid rgba(224,173,79,.3); border-radius: 26px; background: linear-gradient(145deg,#2a2d2d,#090a0a 68%); box-shadow: var(--shadow), 0 0 70px rgba(224,173,79,.055); }
+    .war-table img { display: block; width: 100%; height: auto; border-radius: 17px; }
+    .war-table figcaption { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 20px; padding: 15px 9px 6px; color: var(--steel); font-size: 14px; }
+    .territory-key, .key-item { display: inline-flex; align-items: center; }
+    .territory-key { flex-wrap: wrap; gap: 14px; }
+    .key-item { gap: 7px; }
+    .key-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--blue); }
+    .key-dot.enemy { background: var(--red); }
+
+    .section { padding: clamp(76px,10vw,128px) 0; }
+    .section + .section { border-top: 1px solid rgba(197,206,209,.1); }
+    .section-heading { max-width: 800px; margin-bottom: 44px; }
+    .section-heading.center { margin-inline: auto; text-align: center; }
+    .section-title, .feature-copy h2 { margin: 10px 0 0; font-size: clamp(35px,5vw,59px); letter-spacing: -.042em; line-height: 1.02; text-wrap: balance; }
+    .section-lede { margin: 18px 0 0; color: var(--steel); font-size: clamp(16px,1.75vw,19px); }
+
+    .strategy-loop { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+    .strategy-card { min-height: 205px; padding: 24px; border: 1px solid var(--steel-rule); border-radius: 20px; background: linear-gradient(145deg,rgba(27,45,66,.96),rgba(12,14,15,.96)); box-shadow: 0 14px 38px rgba(0,0,0,.24); }
+    .strategy-number { color: var(--bronze); font-size: 13px; font-weight: 850; letter-spacing: .17em; }
+    .strategy-card h3 { margin: 22px 0 8px; color: var(--gold); font-size: 25px; }
+    .strategy-card p { margin: 0; color: var(--steel); font-size: 14px; }
+
+    .feature-layout { display: grid; grid-template-columns: minmax(0,1.08fr) minmax(300px,.72fr); align-items: center; gap: clamp(42px,7vw,92px); }
+    .feature-layout.reverse { grid-template-columns: minmax(300px,.72fr) minmax(0,1.08fr); }
+    .feature-layout.reverse .feature-media { order: 2; }
+    .feature-copy h2 { font-size: clamp(35px,4.8vw,58px); }
+    .feature-copy > p:not(.eyebrow) { margin: 20px 0 0; color: var(--steel); font-size: 17px; }
+    .feature-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; padding: 0; margin: 27px 0 0; list-style: none; }
+    .feature-list li { padding: 11px 13px; border: 1px solid var(--steel-rule); border-radius: 12px; color: #cdd2d3; background: rgba(27,45,66,.7); font-size: 14px; }
+    .editorial-image { margin: 0; padding: 10px; border: 1px solid var(--rule); border-radius: var(--radius); background: linear-gradient(145deg,#272a2a,#090a0a 70%); box-shadow: var(--shadow); }
+    .editorial-image img { display: block; width: 100%; height: auto; border-radius: calc(var(--radius) - 9px); }
+    .editorial-image figcaption { padding: 13px 6px 3px; color: var(--muted); font-size: 14px; }
+
+    .army-stack { display: grid; gap: 20px; }
+    .army-stack .editorial-image:last-child { width: 78%; margin: -64px 0 0 auto; }
+
+    .gallery-track { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px,380px); gap: 18px; overflow-x: auto; padding: 8px 4px 24px; scroll-snap-type: x mandatory; scrollbar-color: var(--bronze) transparent; overscroll-behavior-inline: contain; }
+    .gallery-card { scroll-snap-align: start; overflow: hidden; border: 1px solid var(--steel-rule); border-radius: 19px; color: inherit; background: var(--coal); text-decoration: none; transition: transform 180ms ease,border-color 180ms ease; }
+    .gallery-card:hover { border-color: rgba(224,173,79,.58); transform: translateY(-4px); }
+    .gallery-card img { display: block; width: 100%; height: auto; background: #000; }
+    .gallery-caption { display: block; padding: 17px 18px 19px; }
+    .gallery-caption strong { display: block; color: var(--gold); }
+    .gallery-caption span { display: block; margin-top: 3px; color: var(--muted); font-size: 13px; }
+    .gallery-note { margin: 18px 0 0; color: var(--muted); font-size: 14px; text-align: center; }
+
+    .closing { position: relative; isolation: isolate; overflow: hidden; padding: clamp(94px,13vw,160px) 0; text-align: center; }
+    .closing::before { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(rgba(4,9,18,.52),rgba(4,9,18,.92)), url("/assets/waroftheheavens/art/seraphoria.webp") center 44% / cover; filter: saturate(.74); }
+    .closing h2 { max-width: 830px; margin: 10px auto 0; font-size: clamp(41px,6vw,72px); letter-spacing: -.047em; line-height: 1; text-wrap: balance; }
+    .closing p:not(.eyebrow) { max-width: 690px; margin: 22px auto 0; color: #d0d4d3; font-size: 18px; }
+    .closing .button-row { justify-content: center; }
+
+    .site-footer { padding: 30px 0 38px; border-top: 1px solid var(--rule); color: var(--muted); background: #040912; font-size: 14px; }
+    .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px 28px; }
+    .footer-inner p { margin: 0; }
+    .footer-inner a { text-underline-offset: 4px; }
+
+    .lightbox { width: min(95vw,1220px); max-height: 92vh; padding: 0; overflow: hidden; border: 1px solid rgba(224,173,79,.35); border-radius: 23px; color: var(--bone); background: #090a0a; box-shadow: 0 30px 100px rgba(0,0,0,.8); }
+    .lightbox::backdrop { background: rgba(0,0,0,.88); backdrop-filter: blur(8px); }
+    .lightbox-layout { display: grid; grid-template-rows: minmax(0,1fr) auto; max-height: 92vh; }
+    .lightbox-media { display: grid; min-height: 0; place-items: center; padding: 18px; overflow: auto; background: #000; }
+    .lightbox-media img { display: block; width: auto; max-width: 100%; height: auto; max-height: calc(92vh - 150px); }
+    .lightbox-footer { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 20px; padding: 18px 20px; border-top: 1px solid var(--rule); }
+    .lightbox-counter { margin: 0; color: var(--bronze); font-size: 12px; font-weight: 850; letter-spacing: .15em; text-transform: uppercase; }
+    .lightbox-title { margin: 4px 0 0; color: var(--gold); font-size: 21px; line-height: 1.15; }
+    .lightbox-description { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+    .dialog-controls { display: flex; gap: 8px; }
+    .dialog-button { min-height: 43px; padding: 8px 14px; border: 1px solid var(--steel-rule); border-radius: 10px; color: var(--bone); background: var(--soft-iron); cursor: pointer; font: inherit; font-weight: 760; }
+    .dialog-close { color: #1a1209; background: var(--gold); }
+
+    @media (max-width: 900px) {
+      .strategy-loop { grid-template-columns: repeat(2,1fr); }
+      .feature-layout, .feature-layout.reverse { grid-template-columns: 1fr; gap: 42px; }
+      .feature-layout.reverse .feature-media { order: initial; }
+      .feature-media { max-width: 760px; margin-inline: auto; }
     }
 
-    a { color: inherit; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    @media (max-width: 720px) {
+      .top-nav-inner { display: block; padding: 10px 14px; }
+      .brand { display: block; margin-bottom: 8px; }
+      .nav-links { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links a { flex: 0 0 auto; }
+      .container { width: min(100% - 28px,var(--page-max-width)); }
+      .hero { padding-top: 36px; padding-bottom: 100px; }
 
-    /* ===== Top Nav ===== */
-    .top-nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--rule);
+      .hero-content { margin-inline: auto; text-align: center; }
+      .hero-brand, .button-row { justify-content: center; }
+      .hero-layout { grid-template-columns: 1fr; gap: 28px; }
+      .hero-art { width: min(100%,520px); margin: 0 auto; }
+      .hero-tagline { margin-inline: auto; }
+      .hero-copy { margin-inline: auto; }
+      .war-table-wrap { margin-top: -55px; }
+      .war-table figcaption { display: block; }
+      .territory-key { margin-top: 7px; }
+      .gallery-track { grid-auto-columns: minmax(280px,84vw); }
+      .lightbox-footer { grid-template-columns: 1fr; }
+      .dialog-button { flex: 1; }
     }
 
-    .top-nav-inner {
-      max-width: var(--page-max-width);
-      margin: 0 auto;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
+    @media (max-width: 480px) {
+      .app-icon { width: 54px; height: 54px; border-radius: 14px; }
+      .hero-brand { gap: 14px; }
+      .hero-title { font-size: clamp(42px,13vw,58px); }
+      .hero-tagline { font-size: 27px; }
+      .strategy-loop { grid-template-columns: 1fr; }
+      .strategy-card { min-height: 0; }
+      .feature-list { grid-template-columns: 1fr; }
+      .army-stack .editorial-image:last-child { width: 88%; margin-top: -38px; }
+      .dialog-controls { display: grid; grid-template-columns: 1fr 1fr; }
+      .dialog-close { grid-column: 1 / -1; }
     }
 
-    .brand {
-      font-weight: 900;
-      letter-spacing: 0.02em;
-      font-size: 14px;
-      color: #0f172a;
-      white-space: nowrap;
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .gallery-card:hover { transform: none; }
     }
 
-    .nav-links {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+    .brand { text-decoration: none; }
+    section[id], main[id] { scroll-margin-top: 110px; }
+    .button { transition: filter 180ms ease, transform 180ms ease; }
+    .button:hover { filter: brightness(1.1); transform: translateY(-2px); }
+    .war-table-wrap { margin-top: -45px; }
+    .war-table { background: linear-gradient(145deg,#26364b,#080f1b 68%); }
+    .strategy-card { background: linear-gradient(145deg,#18283b,#0a1320); }
+    .editorial-image { background: linear-gradient(145deg,#23344b,#080f1b 70%); }
+    .feature-copy { min-width: 0; }
+    .mission-strip { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 27px 0 0; list-style: none; }
+    .mission-strip li { padding: 8px 12px; border: 1px solid var(--rule); border-radius: 999px; color: var(--gold); background: rgba(201,162,96,.09); font-size: 13px; font-weight: 750; }
+    .realm-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; }
+    .realm-card { overflow: hidden; margin: 0; border: 1px solid var(--rule); border-radius: 20px; background: var(--coal); }
+    .realm-card img { display: block; width: 100%; height: auto; aspect-ratio: 7/5; object-fit: cover; }
+    .realm-card figcaption { padding: 21px; }
+    .realm-card h3 { margin: 0; font-size: 24px; color: var(--gold); }
+    .realm-card p { margin: 7px 0 0; color: var(--steel); font-size: 14px; }
+    .story { background: radial-gradient(ellipse at 10% 55%,rgba(231,121,98,.12),transparent 65%),#080e17; }
+    .story .eyebrow { color: #f09a83; }
+    .story-art { margin: 0; }
+    .story-art img { display: block; width: 100%; height: auto; border-radius: 22px; }
+    .story a { text-underline-offset: 4px; }
+    .lightbox { background: #080f1b; }
+    .lightbox-counter { color: var(--gold); }
+    @media (max-width: 900px) { .hero-art { margin-right: 0; } .hero-brand .eyebrow { letter-spacing: .08em; } }
+    @media (max-width: 720px) { .realm-grid { grid-template-columns: 1fr; } .realm-card img { aspect-ratio: 7/4; } .hero-art { margin-inline: auto; } .hero-art figcaption { bottom: 8px; } .lightbox-media img { max-height: 52vh; } .lightbox-footer { gap: 12px; } }
+    @media (max-width: 560px) { .strategy-loop { grid-template-columns: 1fr; } .hero-title { font-size: clamp(46px,13vw,65px); } .hero-brand { text-align: left; } .hero-brand .eyebrow { font-size: 10px; } }
+    @media (max-height: 560px) { .lightbox-layout { display: block; overflow-y: auto; } .lightbox-media img { max-height: 60vh; } }
+    @media (prefers-reduced-motion: reduce) { .button:hover { transform: none; } }
 
-    .nav-links a {
-      font-size: 14px;
-      color: #334155;
-      padding: 8px 10px;
-      border-radius: 10px;
-    }
-
-    .nav-links a:hover {
-      background: #f1f5f9;
-      text-decoration: none;
-    }
-
-    /* ===== HERO ===== */
-    .hero {
-      background: var(--hero-bg);
-      padding: 64px 20px 56px 20px;
-    }
-
-    .hero-inner {
-      max-width: var(--page-max-width);
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .hero-title {
-      margin: 0;
-      font-size: clamp(44px, 5.4vw, 74px);
-      line-height: 1.03;
-      letter-spacing: -0.02em;
-      color: #ffffff;
-      font-weight: 900;
-    }
-
-    /* ===== CONTENT ===== */
-    .container {
-      max-width: var(--page-max-width);
-      margin: 0 auto;
-      padding: 44px 20px 64px 20px;
-    }
-
-    .kicker {
-      margin: 0 0 10px 0;
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--muted);
-    }
-
-    .tagline {
-      margin: 0 0 12px 0;
-      font-size: 18px;
-      font-weight: 800;
-      color: #374151;
-    }
-
-    .lede {
-      margin: 0 0 22px 0;
-      color: var(--muted);
-      font-size: 15.5px;
-    }
-
-    .section-title {
-      margin: 28px 0 8px 0;
-      font-size: 16px;
-      font-weight: 900;
-      color: #374151;
-    }
-
-    /* Better bullets */
-    .feature-list {
-      list-style: none;
-      padding: 0;
-      margin: 10px 0 0 0;
-    }
-
-    .feature-list li {
-      position: relative;
-      padding-left: 18px;
-      margin: 10px 0;
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .feature-list li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      top: 0;
-      color: var(--bullet);
-      font-weight: 900;
-      line-height: 1.6;
-    }
-
-    .divider {
-      margin: 34px 0;
-      border: none;
-      border-top: 1px solid var(--rule);
-    }
-
-    /* ===== Screenshot Gallery ===== */
-    .media-block {
-      margin-top: 22px;
-    }
-
-    .media-frame {
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid var(--rule);
-      background: #0b1220;
-      box-shadow: var(--shadow);
-    }
-
-    .media-frame img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .thumb-strip {
-      margin-top: 14px;
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: 74px;
-      gap: 10px;
-      overflow-x: auto;
-      padding-bottom: 6px;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .thumb-button {
-      border: 1px solid var(--rule);
-      background: #0b1220;
-      border-radius: 10px;
-      overflow: hidden;
-      padding: 0;
-      cursor: pointer;
-      width: 74px;
-      height: 74px;
-      flex: 0 0 auto;
-      box-shadow: 0 2px 10px rgba(17, 24, 39, 0.06);
-      outline: none;
-      transition: transform 0.15s ease, opacity 0.15s ease, border-color 0.15s ease;
-    }
-
-    .thumb-button img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      opacity: 0.92;
-    }
-
-    .thumb-button:hover {
-      transform: scale(1.04);
-    }
-
-    .thumb-button:hover img {
-      opacity: 1;
-    }
-
-    .thumb-button.is-active {
-      border-color: #94a3b8;
-    }
-
-    .thumb-button:focus-visible {
-      outline: 3px solid rgba(59, 130, 246, 0.55);
-      outline-offset: 2px;
-    }
-
-    .footer-note {
-      margin-top: 26px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    @media (max-width: 560px) {
-      .top-nav-inner { padding: 10px 14px; }
-      .hero { padding: 54px 14px 46px 14px; }
-      .container { padding: 36px 14px 56px 14px; }
-      .thumb-strip { grid-auto-columns: 64px; }
-      .thumb-button { width: 64px; height: 64px; }
-    }
   </style>
 </head>
-
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <header id="site-header" class="top-nav"></header>
-
-  <header class="hero">
-    <div class="hero-inner">
-      <h1 class="hero-title">War of the Heavens</h1>
-    </div>
-  </header>
-
-  <main class="container">
-    <p class="kicker">War of the Heavens</p>
-    <p class="tagline">Embark on an epic journey through the cosmos where celestial warfare unfolds across magnificent realms.</p>
-
-    <p class="lede">
-      As a pivotal force in the War of the Heavens, your actions will determine the fate of worlds.
-    </p>
-
-    <h2 class="section-title">A Universe of Conflict and Beauty</h2>
-    <ul class="feature-list">
-      <li>Explore breathtaking realms like the sunlit Seraphoria, the utopian Paradisia, the radiant Celestia, and the shadowed Abyssor</li>
-      <li>Witness galaxies ignited by celestial fire and star systems trembling under the might of angels and demons</li>
-    </ul>
-
-    <h2 class="section-title">Strategic Gameplay</h2>
-    <ul class="feature-list">
-      <li>Build and upgrade structures to gather resources, unlocking new technologies and strengthening your celestial armies</li>
-      <li>Train legions of angels to engage in strategic battles against demonic forces, capturing lands and liberating planets</li>
-    </ul>
-
-    <h2 class="section-title">Intricate Storyline</h2>
-    <ul class="feature-list">
-      <li>Delve into a saga of valor, sacrifice, and treacherous deceptions, where your choices shape the narrative</li>
-      <li>Experience the repercussions of past actions in "Supernatural Slayer" as you confront the cunning fallen angel, Katrina, and her demonic legions</li>
-    </ul>
-
-    <h2 class="section-title">Dynamic Worlds</h2>
-    <ul class="feature-list">
-      <li>Each realm, from the tranquil Elysium to the volcanic Infernexus, offers challenges</li>
-      <li>Engage in tactical battles amidst landscapes ranging from verdant forests to eerie twilight realms</li>
-    </ul>
-
-    <h2 class="section-title">Compete for Dominance</h2>
-    <ul class="feature-list">
-      <li>Rise through the leaderboards by demonstrating strategic mastery and angelic prowess</li>
-    </ul>
-
-    <h2 class="section-title">Visual and Auditory Splendor</h2>
-    <ul class="feature-list">
-      <li>Immerse yourself in stunningly rendered worlds with detailed environments and atmospheric soundscapes</li>
-      <li>Experience a celestial odyssey like no other, where art and music complement the intensity of battle</li>
-    </ul>
-
-    <p class="lede" style="margin-top: 28px;">
-      In "War of the Heavens" your strategic decisions influence the outcome of celestial wars. Will you tip the balance in favor of the angels, or will the demons prevail in the eternal struggle? The destiny of heavenly realms is in your hands.
-    </p>
-
-    <p class="tagline">Download now and forge your legacy in the heavens!</p>
-
-    <hr class="divider">
-
-    <!-- Screenshot Gallery -->
-    <section class="media-block" aria-label="Screenshots">
-      <div class="media-frame">
-        <img
-          id="mainScreenshot"
-          src="/assets/waroftheheavens/screenshots/screen-01.png"
-          alt="War of the Heavens gameplay screenshot">
-      </div>
-
-      <div class="thumb-strip" aria-label="Screenshot thumbnails">
-        <button class="thumb-button is-active" type="button" data-full="/assets/waroftheheavens/screenshots/screen-01.png" aria-label="Show screenshot 1">
-          <img src="/assets/waroftheheavens/screenshots/screen-01.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/waroftheheavens/screenshots/screen-02.png" aria-label="Show screenshot 2">
-          <img src="/assets/waroftheheavens/screenshots/screen-02.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/waroftheheavens/screenshots/screen-03.png" aria-label="Show screenshot 3">
-          <img src="/assets/waroftheheavens/screenshots/screen-03.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/waroftheheavens/screenshots/screen-04.png" aria-label="Show screenshot 4">
-          <img src="/assets/waroftheheavens/screenshots/screen-04.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/waroftheheavens/screenshots/screen-05.png" aria-label="Show screenshot 5">
-          <img src="/assets/waroftheheavens/screenshots/screen-05.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/waroftheheavens/screenshots/screen-06.png" aria-label="Show screenshot 6">
-          <img src="/assets/waroftheheavens/screenshots/screen-06.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/waroftheheavens/screenshots/screen-07.png" aria-label="Show screenshot 7">
-          <img src="/assets/waroftheheavens/screenshots/screen-07.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/waroftheheavens/screenshots/screen-08.png" aria-label="Show screenshot 8">
-          <img src="/assets/waroftheheavens/screenshots/screen-08.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/waroftheheavens/screenshots/screen-09.png" aria-label="Show screenshot 9">
-          <img src="/assets/waroftheheavens/screenshots/screen-09.png" loading="lazy" alt="">
-        </button>
-
-        <button class="thumb-button" type="button" data-full="/assets/waroftheheavens/screenshots/screen-10.png" aria-label="Show screenshot 10">
-          <img src="/assets/waroftheheavens/screenshots/screen-10.png" loading="lazy" alt="">
-        </button>
+  <main id="main-content">
+    <section class="hero" aria-labelledby="heavens-title">
+      <div class="container hero-layout">
+        <div class="hero-content">
+          <div class="hero-brand"><img class="app-icon" src="/assets/waroftheheavens/icon/app-icon-256.webp" width="256" height="256" alt="War of the Heavens app icon"><div><p class="eyebrow">Celestial strategy for iPhone</p><small>Supernatural Slayer II</small></div></div>
+          <h1 class="hero-title" id="heavens-title">War of the <span>Heavens</span></h1>
+          <p class="hero-tagline">Command the angels.<br>Reclaim the realms.</p>
+          <p class="hero-copy">The balance of an eternal war has shifted. Build your strength, lead angelic armies, and fight to liberate worlds claimed by demonic forces.</p>
+          <div class="button-row"><a class="button" href="https://apps.apple.com/us/app/war-of-the-heavens/id1466147690" aria-label="Download War of the Heavens on the App Store">Download on the App Store</a><a class="text-link" href="#universe">Explore the heavens &darr;</a></div>
+        </div>
+        <figure class="hero-art"><img src="/assets/waroftheheavens/art/angel-vs-demon.webp" width="896" height="780" fetchpriority="high" decoding="async" alt="An angel and a demon clash above a sunlit celestial battlefield"><figcaption>Light against darkness. World by world.</figcaption></figure>
       </div>
     </section>
 
-    <p class="footer-note">
-      Privacy Policy:
-      <a href="/privacy/supernatural-slayer">/privacy/supernatural-slayer</a>
-    </p>
+    <section class="container war-table-wrap" id="universe" aria-labelledby="universe-title">
+      <div class="section-heading center"><p class="eyebrow">A universe divided</p><h2 class="section-title" id="universe-title">The heavens are a battlefield.</h2><p class="section-lede">Beyond each world lies another front in the war. Choose a realm, enter its lands, and push back the darkness.</p></div>
+      <figure class="war-table"><img src="/assets/waroftheheavens/screenshots/webp/screen-04-900.webp" srcset="/assets/waroftheheavens/screenshots/webp/screen-04-900.webp 900w, /assets/waroftheheavens/screenshots/webp/screen-04-1600.webp 1600w" sizes="(max-width: 1220px) calc(100vw - 28px), 1180px" width="900" height="416" loading="lazy" decoding="async" alt="Planetary overview with celestial worlds, stars, and swirling galaxies"><figcaption><span>Your campaign reaches across the celestial realms.</span><span class="eyebrow">Worlds worth fighting for</span></figcaption></figure>
+    </section>
+
+    <section class="section" aria-labelledby="strategy-title"><div class="container">
+      <div class="section-heading center"><p class="eyebrow">The path to reclamation</p><h2 class="section-title" id="strategy-title">A great army begins<br>with your next decision.</h2><p class="section-lede">Turn resources into progress, progress into strength, and strength into a foothold against the demons.</p></div>
+      <div class="strategy-loop">
+        <article class="strategy-card"><span class="strategy-number">01 / FOUNDATION</span><h3>Build</h3><p>Develop structures and gather the resources that sustain your celestial campaign.</p></article>
+        <article class="strategy-card"><span class="strategy-number">02 / KNOWLEDGE</span><h3>Research</h3><p>Unlock new technologies and open the way to more powerful angelic forces.</p></article>
+        <article class="strategy-card"><span class="strategy-number">03 / STRENGTH</span><h3>Train</h3><p>Raise legions of angels and prepare your army for the battles ahead.</p></article>
+        <article class="strategy-card"><span class="strategy-number">04 / VICTORY</span><h3>Reclaim</h3><p>Challenge demonic forces, capture their lands, and fight to liberate the planets.</p></article>
+      </div>
+    </div></section>
+
+    <section class="section" aria-labelledby="lands-title"><div class="container feature-layout">
+      <figure class="editorial-image feature-media"><img src="/assets/waroftheheavens/screenshots/webp/screen-05-900.webp" srcset="/assets/waroftheheavens/screenshots/webp/screen-05-900.webp 900w, /assets/waroftheheavens/screenshots/webp/screen-05-1600.webp 1600w" sizes="(max-width: 900px) calc(100vw - 28px), 680px" width="900" height="416" loading="lazy" decoding="async" alt="Hex terrain showing forests, water, mines, towers, and demonic structures"><figcaption>A celestial landscape becomes a field of strategic decisions.</figcaption></figure>
+      <div class="feature-copy"><p class="eyebrow">The war on the ground</p><h2 id="lands-title">Every realm.<br>New ground to claim.</h2><p>Explore lands of forests, waterways, fortifications, and hostile settlements. Build and upgrade your structures as you carve a path through enemy territory.</p><ul class="feature-list"><li>Resource gathering</li><li>Structure upgrades</li><li>Hex-based landscapes</li><li>Territorial battles</li></ul></div>
+    </div></section>
+
+    <section class="section" aria-labelledby="research-title"><div class="container feature-layout reverse">
+      <figure class="editorial-image feature-media"><img src="/assets/waroftheheavens/screenshots/webp/screen-10-900.webp" srcset="/assets/waroftheheavens/screenshots/webp/screen-10-900.webp 900w, /assets/waroftheheavens/screenshots/webp/screen-10-1600.webp 1600w" sizes="(max-width: 900px) calc(100vw - 28px), 680px" width="900" height="416" loading="lazy" decoding="async" alt="Research tree with a mana cost to unlock Angel Archers"><figcaption>Invest mana in the knowledge behind your next army.</figcaption></figure>
+      <div class="feature-copy"><p class="eyebrow">Power through knowledge</p><h2 id="research-title">Unlock the future<br>of your army.</h2><p>Your strategy reaches beyond the battlefield. Gather resources, develop your economy, and pursue the research that strengthens your angelic legions.</p><ul class="mission-strip"><li>Grow your economy</li><li>Gather mana</li><li>Unlock new forces</li></ul></div>
+    </div></section>
+
+    <section class="section" aria-labelledby="army-title"><div class="container feature-layout">
+      <div class="army-stack feature-media"><figure class="editorial-image feature-media"><img src="/assets/waroftheheavens/screenshots/webp/screen-07-900.webp" srcset="/assets/waroftheheavens/screenshots/webp/screen-07-900.webp 900w, /assets/waroftheheavens/screenshots/webp/screen-07-1600.webp 1600w" sizes="(max-width: 900px) calc(100vw - 28px), 680px" width="900" height="416" loading="lazy" decoding="async" alt="Angelic army overview listing Angel Warriors, Angel Archers, and a Valkyrie"><figcaption>Warriors, archers, and Valkyries answer your call.</figcaption></figure><figure class="editorial-image feature-media"><img src="/assets/waroftheheavens/screenshots/webp/screen-06-900.webp" srcset="/assets/waroftheheavens/screenshots/webp/screen-06-900.webp 900w, /assets/waroftheheavens/screenshots/webp/screen-06-1600.webp 1600w" sizes="(max-width: 900px) calc(100vw - 28px), 680px" width="900" height="416" loading="lazy" decoding="async" alt="Battle report showing an angelic victory, casualties, and captured land"><figcaption>Victory claims land. Every battle has a cost.</figcaption></figure></div>
+      <div class="feature-copy"><p class="eyebrow">Legions of light</p><h2 id="army-title">Lead the host.<br>Turn the tide.</h2><p>Train your angels and send them against the demonic legions. Choose your tactics, face the consequences, and read the battle reports as the campaign unfolds.</p><p>Every victory is a step toward liberation. Every loss asks you to rethink what comes next.</p><ul class="feature-list"><li>Angelic armies</li><li>Tactical decisions</li><li>Battle reports</li><li>Game Center leaderboards</li></ul></div>
+    </div></section>
+
+    <section class="section" aria-labelledby="realms-title"><div class="container">
+      <div class="section-heading center"><p class="eyebrow">Beauty on the brink</p><h2 class="section-title" id="realms-title">From celestial light<br>to infernal fire.</h2><p class="section-lede">Journey through magnificent realms, from the sunlit reaches of Seraphoria to the volcanic lands of Infernexus.</p></div>
+      <div class="realm-grid">
+        <figure class="realm-card"><img src="/assets/waroftheheavens/art/seraphoria.webp" width="1100" height="629" loading="lazy" decoding="async" alt="Seraphoria realm artwork with floating forests, luminous towers, and waterfalls"><figcaption><h3>Seraphoria</h3><p>A sunlit realm of floating forests and cascading waters.</p></figcaption></figure>
+        <figure class="realm-card"><img src="/assets/waroftheheavens/art/celestia.webp" width="1100" height="629" loading="lazy" decoding="async" alt="Celestia realm artwork with radiant spires under a star-filled sky"><figcaption><h3>Celestia</h3><p>Radiant spires and heavenly gardens beneath a cosmic sky.</p></figcaption></figure>
+        <figure class="realm-card"><img src="/assets/waroftheheavens/art/infernexus.webp" width="1100" height="629" loading="lazy" decoding="async" alt="Infernexus realm artwork with volcanic fortresses and rivers of lava"><figcaption><h3>Infernexus</h3><p>A volcanic expanse of dark fortresses and rivers of fire.</p></figcaption></figure>
+      </div>
+    </div></section>
+
+    <section class="section story" aria-labelledby="story-title"><div class="container feature-layout reverse">
+      <figure class="story-art feature-media"><img src="/assets/waroftheheavens/art/fallen-legions.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="Story artwork of a towering dark citadel surrounded by winged legions and celestial fire"></figure>
+      <div class="feature-copy"><p class="eyebrow">An eternal war. A new betrayal.</p><h2 id="story-title">The balance<br>has been broken.</h2><p>For eons, angels and demons have fought for dominion over the heavenly realms. Now Katrina, a cunning fallen angel, has given the demons a foothold on worlds once held by the angels.</p><p>The events of <a href="/supernaturalslayer/">Supernatural Slayer</a> echo across the cosmos. Your campaign begins in the aftermath, with the fate of those worlds still undecided.</p></div>
+    </div></section>
+
+    <section class="section" aria-labelledby="gallery-title"><div class="container">
+      <div class="section-heading center"><p class="eyebrow">Inside the game</p><h2 class="section-title" id="gallery-title">See the celestial campaign.</h2><p class="section-lede">Explore the worlds, armies, research, and battles of War of the Heavens.</p></div>
+      <div class="gallery-track" aria-label="War of the Heavens screenshot gallery">
+        <a class="gallery-card" href="/assets/waroftheheavens/screenshots/screen-04.png" data-gallery-index="0"><img src="/assets/waroftheheavens/screenshots/webp/screen-04-900.webp" srcset="/assets/waroftheheavens/screenshots/webp/screen-04-900.webp 900w, /assets/waroftheheavens/screenshots/webp/screen-04-1600.webp 1600w" sizes="(max-width: 560px) 84vw, 380px" width="900" height="416" loading="lazy" decoding="async" alt="Planetary overview and celestial worlds"><span class="gallery-caption"><strong>A universe at war</strong><span>Choose your next front among the celestial worlds.</span></span></a>
+        <a class="gallery-card" href="/assets/waroftheheavens/screenshots/screen-05.png" data-gallery-index="1"><img src="/assets/waroftheheavens/screenshots/webp/screen-05-900.webp" srcset="/assets/waroftheheavens/screenshots/webp/screen-05-900.webp 900w, /assets/waroftheheavens/screenshots/webp/screen-05-1600.webp 1600w" sizes="(max-width: 560px) 84vw, 380px" width="900" height="416" loading="lazy" decoding="async" alt="Hex terrain, structures, and resource totals"><span class="gallery-caption"><strong>The ground you fight for</strong><span>Explore hex-based lands and develop your foothold.</span></span></a>
+        <a class="gallery-card" href="/assets/waroftheheavens/screenshots/screen-07.png" data-gallery-index="2"><img src="/assets/waroftheheavens/screenshots/webp/screen-07-900.webp" srcset="/assets/waroftheheavens/screenshots/webp/screen-07-900.webp 900w, /assets/waroftheheavens/screenshots/webp/screen-07-1600.webp 1600w" sizes="(max-width: 560px) 84vw, 380px" width="900" height="416" loading="lazy" decoding="async" alt="Army overview with Angel Warriors, Angel Archers, and a Valkyrie"><span class="gallery-caption"><strong>Your angelic host</strong><span>Train warriors, archers, and powerful angelic forces.</span></span></a>
+        <a class="gallery-card" href="/assets/waroftheheavens/screenshots/screen-10.png" data-gallery-index="3"><img src="/assets/waroftheheavens/screenshots/webp/screen-10-900.webp" srcset="/assets/waroftheheavens/screenshots/webp/screen-10-900.webp 900w, /assets/waroftheheavens/screenshots/webp/screen-10-1600.webp 1600w" sizes="(max-width: 560px) 84vw, 380px" width="900" height="416" loading="lazy" decoding="async" alt="Research tree showing an Angel Archer unlock"><span class="gallery-caption"><strong>Knowledge becomes power</strong><span>Spend mana to unlock new possibilities for your army.</span></span></a>
+        <a class="gallery-card" href="/assets/waroftheheavens/screenshots/screen-06.png" data-gallery-index="4"><img src="/assets/waroftheheavens/screenshots/webp/screen-06-900.webp" srcset="/assets/waroftheheavens/screenshots/webp/screen-06-900.webp 900w, /assets/waroftheheavens/screenshots/webp/screen-06-1600.webp 1600w" sizes="(max-width: 560px) 84vw, 380px" width="900" height="416" loading="lazy" decoding="async" alt="Battle report showing a victory and captured land"><span class="gallery-caption"><strong>The price of victory</strong><span>Review casualties and the outcome of each battle.</span></span></a>
+        <a class="gallery-card" href="/assets/waroftheheavens/screenshots/screen-09.png" data-gallery-index="5"><img src="/assets/waroftheheavens/screenshots/webp/screen-09-900.webp" srcset="/assets/waroftheheavens/screenshots/webp/screen-09-900.webp 900w, /assets/waroftheheavens/screenshots/webp/screen-09-1600.webp 1600w" sizes="(max-width: 560px) 84vw, 380px" width="900" height="416" loading="lazy" decoding="async" alt="Resource overview showing gold, silver, iron, and lumber rates"><span class="gallery-caption"><strong>Resources for the campaign</strong><span>Keep an eye on the economy behind your armies.</span></span></a>
+        <a class="gallery-card" href="/assets/waroftheheavens/screenshots/screen-02.png" data-gallery-index="6"><img src="/assets/waroftheheavens/screenshots/webp/screen-02-900.webp" srcset="/assets/waroftheheavens/screenshots/webp/screen-02-900.webp 900w, /assets/waroftheheavens/screenshots/webp/screen-02-1600.webp 1600w" sizes="(max-width: 560px) 84vw, 380px" width="900" height="416" loading="lazy" decoding="async" alt="Story screen describing the celestial war and Katrina"><span class="gallery-caption"><strong>Chronicles of conflict</strong><span>Discover the history of the war and Katrina’s betrayal.</span></span></a>
+        <a class="gallery-card" href="/assets/waroftheheavens/screenshots/screen-03.png" data-gallery-index="7"><img src="/assets/waroftheheavens/screenshots/webp/screen-03-900.webp" srcset="/assets/waroftheheavens/screenshots/webp/screen-03-900.webp 900w, /assets/waroftheheavens/screenshots/webp/screen-03-1600.webp 1600w" sizes="(max-width: 560px) 84vw, 380px" width="900" height="416" loading="lazy" decoding="async" alt="Game menu with battle reports and freestyle options"><span class="gallery-caption"><strong>Beyond the battlefield</strong><span>Explore the game’s reports, music, and freestyle options.</span></span></a>
+        <a class="gallery-card" href="/assets/waroftheheavens/screenshots/screen-08.png" data-gallery-index="8"><img src="/assets/waroftheheavens/screenshots/webp/screen-08-900.webp" srcset="/assets/waroftheheavens/screenshots/webp/screen-08-900.webp 900w, /assets/waroftheheavens/screenshots/webp/screen-08-1600.webp 1600w" sizes="(max-width: 560px) 84vw, 380px" width="900" height="416" loading="lazy" decoding="async" alt="In-game shop with resource purchases and remove-ads option"><span class="gallery-caption"><strong>The celestial shop</strong><span>Browse resource purchases and other shop options.</span></span></a>
+        <a class="gallery-card" href="/assets/waroftheheavens/screenshots/screen-01.png" data-gallery-index="9"><img src="/assets/waroftheheavens/screenshots/webp/screen-01-900.webp" srcset="/assets/waroftheheavens/screenshots/webp/screen-01-900.webp 900w, /assets/waroftheheavens/screenshots/webp/screen-01-1600.webp 1600w" sizes="(max-width: 560px) 84vw, 380px" width="900" height="416" loading="lazy" decoding="async" alt="War of the Heavens title screen with angel and demon artwork"><span class="gallery-caption"><strong>War of the Heavens</strong><span>An eternal struggle between angels and demons.</span></span></a>
+      </div><p class="gallery-note">Swipe or scroll to explore. Select an image for a larger view.</p>
+    </div></section>
+
+    <section class="closing" aria-labelledby="closing-title"><div class="container"><p class="eyebrow">Your campaign begins here</p><h2 id="closing-title">The fate of the heavens<br>is yours to command.</h2><p>Build your strength. Rally the angels. Forge your legacy among the stars.</p><div class="button-row"><a class="button" href="https://apps.apple.com/us/app/war-of-the-heavens/id1466147690" aria-label="Download War of the Heavens on the App Store">Download on the App Store</a></div></div></section>
   </main>
+  <footer class="site-footer"><div class="container footer-inner"><p>&copy; 2026 L&amp;L Programming LLC</p><p><a href="/privacy/supernatural-slayer">War of the Heavens privacy policy</a> &middot; <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms of Use</a> &middot; <a href="mailto:llprogramming@yahoo.com">Support</a></p></div></footer>
+  <dialog class="lightbox" id="screenshot-dialog" aria-labelledby="lightbox-title" aria-describedby="lightbox-description">
+    <div class="lightbox-layout">
+      <div class="lightbox-media"><img id="lightbox-image" src="/assets/waroftheheavens/screenshots/webp/screen-04-1600.webp" width="1600" height="740" alt=""></div>
+      <div class="lightbox-footer">
+        <div><p class="lightbox-counter" id="lightbox-counter" aria-live="polite" aria-atomic="true">Screenshot 1 of 10</p><h2 class="lightbox-title" id="lightbox-title">A universe at war</h2><p class="lightbox-description" id="lightbox-description">Choose your next front among the celestial worlds.</p></div>
+        <div class="dialog-controls"><button class="dialog-button" id="lightbox-previous" type="button" aria-label="Previous screenshot">Previous</button><button class="dialog-button" id="lightbox-next" type="button" aria-label="Next screenshot">Next</button><button class="dialog-button dialog-close" id="lightbox-close" type="button">Close</button></div>
+      </div>
+    </div>
+  </dialog>
 
   <script src="/header.js?v=7"></script>
   <script>
     (function () {
-      const mainImage = document.getElementById("mainScreenshot");
-      const thumbnailButtons = Array.from(document.querySelectorAll(".thumb-button"));
+      const dialog = document.getElementById("screenshot-dialog");
+      const galleryLinks = Array.from(document.querySelectorAll("[data-gallery-index]"));
+      const image = document.getElementById("lightbox-image");
+      const title = document.getElementById("lightbox-title");
+      const description = document.getElementById("lightbox-description");
+      const counter = document.getElementById("lightbox-counter");
+      const previous = document.getElementById("lightbox-previous");
+      const next = document.getElementById("lightbox-next");
+      const close = document.getElementById("lightbox-close");
+      let currentIndex = 0;
+      let opener = null;
 
-      function setActiveThumbnail(activeButton) {
-        for (const button of thumbnailButtons) {
-          button.classList.toggle("is-active", button === activeButton);
-        }
+      function detailsFor(index) {
+        const link = galleryLinks[index];
+        return { image: link.querySelector("img"), title: link.querySelector("strong").textContent, description: link.querySelector(".gallery-caption span").textContent };
       }
 
-      function setMainScreenshot(imageUrl, activeButton) {
-        if (!imageUrl) { return; }
-        mainImage.src = imageUrl;
-        setActiveThumbnail(activeButton);
+      function show(index) {
+        currentIndex = (index + galleryLinks.length) % galleryLinks.length;
+        const details = detailsFor(currentIndex);
+        image.src = details.image.getAttribute("src").replace("-900.webp", "-1600.webp");
+        image.alt = details.image.alt;
+        image.width = 1600;
+        image.height = 740;
+        title.textContent = details.title;
+        description.textContent = details.description;
+        counter.textContent = "Screenshot " + (currentIndex + 1) + " of " + galleryLinks.length;
       }
 
-      for (const button of thumbnailButtons) {
-        button.addEventListener("click", function () {
-          const imageUrl = button.getAttribute("data-full");
-          setMainScreenshot(imageUrl, button);
-        });
-      }
-
-      // Optional: keyboard support (left/right arrows) when focus is within the strip
-      document.querySelector(".thumb-strip")?.addEventListener("keydown", function (event) {
-        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") { return; }
-        const focusedIndex = thumbnailButtons.findIndex((button) => button === document.activeElement);
-        if (focusedIndex < 0) { return; }
-
+      document.querySelector(".gallery-track").addEventListener("click", function (event) {
+        const link = event.target.closest("[data-gallery-index]");
+        if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || typeof dialog.showModal !== "function") { return; }
         event.preventDefault();
-
-        const direction = (event.key === "ArrowRight") ? 1 : -1;
-        const nextIndex = (focusedIndex + direction + thumbnailButtons.length) % thumbnailButtons.length;
-        thumbnailButtons[nextIndex].focus();
-        const imageUrl = thumbnailButtons[nextIndex].getAttribute("data-full");
-        setMainScreenshot(imageUrl, thumbnailButtons[nextIndex]);
+        opener = link;
+        show(Number(link.dataset.galleryIndex));
+        document.body.classList.add("has-dialog");
+        dialog.showModal();
+        close.focus();
       });
+
+      previous.addEventListener("click", function () { show(currentIndex - 1); });
+      next.addEventListener("click", function () { show(currentIndex + 1); });
+      close.addEventListener("click", function () { dialog.close(); });
+      dialog.addEventListener("click", function (event) { if (event.target === dialog) { dialog.close(); } });
+      dialog.addEventListener("keydown", function (event) {
+        if (event.key === "ArrowLeft") { event.preventDefault(); show(currentIndex - 1); }
+        if (event.key === "ArrowRight") { event.preventDefault(); show(currentIndex + 1); }
+      });
+      dialog.addEventListener("close", function () { document.body.classList.remove("has-dialog"); if (opener) { opener.focus(); } });
     })();
   </script>
 </body>
