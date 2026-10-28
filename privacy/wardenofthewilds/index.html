@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#091014">
+  <title>Privacy Policy – Warden of the Wilds</title>
+  <meta name="description" content="How Warden of the Wilds handles local saves, advertising, purchases, and your privacy choices.">
+  <link rel="canonical" href="https://llprogramming.com/privacy/wardenofthewilds/">
+
+  <style>
+    :root {
+      --page-max-width: 900px;
+      --night: #091014;
+      --panel: #131b1c;
+      --sage: #85b993;
+      --parchment: #e0cfa6;
+      --text: #f7f5ef;
+      --muted: #b2b8b5;
+      --rule: rgba(224, 207, 166, 0.22);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.65;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 5%, rgba(133, 185, 147, 0.1), transparent 24rem),
+        #030607;
+    }
+
+    a { color: inherit; overflow-wrap: anywhere; }
+    a:focus-visible { outline: 2px solid var(--sage); outline-offset: 4px; }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(7, 13, 16, 0.9);
+      border-bottom: 1px solid rgba(133, 185, 147, 0.16);
+      backdrop-filter: blur(16px);
+    }
+
+    .top-nav-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      flex: 0 0 auto;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 4px 8px;
+    }
+
+    .nav-links a {
+      padding: 7px 9px;
+      border-radius: 9px;
+      color: var(--muted);
+      font-size: 13px;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+      background: rgba(133, 185, 147, 0.13);
+    }
+
+    .content {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      padding: clamp(64px, 10vw, 112px) 20px;
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--sage);
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 10px 0 0;
+      font-size: clamp(42px, 7vw, 72px);
+      letter-spacing: -0.045em;
+      line-height: 1;
+    }
+
+    .status-card {
+      margin-top: 36px;
+      padding: clamp(24px, 5vw, 46px);
+      border: 1px solid var(--rule);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(19, 27, 28, 0.98), rgba(9, 16, 20, 0.98));
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+    }
+
+    .status-card h2 {
+      margin: 0;
+      color: var(--parchment);
+      font-size: clamp(26px, 4vw, 36px);
+      line-height: 1.15;
+    }
+
+    .status-card p { margin: 16px 0 0; color: var(--muted); }
+
+    .status-card a {
+      color: var(--sage);
+      font-weight: 750;
+      text-underline-offset: 4px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 30px;
+      color: var(--sage);
+      font-weight: 750;
+      text-underline-offset: 4px;
+    }
+
+    @media (max-width: 720px) {
+      .top-nav-inner { display: block; padding: 10px 14px; }
+      .brand { display: block; margin-bottom: 8px; }
+      .nav-links {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+      }
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links a { flex: 0 0 auto; }
+      .content { padding-inline: 14px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header id="site-header" class="top-nav"></header>
+  <main class="content">
+    <p class="eyebrow">Warden of the Wilds</p>
+    <h1>Privacy Policy</h1>
+    <p>Effective October 28, 2026</p>
+
+    <section class="status-card" aria-labelledby="overview">
+      <h2 id="overview">Who we are</h2>
+      <p>L&amp;L Programming LLC provides Warden of the Wilds. This policy explains how information is handled when you play the game or contact us. Privacy questions and requests can be sent to <a href="mailto:llprogramming@yahoo.com">llprogramming@yahoo.com</a>.</p>
+      <p>The game stores campaign progress on your device and uses Apple's App Store for purchases. Versions with advertising enabled use Google AdMob and Google's User Messaging Platform for advertising and privacy choices.</p>
+    </section>
+
+    <section class="status-card" aria-labelledby="local-data">
+      <h2 id="local-data">Game saves and preferences</h2>
+      <p>Your local campaign includes your character, inventory, equipment, discoveries, stronghold, army, and battle progress. The app also stores device preferences, a campaign identifier, and records of daily Gold claims and pending rewards. Daily claim records are kept separately from the campaign so starting a new campaign does not reset the allowance.</p>
+      <p>The game does not require an L&amp;L Programming account and does not upload campaign saves to an L&amp;L Programming server. Device backups may include app data, depending on your Apple device and backup settings.</p>
+    </section>
+
+    <section class="status-card" aria-labelledby="advertising">
+      <h2 id="advertising">Advertising and privacy choices</h2>
+      <p>When advertising is enabled, Warden of the Wilds may show automatic ads after a lost battle and offers optional rewarded ads for 50 Treasury Gold, limited to three claims per day. A rewarded ad starts only when you choose to watch it.</p>
+      <p>Google's advertising SDK may process your IP address and approximate location inferred from it, device or app identifiers, diagnostic and performance information, ads displayed, and interactions with the app or ads. Google uses this information to deliver and measure advertising, perform analytics, prevent fraud, and improve its advertising services.</p>
+      <p>The game requests non-personalized ads and does not request permission to access Apple's advertising identifier. Non-personalized ads can still involve data processing, including use of IP addresses and identifiers for advertising operations. The ads available depend on your privacy choices, device settings, and Google's consent requirements.</p>
+      <p>Google's User Messaging Platform manages applicable consent messages and privacy choices. The game checks Google's consent status before requesting ads. When Google requires an ongoing privacy entry point, open <strong>Stronghold → Settings → Privacy Options</strong> to review or change your choices. Declining consent or having no available ads does not prevent ordinary gameplay.</p>
+      <p>Once verified, the permanent <strong>Remove Ads</strong> purchase disables automatic and rewarded advertising. Owners can claim the same three daily 50-Gold rewards directly. Owners skip advertising initialization and its startup consent forms. Buying Remove Ads does not delete information previously processed by Google.</p>
+      <p>Learn more in <a href="https://policies.google.com/privacy">Google's Privacy Policy</a> and <a href="https://policies.google.com/technologies/partner-sites">How Google uses information from sites or apps that use its services</a>.</p>
+    </section>
+
+    <section class="status-card" aria-labelledby="purchases">
+      <h2 id="purchases">App Store purchases</h2>
+      <p>Apple processes purchases and payment information. L&amp;L Programming does not receive your payment-card details. The app uses StoreKit to verify purchase ownership, restore purchases, and respond to refunds or revoked ownership. Purchase ownership is separate from your campaign progress.</p>
+      <p>Apple processes information under its own <a href="https://www.apple.com/legal/privacy/">Privacy Policy</a>. You can manage your Apple Account, purchase history, and refund requests through Apple's services.</p>
+    </section>
+
+    <section class="status-card" aria-labelledby="support">
+      <h2 id="support">Support and sharing</h2>
+      <p>If you email us, we receive your email address and the information you choose to send, including any screenshots or game details. We use that information to respond and investigate your request. Please avoid sending sensitive information that is unnecessary for support. Our email provider processes messages to deliver and store correspondence.</p>
+      <p>The Apple and Google services described above process information for their features. We may disclose information we hold when required by law, to respond to valid legal requests, or to protect rights and security. External websites and services have their own privacy notices.</p>
+    </section>
+
+    <section class="status-card" aria-labelledby="retention">
+      <h2 id="retention">Retention, deletion, and security</h2>
+      <p>Campaign progress remains on your device until you reset or replace the campaign or delete the app and its data. Resetting a campaign does not reset daily Gold claim records or erase App Store ownership. Offloading the app may preserve its data, and backups are managed separately through your device or backup service.</p>
+      <p>We retain support correspondence as reasonably needed to respond and resolve issues. Email <a href="mailto:llprogramming@yahoo.com">llprogramming@yahoo.com</a> to request deletion; we may retain information where required by law or necessary to resolve a dispute. Apple and Google determine retention for information held by their services; use their controls or contact them for requests relating to those records.</p>
+      <p>We use reasonable safeguards for information we handle, but no storage or transmission method can guarantee absolute security.</p>
+    </section>
+
+    <section class="status-card" aria-labelledby="rights">
+      <h2 id="rights">Your privacy rights</h2>
+      <p>Depending on where you live and applicable law, you may have rights to access, correct, delete, or receive a copy of personal information, restrict or object to processing, withdraw consent, or opt out of certain advertising uses. Contact us about information we hold. We may need to verify your request. You may also have the right to complain to your local data protection authority.</p>
+      <p>Use Google's privacy choices and Apple's controls for information processed by those services. Withdrawing consent does not affect processing that was lawful before withdrawal. Service providers may process information outside your country under their applicable privacy protections.</p>
+    </section>
+
+    <section class="status-card" aria-labelledby="children">
+      <h2 id="children">Children's privacy</h2>
+      <p>Warden of the Wilds is intended for a general audience and is not specifically directed at children. Parents and guardians should review the game's App Store age rating and device parental controls, including purchase restrictions.</p>
+      <p>If you believe a child has provided personal information to us that should not have been collected, contact <a href="mailto:llprogramming@yahoo.com">llprogramming@yahoo.com</a> so we can investigate and address it, including deletion where appropriate.</p>
+    </section>
+
+    <section class="status-card" aria-labelledby="changes">
+      <h2 id="changes">Changes to this policy</h2>
+      <p>We may update this policy as the game or its data practices change. The current policy will be available here with an updated effective date. Where required, we will provide additional notice or request consent for material changes.</p>
+    </section>
+    <a class="back-link" href="/">Back to L&amp;L Programming</a>
+  </main>
+  <script src="/header.js?v=7"></script>
+</body>
+</html>
