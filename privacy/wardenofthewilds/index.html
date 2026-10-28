@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#091014">
   <title>Privacy Policy – Warden of the Wilds</title>
-  <meta name="description" content="How Warden of the Wilds handles local saves, advertising, purchases, and your privacy choices.">
+  <meta name="description" content="How Warden of the Wilds handles local saves, Game Center, purchased Gold, advertising, and your privacy choices.">
   <link rel="canonical" href="https://llprogramming.com/privacy/wardenofthewilds/">
 
   <style>
@@ -166,7 +166,7 @@
     <section class="status-card" aria-labelledby="overview">
       <h2 id="overview">Who we are</h2>
       <p>L&amp;L Programming LLC provides Warden of the Wilds. This policy explains how information is handled when you play the game or contact us. Privacy questions and requests can be sent to <a href="mailto:llprogramming@yahoo.com">llprogramming@yahoo.com</a>.</p>
-      <p>The game stores campaign progress on your device and uses Apple's App Store for purchases. Versions with advertising enabled use Google AdMob and Google's User Messaging Platform for advertising and privacy choices.</p>
+      <p>The game stores campaign progress and a purchased Gold reserve on your device, uses Apple's Game Center for achievements and leaderboards when you are signed in, and uses Apple's App Store for purchases. Versions with advertising enabled use Google AdMob and Google's User Messaging Platform for advertising and privacy choices.</p>
     </section>
 
     <section class="status-card" aria-labelledby="local-data">
@@ -175,11 +175,19 @@
       <p>The game does not require an L&amp;L Programming account and does not upload campaign saves to an L&amp;L Programming server. Device backups may include app data, depending on your Apple device and backup settings.</p>
     </section>
 
+    <section class="status-card" aria-labelledby="game-center">
+      <h2 id="game-center">Game Center achievements and leaderboards</h2>
+      <p>You can play without signing in to Game Center. When Game Center authenticates your account, the app automatically submits eligible achievement identifiers and completion percentages, and leaderboard identifiers and numeric scores, to Apple through GameKit. The Legends of the Wilds score counts major campaign accomplishments; the Hunters of the Wilds score counts distinct enemy types defeated. Submissions are associated with your Game Center account and provide achievements and rankings. The app does not send your full campaign save or purchased Gold wallet through these submissions.</p>
+      <p>The app receives your game-specific Game Center player identifier and display name from Apple. It uses the display name to show your connection status and stores the player identifier, campaign associations, earned progress, scores, and submission acknowledgments in an on-device queue. This keeps progress associated with the appropriate Game Center player and allows interrupted or offline submissions to be retried. Progress earned before signing in may be associated with your account and submitted when you connect.</p>
+      <p>Your Game Center nickname, avatar, and scores may be visible to other players on global leaderboards. Visibility of other activity, including achievement progress, depends on Apple's Game Center sharing settings. Apple also processes Game Center activity under its own <a href="https://www.apple.com/legal/privacy/data/en/game-center/">Game Center &amp; Privacy notice</a>.</p>
+      <p>Use your device's Game Center settings to manage activity sharing or sign out. While signed out, the app cannot submit progress to Game Center, and ordinary gameplay remains available. Signing out does not delete local queued progress or information already held by Apple; queued progress may be submitted when the associated account reconnects.</p>
+    </section>
+
     <section class="status-card" aria-labelledby="advertising">
       <h2 id="advertising">Advertising and privacy choices</h2>
       <p>When advertising is enabled, Warden of the Wilds may show automatic ads after a lost battle and offers optional rewarded ads for 50 Treasury Gold, limited to three claims per day. A rewarded ad starts only when you choose to watch it.</p>
       <p>Google's advertising SDK may process your IP address and approximate location inferred from it, device or app identifiers, diagnostic and performance information, ads displayed, and interactions with the app or ads. Google uses this information to deliver and measure advertising, perform analytics, prevent fraud, and improve its advertising services.</p>
-      <p>The game requests non-personalized ads and does not request permission to access Apple's advertising identifier. Non-personalized ads can still involve data processing, including use of IP addresses and identifiers for advertising operations. The ads available depend on your privacy choices, device settings, and Google's consent requirements.</p>
+      <p>The game asks eligible players for permission through Apple’s App Tracking Transparency prompt to use the device’s advertising identifier for personalized advertising and advertising measurement across other companies’ apps and websites. If you allow tracking, Google AdMob may use this identifier for those purposes, subject to your regional advertising consent choices. If you decline, tracking is restricted, or permission has not been granted, the game requests non-personalized ads. Non-personalized ads may still process IP addresses, app or device identifiers other than the IDFA, and other information for advertising operations as described above. You can change Apple tracking permission in your device’s Settings; the game’s Settings includes a link. Use Privacy Options, when available, to review or withdraw regional advertising consent. Declining tracking does not prevent gameplay or change the reward for completing a rewarded ad.</p>
       <p>Google's User Messaging Platform manages applicable consent messages and privacy choices. The game checks Google's consent status before requesting ads. When Google requires an ongoing privacy entry point, open <strong>Stronghold → Settings → Privacy Options</strong> to review or change your choices. Declining consent or having no available ads does not prevent ordinary gameplay.</p>
       <p>Once verified, the permanent <strong>Remove Ads</strong> purchase disables automatic and rewarded advertising. Owners can claim the same three daily 50-Gold rewards directly. Owners skip advertising initialization and its startup consent forms. Buying Remove Ads does not delete information previously processed by Google.</p>
       <p>Learn more in <a href="https://policies.google.com/privacy">Google's Privacy Policy</a> and <a href="https://policies.google.com/technologies/partner-sites">How Google uses information from sites or apps that use its services</a>.</p>
@@ -191,6 +199,14 @@
       <p>Apple processes information under its own <a href="https://www.apple.com/legal/privacy/">Privacy Policy</a>. You can manage your Apple Account, purchase history, and refund requests through Apple's services.</p>
     </section>
 
+    <section class="status-card" aria-labelledby="purchased-gold">
+      <h2 id="purchased-gold">Purchased Gold stored on this device</h2>
+      <p>Gold packs are consumable App Store purchases. Apple handles payment and provides verified transaction information to the app through StoreKit. To deliver Gold safely and prevent duplicate credit, the app stores a waiting Gold balance and processed transaction identifiers together in this device's Keychain before finishing the transaction. When a Treasury transfer is pending, the record also contains a transfer identifier, destination campaign identifier, and Gold amount. The campaign save keeps a transfer receipt to recover interrupted delivery without granting Gold twice.</p>
+      <p>Waiting Gold is automatically delivered to the current campaign's Treasury when a campaign is available. Purchases made without a campaign wait on this device until one is available. A pending transfer is cleared after successful delivery or returned to the reserve if its destination campaign no longer exists. Waiting Gold survives campaign resets; Gold already delivered to a Treasury follows the campaign's normal spending, losses, and resets.</p>
+      <p>The Keychain reserve is device-local and uses device-only protection. The app does not synchronize it through iCloud Keychain, transfer it between devices or Apple Accounts, or upload it to an L&amp;L Programming server. There is no server-backed Gold wallet. Changing Apple Accounts does not clear or create a separate local reserve.</p>
+      <p>Recover Purchases can retry verified unfinished Gold transactions. Restore Purchases does not recreate a reserve from finished consumable purchases or replenish spent or lost Gold. Device or Keychain erasure can permanently remove the local reserve and its delivery records; recovery is not guaranteed.</p>
+    </section>
+
     <section class="status-card" aria-labelledby="support">
       <h2 id="support">Support and sharing</h2>
       <p>If you email us, we receive your email address and the information you choose to send, including any screenshots or game details. We use that information to respond and investigate your request. Please avoid sending sensitive information that is unnecessary for support. Our email provider processes messages to deliver and store correspondence.</p>
@@ -199,7 +215,10 @@
 
     <section class="status-card" aria-labelledby="retention">
       <h2 id="retention">Retention, deletion, and security</h2>
-      <p>Campaign progress remains on your device until you reset or replace the campaign or delete the app and its data. Resetting a campaign does not reset daily Gold claim records or erase App Store ownership. Offloading the app may preserve its data, and backups are managed separately through your device or backup service.</p>
+      <p>Campaign progress remains on your device until you reset or replace the campaign or delete the app and its data. Resetting a campaign does not reset daily Gold claim records, clear the purchased Gold Keychain reserve or Game Center submission queue, or erase App Store ownership. Offloading the app may preserve its data, and backups are managed separately through your device or backup service.</p>
+      <p>The app keeps its local Game Center account associations, progress, and submission acknowledgments without an automatic expiry, so changing or resetting a campaign does not erase them. Apple-held achievements and leaderboard scores are separate from local campaign data and are not deleted by a campaign reset or app deletion. The app does not provide a Game Center data-deletion control. Use Apple's privacy controls or contact Apple about records held by its services; changing sharing settings does not itself erase submitted records.</p>
+      <p>The purchased Gold Keychain record has no automatic expiry. Processed transaction identifiers remain after Gold is delivered or spent to prevent duplicate credit; pending transfer details are cleared as described above. The app currently has no dedicated control to erase the purchased Gold Keychain record or local Game Center queue. Deleting the app may leave Keychain data behind, and neither deletion nor preservation of that data after reinstalling is guaranteed. Do not rely on uninstalling as a way to erase the reserve or as a way to preserve purchased Gold.</p>
+      <p>L&amp;L Programming cannot remotely access or erase these device-local records. Contact us for questions about local data or deletion limitations. Requests to us do not erase Apple-held Game Center or purchase records, and erasing local data does not erase Apple's records.</p>
       <p>We retain support correspondence as reasonably needed to respond and resolve issues. Email <a href="mailto:llprogramming@yahoo.com">llprogramming@yahoo.com</a> to request deletion; we may retain information where required by law or necessary to resolve a dispute. Apple and Google determine retention for information held by their services; use their controls or contact them for requests relating to those records.</p>
       <p>We use reasonable safeguards for information we handle, but no storage or transmission method can guarantee absolute security.</p>
     </section>
